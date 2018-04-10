@@ -1,0 +1,48 @@
+{# logger section -#}
+{% if jbosseap_logging['logger'] is defined -%}
+{% for l in jbosseap_logging['logger'] -%}
+if (outcome != success) of /subsystem=logging/logger={{ l.category }}:read-resource
+        /subsystem=logging/logger={{ l.category }}:add(level={{ l.level }})
+else
+        /subsystem=logging/logger={{ l.category }}:write-attribute(name=level,value={{ l.level }})
+end-if
+{% endfor -%}
+{% endif -%}
+
+{# formatter section -#}
+{% if jbosseap_logging['formatter'] is defined -%}
+{% for f in jbosseap_logging['formatter'] -%}
+if (outcome != success) of /subsystem=logging/pattern-formatter={{ f.name }}:read-resource
+	/subsystem=logging/pattern-formatter={{ f.name }}:add(pattern="{{ f.pattern }}")
+else
+	/subsystem=logging/pattern-formatter={{ f.name }}:write-attribute(pattern="{{ f.pattern }}")
+end-if
+{% endfor -%}
+{% endif -%}
+
+{# custom-handler section -#}
+{% if jbosseap_logging['custom_handler'] is defined -%}
+# If custom_handler already exists 1st remove it (we don't want leftovers from old parameters)
+{% set params = '' -%}
+{% for ch in jbosseap_logging['custom_handler'] -%}
+if (outcome == success) of /subsystem=logging/custom-handler={{ ch.name }}:read-resource
+	/subsystem=logging/custom-handler={{ ch.name }}:remove
+end-if
+  {# The parameters below are required, ansible will exit if not defined -#}
+  {% set params = params ~ 'name=' ~ ch.name ~ ','-%}
+  {% set params = params ~ 'class=' ~ ch.class ~ ','-%}
+  {% set params = params ~ 'module=' ~ ch.module ~ ','-%}
+
+  {% if ch.formatter is defined -%}
+    {% set params = params ~ 'formatter="' ~ ch.formatter ~ '",'-%}
+  {% endif -%}
+  {% if ch.level is defined -%}
+    {% set params = params ~ 'level=' ~ ch.level ~ ','-%}
+  {% endif -%}
+  {% if ch.properties is defined -%}
+    {% set params = params ~ 'properties=[' ~ ch.properties ~ '],'-%}
+  {% endif -%}
+
+/subsystem=logging/custom-handler={{ ch.name }}:add({{ params }})
+{% endfor -%}
+{% endif -%}

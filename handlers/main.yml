@@ -1,0 +1,4 @@
+- name: restart jbossas
+  service:
+    name: jbossas
+    state: restarted
