@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/oasis-roles/jbosseap.svg?branch=master)](https://travis-ci.org/oasis-roles/jbosseap)
+
 Red Hat JBoss EAP
 ===========
 
