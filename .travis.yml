@@ -16,4 +16,3 @@ script:
   - yamllint -s -c tests/yamllint.yml $(find . -name '*.yml')
   - ansible-lint tasks/main.yml
   - flake8 $(find . -name '*.py')
-
