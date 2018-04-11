@@ -1,0 +1,18 @@
+language: python
+versions:
+  - "2.7"
+  - "3.5"
+cache: pip
+
+install:
+  - pip install -U pip
+  - pip --version
+  - pip install ansible ansible-lint yamllint flake8
+  - ansible-lint --version
+  - yamllint --version
+  - flake8 --version
+
+script:
+  - yamllint -s -c tests/yamllint.yml $(find . -name '*.yml')
+  - ansible-lint tasks/main.yml
+  - flake8 $(find . -name '*.py')

@@ -1,0 +1,4 @@
+system_repositories_destination_folder: /etc/yum.repos.d/
+system_repositories_owner: root
+system_repositories_group: root
+system_repositories_mode: "0644"
