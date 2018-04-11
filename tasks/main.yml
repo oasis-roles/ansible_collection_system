@@ -1,7 +1,7 @@
 - name: configure system repositories
   yum_repository:
     baseurl: "{{ item.baseurl | default(omit) }}"
-    description: "{{ item.description | default('Auto configured by Ansible') }}"
+    description: "{{ item.description | default('Configured by Ansible') }}"
     enabled: "{{ item.enabled | default(omit) }}"
     enablegroups: "{{ item.enablegroups | default(omit) }}"
     exclude: "{{ ( item.exclude | join(' ') ) | default(omit) }}"
