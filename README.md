@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/oasis-roles/system_repositories.svg?branch=master)](https://travis-ci.org/oasis-roles/system_repositories)
+
 Configure system repositories
 ===========
 
