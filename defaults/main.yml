@@ -1,4 +1,4 @@
 system_repositories_configs: []
 system_repositories_repo_files: []
-system_respoitories_rpm_keys: []
+system_repositories_rpm_keys: []
 system_repositories_validate_certs: true
