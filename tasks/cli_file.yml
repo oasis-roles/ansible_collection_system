@@ -13,3 +13,4 @@
   when: cli_file_upload_result.changed
   tags:
     - cli
+    - skip_ansible_lint
