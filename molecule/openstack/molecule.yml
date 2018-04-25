@@ -1,0 +1,22 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: molecule-instance
+    image: rhel-7.4-server-x86_64-updated
+    flavor: m1.medium
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: openstack
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

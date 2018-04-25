@@ -1,4 +1,5 @@
 - name: configure system repositories
+  become: "{{ system_repositories_become }}"
   yum_repository:
     baseurl: "{{ item.baseurl | default(omit) }}"
     description: "{{ item.description | default('Configured by Ansible') }}"
@@ -26,6 +27,7 @@
   with_items: "{{ system_repositories_configs }}"
 
 - name: download repo files
+  become: "{{ system_repositories_become }}"
   get_url:
     url: "{{ item }}"
     validate_certs: "{{ system_repositories_validate_certs }}"
@@ -36,6 +38,7 @@
   with_items: "{{ system_repositories_repo_files }}"
 
 - name: install RPM keys
+  become: "{{ system_repositories_become }}"
   rpm_key:
     key: "{{ item }}"
     state: present

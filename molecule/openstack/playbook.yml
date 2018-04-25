@@ -1,0 +1,16 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: system_repositories
+      system_repositories_configs:
+        - name: jenkins_manual
+          baseurl: http://pkg.jenkins.io/redhat-stable
+          gpgcheck: true
+      system_repositories_rpm_keys:
+        - https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+  post_tasks:
+    - name: install jenkins
+      become: true
+      package:
+        name: jenkins
+        state: present
