@@ -2,3 +2,5 @@
 .*.swo
 *.pyc
 *.pyo
+Vagrantfile
+.vagrant

@@ -1,1 +1,21 @@
 # role tasks
+
+- name: open ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+  firewalld:
+    port: "{{ item.port }}/{{ item.proto }}"
+    state: enabled
+    permanent: true
+    immediate: true
+    zone: "{{ firewalld_zone }}"
+  loop: "{{ firewalld_ports_open }}"
+
+- name: locally forward ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+  firewalld:
+    rich_rule: >
+      rule family="{{ item[0] }}" forward-port port="{{ item[1].port }}"
+      protocol="{{ item[1].proto }}" to-port="{{ item[1].to_port }}"
+    state: enabled
+    permanent: true
+    immediate: true
+    zone: "{{ firewalld_zone }}"
+  loop: "{{ lookup('nested', [ 'ipv4', 'ipv6' ], firewalld_ports_forward) }}"
