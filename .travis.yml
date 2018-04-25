@@ -1,0 +1,21 @@
+language: python
+versions:
+  - "2.7"
+  - "3.5"
+cache: pip
+
+install:
+  - pip install -U pip
+  - pip --version
+  - pip install ansible ansible-lint yamllint flake8 molecule
+  - ansible-lint --version
+  - yamllint --version
+  - flake8 --version
+  - molecule --version
+
+script:
+  - molecule lint
+  - flake8 $(find . -name '*.py')
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
