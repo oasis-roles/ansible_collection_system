@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/oasis-roles/firewalld.svg?branch=master)](https://travis-ci.org/oasis-roles/firewalld)
 
-ROLE NAME
+firewalld
 ===========
 
 This role provides basic hole punching and local port forwarding for the
