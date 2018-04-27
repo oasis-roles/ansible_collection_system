@@ -1,6 +1,7 @@
 # role tasks
 
 - name: open ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+  become: "{{ firewalld_become }}"
   firewalld:
     port: "{{ item.port }}/{{ item.proto }}"
     state: enabled
@@ -10,6 +11,7 @@
   loop: "{{ firewalld_ports_open }}"
 
 - name: locally forward ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
+  become: "{{ firewalld_become }}"
   firewalld:
     rich_rule: >
       rule family="{{ item[0] }}" forward-port port="{{ item[1].port }}"

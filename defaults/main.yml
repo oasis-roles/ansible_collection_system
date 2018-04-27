@@ -25,3 +25,6 @@ firewalld_ports_open: []
 #    port: 80
 #    to_port: 8080
 firewalld_ports_forward: []
+
+# Whether this module should use the "become" option for configuring firewalld
+firewalld_become: true

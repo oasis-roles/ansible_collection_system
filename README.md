@@ -30,6 +30,8 @@ Currently the following variables are supported:
   firewall zone
 * `firewalld_ports_forward` - permanently forward local ports (IPv4+IPV6) for
   given firewall zone, e.g. TCP 80->8080 for webapps
+* `firewalld_become` - use Ansible "become" for proper authorization to manage
+  the firewall
 
 Dependencies
 ------------
@@ -53,6 +55,7 @@ Example Playbook
         - proto: tcp
           port: 80
           to_port: 8080
+      firewalld_become: true
 ```
 
 License
