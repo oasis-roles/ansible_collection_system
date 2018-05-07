@@ -9,7 +9,8 @@ pipeline {
 	stages {
 		stage('Fetch code and setup environment') {
 			steps {
-				scm checkout
+				cleanWs()
+				checkout scm
 				virtualenv('molecule', ['molecule', 'shade'])
 			}
 		}
