@@ -10,13 +10,17 @@ pipeline {
 		stage('Fetch code and setup environment') {
 			steps {
 				cleanWs()
-				checkout scm
+				dir('system_repositories') {
+					checkout scm
+				}
 				virtualenv('.venv', ['molecule', 'shade'])
 			}
 		}
 		stage('Run molecule in the environment') {
 			steps {
-				venvSh('.venv', ['molecule test -s openstack'])
+				dir('system_repositories') {
+					venvSh('.venv', ['molecule test -s openstack'])
+				}
 			}
 		}
 	}
