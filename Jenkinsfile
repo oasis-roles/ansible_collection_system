@@ -11,12 +11,12 @@ pipeline {
 			steps {
 				cleanWs()
 				checkout scm
-				virtualenv('molecule', ['molecule', 'shade'])
+				virtualenv('.venv', ['molecule', 'shade'])
 			}
 		}
 		stage('Run molecule in the environment') {
 			steps {
-				venvSh('molecule', ['molecule test -s openstack'])
+				venvSh('.venv', ['molecule test -s openstack'])
 			}
 		}
 	}
