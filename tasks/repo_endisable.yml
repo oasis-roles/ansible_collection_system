@@ -1,0 +1,11 @@
+- name: Disable repositories
+  rhsm_repository:
+    state: disabled
+    name: "{{ rhsm_repositories.disabled | default([]) }}"
+  when: "'disabled' in rhsm_repositories"
+
+- name: Enable repositories
+  rhsm_repository:
+    state: enabled
+    name: "{{ rhsm_repositories.enabled | default([]) }}"
+  when: "'enabled' in rhsm_repositories"

@@ -1,0 +1,19 @@
+# role tasks
+- name: Ensure subscription-manager is installed
+  package:
+    state: present
+    name: subscription-manager
+
+# Some of the tasks we run are scary-looking, even when skipped, so wrap the
+# various stages up in include_tasks and only show scary things when told to
+- include_tasks: unsubscribe.yml
+  when: rhsm_unregister
+
+- include_tasks: subscribe.yml
+  when: rhsm_username != omit or rhsm_activationkey != omit
+
+- include_tasks: repo_only.yml
+  when: "'only' in rhsm_repositories"
+
+- include_tasks: repo_endisable.yml
+  when: "rhsm_repositories and 'only' not in rhsm_repositories"

@@ -1,0 +1,16 @@
+- name: Enable specific repositories
+  rhsm_repository:
+    state: enabled
+    name: "{{ rhsm_repositories.only | default([]) }}"
+  register: rhsm_repositories_enabled
+
+# this fun bit of data-mangling is the idempotent equivalent of
+# disabling all repos and then only enabling specific ones:
+# use the return value from the enable step and remove every
+# enabled repo not in the rhsm_repositories.only list.
+- name: Disable all other repositories
+  rhsm_repository:
+    state: disabled
+    name: "{{ rhsm_repositories_enabled.repositories |
+              map(attribute='id') |
+              difference(rhsm_repositories.only | default([])) }}"
