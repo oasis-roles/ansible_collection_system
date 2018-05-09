@@ -1,5 +1,5 @@
 ansible
-ansible-list
+ansible-lint
 docker-py
 yamllint
 flake8
