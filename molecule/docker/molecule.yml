@@ -22,4 +22,4 @@ verifier:
   name: testinfra
   lint:
     name: flake8
-  directory: ../shared/
+  directory: ../shared/tests
