@@ -1,0 +1,7 @@
+ansible
+ansible-list
+docker-py
+yamllint
+flake8
+molecule
+shade
