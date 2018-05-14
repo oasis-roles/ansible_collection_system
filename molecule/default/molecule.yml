@@ -7,7 +7,7 @@ lint:
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test-open_stack_provision
+  - name: test-openstack_provision
     image: rhel-7.4-server-x86_64-updated
     flavor: m1.medium
 provisioner:

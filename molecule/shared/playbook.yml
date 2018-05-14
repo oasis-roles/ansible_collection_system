@@ -1,8 +1,8 @@
 - name: converge
   hosts: localhost
   roles:
-    - role: open_stack_provision
-      open_stack_provision_servers:
+    - role: openstack_provision
+      openstack_provision_servers:
         - name: test_server
           flavor: m3.medium
           image: 'CentOS-7-x86_64-GenericCloud-released-latest'

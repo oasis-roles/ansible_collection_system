@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/oasis-roles/open_stack_provision.svg?branch=master)](https://travis-ci.org/oasis-roles/open_stack_provision)
+[![Build Status](https://travis-ci.org/oasis-roles/openstack_provision.svg?branch=master)](https://travis-ci.org/oasis-roles/openstack_provision)
 
 ROLE NAME
 ===========
@@ -43,7 +43,7 @@ Currently the following variables are supported:
 
 ### General
 
-* `open_stack_provision_servers` - array of servers to provision, elements of
+* `openstack_provision_servers` - array of servers to provision, elements of
   the array should be hashes with keys matching the acceptable arguments from
   the standard os\_server module. Two additional arguments are also accepted -
   "count" and "groups". "Count" will provision multiple servers, each with a
@@ -61,9 +61,9 @@ Example Playbook
 ----------------
 
 ```
-- hosts: open_stack_provision-servers
+- hosts: openstack_provision-servers
   roles:
-    - role: open_stack_provision
+    - role: openstack_provision
 ```
 
 License

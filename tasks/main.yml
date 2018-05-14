@@ -1,5 +1,5 @@
 - name: provision openstack VMs
   include_tasks: provision_servers.yml
-  with_items: "{{ open_stack_provision_servers }}"
+  with_items: "{{ openstack_provision_servers }}"
   loop_control:
     loop_var: servers

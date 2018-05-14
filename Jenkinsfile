@@ -10,7 +10,7 @@ pipeline {
 		stage('Fetch code and setup environment') {
 			steps {
 				cleanWs()
-				dir('open_stack_provision') {
+				dir('openstack_provision') {
 					checkout scm
 				}
 				virtualenv('.venv', ['molecule', 'shade'])
@@ -18,7 +18,7 @@ pipeline {
 		}
 		stage('Run molecule in the environment') {
 			steps {
-				dir('open_stack_provision') {
+				dir('openstack_provision') {
 					venvSh('.venv', ['molecule test'])
 				}
 			}
