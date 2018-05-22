@@ -89,6 +89,8 @@ Dependencies
 
 Requires a system that supports the installation and usage of `subscription-manager`, e.g.  Red Hat Enterprise Linux.
 
+Privilege escalation (sudo) is required for this role to function.
+
 Example Playbooks
 -----------------
 
