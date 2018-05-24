@@ -14,7 +14,7 @@
         state: stopped
 
     - name: remove old .cli files
-      become: true
+      become: "{{ jbosseap_become }}"
       file:
         dest: "{{ jbosseap_cli_batch_dir }}/{{ item.filename }}"
         state: absent
@@ -47,7 +47,7 @@
     enabled: true
 
 - name: create common directory for all cli files
-  become: true
+  become: "{{ jbosseap_become }}"
   file:
     path: "{{ jbosseap_cli_batch_dir }}"
     state: directory
@@ -68,7 +68,7 @@
       when: jbosseap_web
 
 - name: deploy JDBC drivers
-  become: true
+  become: "{{ jbosseap_become }}"
   file:
     src: "/usr/share/java/{{ item.file }}"
     dest: "{{ jbosseap_jboss_home }}/standalone/deployments/{{ item.file }}"

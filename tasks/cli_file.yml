@@ -1,5 +1,5 @@
 - name: upload CLI file
-  become: true
+  become: "{{ jbosseap_become }}"
   template:
     src: "{{ _filename }}.cli"
     dest: "{{ jbosseap_cli_batch_dir }}/{{ _filename }}.cli"
@@ -10,7 +10,7 @@
     - cli
 
 - name: run CLI file
-  become: true
+  become: "{{ jbosseap_become }}"
   become_user: "{{ jbosseap_jboss_user }}"
   command: >-
     {{ jbosseap_jboss_home }}/bin/jboss-cli.sh --connect
