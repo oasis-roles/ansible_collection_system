@@ -1,0 +1,25 @@
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: jbosseap
+    image: centos:7
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+scenario:
+  name: docker
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../shared/

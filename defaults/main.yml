@@ -5,6 +5,9 @@ jbosseap_jboss_home: /usr/share/jbossas
 jbosseap_jboss_config_dir: "{{ jbosseap_jboss_home }}/standalone/configuration"
 jbosseap_jboss_user: jboss
 jbosseap_jboss_group: jboss
+# Whether to use sudo/become to read and write the files in the
+# setting up of JBoss itself
+jbosseap_become: true
 
 
 jbosseap_java_opts:
