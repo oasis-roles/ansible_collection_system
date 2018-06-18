@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/oasis-roles/openstack_provision.svg?branch=master)](https://travis-ci.org/oasis-roles/openstack_provision)
 
-ROLE NAME
+OPENSTACK PROVISION
 ===========
 
 This role will provision resources in OpenStack per your directions
