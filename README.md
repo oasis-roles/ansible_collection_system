@@ -60,11 +60,34 @@ shade
 Example Playbook
 ----------------
 
+Raw role inclusion
+
 ```
 - hosts: openstack_provision-servers
   roles:
     - role: openstack_provision
 ```
+
+Role inclusion with network access to created instances through SSH
+
+```
+- hosts: openstack_provision-servers
+  roles:
+    - role: openstack_provision
+      openstack_provision_servers:
+        - name: test_server
+          flavor: m3.medium
+          image: 'CentOS-7-x86_64-GenericCloud-released-latest'
+          count: 2
+          key: path/to/your/private/key.pem
+          key_name: <name of your ssh keypair>
+          security_groups:
+            - <name of security group you want to use>
+          groups:
+            - test_group
+```
+
+**Note: The local private key should have read/write access for the user group only. This can be achieved with `sudo chmod 600 <keyname>.pem`**
 
 License
 -------
