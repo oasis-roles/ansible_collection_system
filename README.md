@@ -38,7 +38,8 @@ Vars in this section directly correspond to the args available to the
 * `rhsm_server_proxy_password` - HTTP proxy password
 * `rhsm_auto_attach` - automatically consume from available subscriptions if registration succeeds (bool, default false, requires ansible >= 2.5)
 * `rhsm_environment` - Register with a specific environment in the destination org. (Used with Red Hat Satellite 6 or Katello)
-* `rhsm_pool_ids` - list of pool IDs to consume, or a list of dicts with pool IDs as keys and quantity of entitlements to consume as values
+* `rhsm_pool` - Specific pool name to consume (regex can be used as input). Use `rhsm_pool_ids` when possible as it is much faster. Mutually exclusive with `rhsm_pool_ids`
+* `rhsm_pool_ids` - List of pool IDs to consume, or a list of dicts with pool IDs as keys and quantity of entitlements to consume as values. Mutually exclusive with `rhsm_pool`
 * `rhsm_consumer_type` - The type of unit to register (defaults to "system")
 * `rhsm_consumer_name` - Name of the system to register (defaults to system hostname)
 * `rhsm_consumer_id` - Existing consumer ID to resume a previous registration
