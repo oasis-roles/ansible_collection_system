@@ -14,6 +14,7 @@
     server_proxy_password: "{{ rhsm_server_proxy_password }}"
     auto_attach: "{{ rhsm_auto_attach }}"
     environment: "{{ rhsm_environment }}"
+    pool: "{{ rhsm_pool }}"
     pool_ids: "{{ rhsm_pool_ids }}"
     consumer_type: "{{ rhsm_consumer_type }}"
     consumer_name: "{{ rhsm_consumer_name }}"

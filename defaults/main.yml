@@ -37,9 +37,16 @@ rhsm_auto_attach: "{{ omit }}"
 # Used with Red Hat Satellite 6 or Katello
 rhsm_environment: "{{ omit }}"
 
+# specific pool name to consume
+# can use regex as input for this variable
+# use rhsm_pool_ids when possible as it is much faster
+# mutually exclusive with `rhsm_pool_ids`
+rhsm_pool: "{{ omit }}"
+
 # list of pool IDs to consume, or a dict with pool IDs as keys and quantity
 # of entitlements to consume as values
 # must be a list or dict, even if specifying a single pool
+# mutually exclusive with `rhsm_pool`
 rhsm_pool_ids: []
 
 # The type of unit to register (string), defaults to system
