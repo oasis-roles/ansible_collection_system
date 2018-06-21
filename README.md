@@ -3,7 +3,7 @@
 COCKPIT
 ===========
 
-Basic description for cockpit
+Installs cockpit to a set of hosts and starts the service
 
 Requirements
 ------------
@@ -21,7 +21,7 @@ Currently the following variables are supported:
 
 ### General
 
-* `cockpit_var_name` - var_name description
+* `cockpit_version` - the cockpit version the user wants to have installed and run on their instance
 
 Dependencies
 ------------
