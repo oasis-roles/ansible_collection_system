@@ -1,0 +1,5 @@
+- name: Start cockpit
+  service:
+    name: cockpit
+    state: started
+    enabled: yes
