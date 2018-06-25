@@ -23,6 +23,10 @@ Currently the following variables are supported:
 
 * `cockpit_version` - the cockpit version the user wants to have installed and run on their instance
 
+**Note: To use the default value for `cockpit_version`, your instance must have
+the repos `rhel-7-server-rhv-4-mgmt-agent-rpms` and `rhel-7-server-ansible-2-rpms`
+enabled**
+
 Dependencies
 ------------
 
@@ -45,4 +49,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Andrew Euredjian <aeuredji@redhat.com>
