@@ -1,10 +1,15 @@
 # role tasks
-- block:
-  - name: Install cockpit
-    yum:
-      name: "{{ cockpit_version }}"
-      state: present
-
-  - include_tasks: start_service.yml
+- name: Install cockpit
+  yum:
+    name: "{{ cockpit_version }}"
+    state: present
   become: true
-  become_user: root
+  become_user: "{{ cockpit_become_user }}"
+
+- name: Start cockpit
+  service:
+    name: cockpit
+    state: started
+    enabled: yes
+  become: true
+  become_user: "{{ cockpit_become_user }}"

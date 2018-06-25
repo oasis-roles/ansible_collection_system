@@ -22,6 +22,7 @@ Currently the following variables are supported:
 ### General
 
 * `cockpit_version` - the cockpit version the user wants to have installed and run on their instance
+* `cockpit_become_user` - the user to execute tasks through
 
 **Note: To use the default value for `cockpit_version`, your instance must have
 the repos `rhel-7-server-rhv-4-mgmt-agent-rpms` and `rhel-7-server-ansible-2-rpms`

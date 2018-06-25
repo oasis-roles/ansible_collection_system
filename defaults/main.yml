@@ -1,2 +1,3 @@
 # defaults file for cockpit
-cockpit_version: cockpit-ovirt-dashboard-0.10.10-0.el7ev.noarch
+cockpit_version: cockpit-ovirt-dashboard
+cockpit_become_user: root
