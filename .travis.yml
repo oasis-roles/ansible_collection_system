@@ -15,6 +15,7 @@ install:
   - yamllint --version
   - flake8 --version
   - molecule --version
+  - ansible --version
 
 script:
   - molecule lint -s openstack
