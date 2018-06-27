@@ -25,8 +25,8 @@ Currently the following variables are supported:
 * `cockpit_become_user` - the user to execute tasks through
 
 **Note: To use the default value for `cockpit_version`, your instance must have
-the repos `rhel-7-server-rhv-4-mgmt-agent-rpms` and `rhel-7-server-ansible-2-rpms`
-enabled**
+the repos `rhel-7-server-rhv-4-mgmt-agent-rpms`, `rhel-7-server-ansible-2-rpms`, and
+`rhel-7-server-rpms` enabled**
 
 Dependencies
 ------------
