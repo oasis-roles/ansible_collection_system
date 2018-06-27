@@ -84,6 +84,19 @@ rhsm_repositories:
 Note that globbing in repository names is supported.
 Use of `only` is mutually exclusive with the use of `enabled` and `disabled`, and the use of `only` takes precedence.
 
+Role Output
+-----------
+
+### oasis_role_rhsm
+
+The `oasis_role_rhsm` fact will be set by this role, containing the following outputs:
+
+- `repositories` - The complete list of subscribable repositories known to the system, as well as their enabled status.
+  This value will be `false` if the `rhsm_repositories` input var is not used.
+- `subscribed` - Whether or not the system is registered. (bool)
+- `subscribed_pool_ids` - A list of pool IDs current attached too the system. Will be an empty list if no pools or attached,
+  or if the system is not currently registered.
+
 Dependencies
 ------------
 
