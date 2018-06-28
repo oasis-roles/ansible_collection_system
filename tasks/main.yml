@@ -10,6 +10,6 @@
   service:
     name: cockpit
     state: started
-    enabled: yes
+    enabled: true
   become: true
   become_user: "{{ cockpit_become_user }}"
