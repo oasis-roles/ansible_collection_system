@@ -9,7 +9,7 @@
 - name: Start cockpit
   service:
     name: cockpit
-    state: running
+    state: started
     enabled: true
   become: true
   become_user: "{{ cockpit_become_user }}"
