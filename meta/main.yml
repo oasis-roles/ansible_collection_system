@@ -13,5 +13,5 @@ galaxy_info:
     - oasis
 
 dependencies:
-  - oasis-roles.rhsm
-  - oasis-roles.firewalld
+  - oasis_roles.rhsm
+  - oasis_roles.firewalld
