@@ -8,7 +8,7 @@
 
 - name: Start cockpit
   service:
-    name: cockpit
+    name: cockpit.socket
     state: started
     enabled: true
   become: true
