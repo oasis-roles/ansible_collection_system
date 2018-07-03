@@ -68,6 +68,13 @@ rhsm_force_register: "{{ omit }}"
 # yes/no bool, default no
 rhsm_unregister: false
 
+# Bool, whether or not to unset the subscription-manager release,
+# run before the release is set
+rhsm_release_unset: false
+
+# Value to pass to subscription-manager release --set
+rhsm_release: null
+
 # a dict where keys are repository states, and values are a list of
 # repository names  to set to that state. Valid repository states are
 # "enabled", and "disabled". Additionally, the special "only" state can be

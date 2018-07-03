@@ -17,3 +17,4 @@
     oasis_roles_rhsm:
       subscribed: "{{ oasis_roles_rhsm_subscription.rc == 0 }}"
       subscribed_pool_ids: "{{ oasis_roles_rhsm_pools.stdout.split() }}"
+      release: "{{ oasis_roles_rhsm_release }}"

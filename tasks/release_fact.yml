@@ -1,0 +1,21 @@
+- name: Gather subscription-manager release information
+  command: subscription-manager release --show
+  register: rhsm_release_check
+  changed_when: false
+  failed_when: false
+
+- name: Set oasis_roles_rhsm_release fact to current value on system
+  set_fact:
+    # Expected string is "Release: <release>"
+    oasis_roles_rhsm_release: "{{ rhsm_release_check.stdout.split(': ')[1] }}"
+  when: '": " in rhsm_release_check.stdout'
+
+- name: Set oasis_roles_rhsm_release fact to null
+  set_fact:
+    oasis_roles_rhsm_release: null
+  # If the system is registered, output includes "not set"
+  # If the system is not registered, s-m exits with rc 1
+  # If there are additional conditions not accounted for here, the output task
+  # will fail due to oasis_roles_rhsm_release not being set. If this happens,
+  # you have found a bug. Please file it. :)
+  when: '"not set" in rhsm_release_check.stdout or rhsm_release_check.rc == 1'
