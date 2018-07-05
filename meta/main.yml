@@ -11,7 +11,3 @@ galaxy_info:
 
   galaxy_tags:
     - oasis
-
-dependencies:
-  - oasis-roles.rhsm
-  - oasis-roles.firewalld
