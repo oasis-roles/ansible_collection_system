@@ -13,6 +13,15 @@
   - include_tasks: subscribe.yml
     when: rhsm_username != omit or rhsm_activationkey != omit
 
+  # Release facts should always be gathered for inclusion in outputs
+  - include_tasks: release_fact.yml
+
+  # setting the release explodes if the system isn't subscribed,
+  # so it should go after the subscribe tasks, and should only
+  # run if changes to the release are requested.
+  - include_tasks: release.yml
+    when: rhsm_release or rhsm_release_unset
+
   - include_tasks: repo_only.yml
     when: "'only' in rhsm_repositories"
 

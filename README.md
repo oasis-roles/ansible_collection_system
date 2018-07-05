@@ -44,10 +44,18 @@ Vars in this section directly correspond to the args available to the
 * `rhsm_consumer_name` - Name of the system to register (defaults to system hostname)
 * `rhsm_consumer_id` - Existing consumer ID to resume a previous registration
 * `rhsm_force_register` - Register the system even if it is already registered (bool, default false)
-* `rhsm_unregister` - Unregister a system if true (bool, default false, system will be unsubscribed before subscription is attempted)
+* `rhsm_unregister` - Unregister a system if true. The system will be unsubscribed before subscription is attempted
+  (bool, default false)
 
 ### Repository Management
 
+Note:
+> Using variables related to repository management may result in the role reporting a failure if the system is not registered.
+> Subscription tasks are run before repository management tasks to facilitate registration state before processing these variables.
+
+* `rhsm_release` - Set which operating system release version to use. Remember to quote this, since release versions tend to look like
+  floats to the YAML parser, e.g.  set the value to something like `"7.4"`, not `7.4`
+* `rhsm_release_unset` - Unset which operating system release version to use (bool, default false)
 * `rhsm_repositories` - Specifies which repositories to enable/disable, details below
 
 To enable/disable specific repositories:
@@ -85,6 +93,20 @@ rhsm_repositories:
 Note that globbing in repository names is supported.
 Use of `only` is mutually exclusive with the use of `enabled` and `disabled`, and the use of `only` takes precedence.
 
+To set a specific minor version of RHEL repositories to use:
+
+```yaml
+rhsm_release: "7.1"
+```
+
+To default to the latest available minor version of repositories:
+
+``yaml
+rhsm_release_unset: true
+```
+
+
+
 Role Output
 -----------
 
@@ -92,11 +114,11 @@ Role Output
 
 The `oasis_role_rhsm` fact will be set by this role, containing the following outputs:
 
-- `repositories` - The complete list of subscribable repositories known to the system, as well as their enabled status.
-  This value will be `false` if the `rhsm_repositories` input var is not used.
 - `subscribed` - Whether or not the system is registered. (bool)
-- `subscribed_pool_ids` - A list of pool IDs current attached too the system. Will be an empty list if no pools or attached,
+- `subscribed_pool_ids` - A list of pool IDs current attached to the system. Will be an empty list if no pools are attached,
   or if the system is not currently registered.
+- `release` - The current operating system release version being used by `subscription-manager`. Will be `null` if no specific
+  version is set, or if the system is not subscribed.
 
 Dependencies
 ------------
