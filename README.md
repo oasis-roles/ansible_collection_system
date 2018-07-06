@@ -51,24 +51,25 @@ First, include the required roles
     - oasis-roles.firewalld
 ```
 
-Second, configure Red Hat Subscription Manager (rhsm)
+Second, configure Red Hat Subscription Manager using the [rhsm](https://galaxy.ansible.com/oasis-roles/rhsm) role.
 
 ```
   vars:
     rhsm_username: user@company.com
     rhsm_password: password
-    rhsm_server_hostname: server.hostname
     rhsm_pool_ids:
       - abcdefghijklmnopqrstuvwxyz1234567890
     rhsm_repositories:
       only:
-        - server-repo-1
-        - server-repo-2
-        - server-repo-3
+        - rhel-7-server-rhv-4-mgmt-agent-rpms
+        - rhel-7-server-ansible-2-rpms
+        - rhel-7-server-rpms
 
 ```
 
-Third, configure the firewall in one of two ways:
+**Note: These repositories are necessary to install the cockpit service**
+
+Third, configure the firewall with the [firewalld](https://galaxy.ansible.com/oasis-roles/firewalld) role in one of two ways:
 1. Allow direct access to cockpit through port 9090
 2. Setup port forwarding from port 443 (HTTPS port) to port 9090 (cockpit port)
 
