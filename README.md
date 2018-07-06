@@ -36,11 +36,65 @@ None
 Example Playbook
 ----------------
 
+Since the cockpit service is dependent on other services being configured
+before installation, this example will include the use of the rhsm and
+firewalld roles located in ansible galaxy under oasis-roles to configure the
+hosts for cockpit installation.
+
+First, include the required roles
+
 ```
-- hosts: cockpit-servers
+- hosts: all
   roles:
-    - role: cockpit
+    - oasis-roles.rhsm
+    - cockpit
+    - oasis-roles.firewalld
 ```
+
+Second, configure Red Hat Subscription Manager (rhsm)
+
+```
+  vars:
+    rhsm_username: user@company.com
+    rhsm_password: password
+    rhsm_server_hostname: server.hostname
+    rhsm_pool_ids:
+      - abcdefghijklmnopqrstuvwxyz1234567890
+    rhsm_repositories:
+      only:
+        - server-repo-1
+        - server-repo-2
+        - server-repo-3
+
+```
+
+Third, configure the firewall in one of two ways:
+1. Allow direct access to cockpit through port 9090
+2. Setup port forwarding from port 443 (HTTPS port) to port 9090 (cockpit port)
+
+Method 1:
+
+```
+    firewalld_zone: public
+    firewalld_ports_open:
+      - proto: tcp
+        port: 9090
+```
+
+Method 2:
+
+```
+    firewalld_zone: public
+    firewalld_ports_open:
+      - proto: tcp
+        port: 443
+    firewalld_ports_forward:
+      - proto: tcp
+        port: 443
+        to_port: 9090
+```
+
+**Note: Each of these code snippets are part of a single file**
 
 License
 -------
