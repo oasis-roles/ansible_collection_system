@@ -1,0 +1,15 @@
+# role tasks
+- name: Install cockpit
+  yum:
+    name: "{{ cockpit_version }}"
+    state: present
+  become: true
+  become_user: "{{ cockpit_become_user }}"
+
+- name: Start cockpit
+  service:
+    name: cockpit.socket
+    state: started
+    enabled: true
+  become: true
+  become_user: "{{ cockpit_become_user }}"
