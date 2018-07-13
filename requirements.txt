@@ -1,6 +1,6 @@
 ansible
 ansible-lint
-docker-py
+docker
 yamllint
 flake8
 molecule

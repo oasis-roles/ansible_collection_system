@@ -10,7 +10,9 @@ services:
 install:
   - pip install -U pip
   - pip --version
-  - pip install ansible ansible-lint yamllint flake8 molecule docker-py
+  # We want everything in requirements.txt except shade,
+  # since we only test docker in travis
+  - pip install $(grep -v shade < requirements.txt)
   - ansible-lint --version
   - yamllint --version
   - flake8 --version
