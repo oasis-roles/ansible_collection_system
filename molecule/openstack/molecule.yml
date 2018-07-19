@@ -7,8 +7,8 @@ lint:
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test-setup_kdump
-    image: rhel-7.4-server-x86_64-updated
+  - name: test-kdump
+    image: rhel-7.5-server-x86_64-updated
     flavor: m1.medium
 provisioner:
   name: ansible

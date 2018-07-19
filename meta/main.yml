@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Andrew Euredjian
+  description: Role to setup Kernel dump files
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4

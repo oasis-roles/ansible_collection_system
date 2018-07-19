@@ -3,9 +3,6 @@ versions:
   - "2.7"
   - "3.5"
 cache: pip
-sudo: required
-services:
-  - docker
 
 install:
   - pip install -U pip
@@ -19,7 +16,6 @@ install:
 
 script:
   - molecule lint -s openstack
-  - molecule test -s docker
   - flake8 $(find . -name '*.py')
 
 notifications:

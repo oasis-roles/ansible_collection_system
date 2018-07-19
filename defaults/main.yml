@@ -1,1 +1,13 @@
 # defaults file for setup_kdump
+kdump_package: kexec-tools
+kdump_conf_path: /etc/kdump.conf
+kdump_become_user: root
+
+kdump_crash_path: /var/crash
+
+# kdump_core_collector_args: "{{ omit }}"
+
+# kdump_dracut_device: "{{ omit }}"
+# kdump_dracut_mountpoint: "{{ omit }}"
+# kdump_dracut_filesystem_type: "{{ omit }}"
+# kdump_dracut_filesystem_options: "{{ omit }}"
