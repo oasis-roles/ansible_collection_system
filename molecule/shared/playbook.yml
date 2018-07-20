@@ -1,0 +1,22 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: passwordless_ssh
+      passwordless_ssh_public_key: "{{ role_path }}/tests/id_rsa.pub"
+      passwordless_ssh_private_key: "{{ role_path }}/tests/id_rsa"
+      passwordless_ssh_user: derp
+      passwordless_ssh_user_home: /home/derp
+  post_tasks: []
+
+- name: test, kinda
+  hosts: all[0]
+  tasks:
+    - name: try to ssh
+      command: ssh {{ hostvars[groups['all'][1]]['ansible_host'] }} ls
+      become: true
+      become_user: derp
+      when: ansible_connection != 'docker'
+      changed_when: false
+      register: ssh_output
+
+    - debug: var=ssh_output.stdout
