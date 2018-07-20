@@ -8,7 +8,7 @@
       passwordless_ssh_user_home: /home/derp
   post_tasks: []
 
-- name: test, kinda
+- name: test host 0 connecting to host 1 without password
   hosts: all[0]
   tasks:
     - name: try to ssh

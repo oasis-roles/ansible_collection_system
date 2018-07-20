@@ -20,7 +20,7 @@
 passwordless_ssh_user: root
 # The home directory for the user who is being configured.
 passwordless_ssh_user_home: /root
-# Name that the prviate key file will be uploaded to. This should match the
+# Name that the private key file will be uploaded to. This should match the
 # key type, by default (id-rsa, id_dsa, etc).
 passwordless_ssh_remote_key_file: id_rsa
 # By default all hosts in the current play will be configured to this SSH
@@ -34,7 +34,7 @@ passwordless_ssh_extra_hosts: []
 # over the user directory where SSH is being configured
 passwordless_ssh_become: true
 # The user to sudo/become. If this gets changed from being the same as the user
-# then unexpected thigns can happen when setting up the known_hosts, as the
+# then unexpected things can happen when setting up the known_hosts, as the
 # connections will be performed as a different user than the one who will be
 # used in the connections later on. This could result in different keys being
 # discovered on the remote system than the ones used to do the connections
