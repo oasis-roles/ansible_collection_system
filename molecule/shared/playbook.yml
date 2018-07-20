@@ -19,4 +19,5 @@
       changed_when: false
       register: ssh_output
 
-    - debug: var=ssh_output.stdout
+    - debug:
+        var: ssh_output.stdout
