@@ -1,0 +1,20 @@
+# defaults file for passwd
+
+# The username (required) for which to change the password
+# passwd_username: root
+
+# Password hash (required) to pass to Ansible's `user` module.
+# IMPORTANT: See Ansible's documentation for properly and securely generating
+# and storing this hash:
+# https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-crypted-passwords-for-the-user-module
+#
+# yamllint disable-line rule:line-length
+# passwd_password: "<password_hash>"
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.  This will be necesssary for changing the `root` password, or the
+# password of a user other than Ansible's `remote_user`.
+passwd_become: true
+
+# The user to sudo/become
+passwd_become_user: root
