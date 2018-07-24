@@ -1,0 +1,22 @@
+- name: preconfigure users
+  hosts: all
+  tasks:
+    - name: create user derp
+      user:
+        name: derp
+        home: /home/derp
+      become: true
+
+    - name: enable ssh, because that's how this all works
+      service:
+        name: sshd
+        state: started
+        enabled: true
+      become: true
+      when: ansible_connection != 'docker'
+
+    - name: install tools needed
+      package:
+        name: openssh-clients
+        state: present
+      become: true

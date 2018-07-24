@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Greg Hellings
+  description: Configure passwordless SSH between all hosts in a group
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []
