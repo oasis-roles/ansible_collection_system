@@ -17,9 +17,6 @@ provisioner:
   playbooks:
     prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
-  inventory:
-    links:
-      group_vars: ../shared/group_vars
 scenario:
   name: openstack
 verifier:
