@@ -1,0 +1,10 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: passwd
+      passwd_username: root
+      # yamllint disable-line rule:line-length
+      passwd_password: "$6$aCI4uLaYjEOmu19b$jqI/2h.edztO9AsZO1vG0owuRcGWmhwM9hIcD2X0EDdiLSsIidPZ5RaQJ53ZMPFReTvkQwMmi4ckFaWA.1JWQ0"
+      passwd_become: true
+      passwd_become_user: root
+  post_tasks: []
