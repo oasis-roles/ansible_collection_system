@@ -1,8 +1,12 @@
+- name: read public key
+  set_fact:
+    _public_key: "{{ lookup('template', passwordless_ssh_public_key) | trim }}"
+
 - name: set authorized keys
   authorized_key:
     user: "{{ passwordless_ssh_user }}"
     state: present
-    key: "{{ lookup('file', passwordless_ssh_public_key) }}"
+    key: "{{ _public_key }}"
   become: "{{ passwordless_ssh_become }}"
   become_user: "{{ passwordless_ssh_become_user }}"
 
@@ -17,9 +21,10 @@
   become_user: "{{ passwordless_ssh_become_user }}"
 
 - name: update known hosts with the other hosts in this current group
-  shell: ssh-keyscan {{ hostvars[item]['ansible_host'] |
-         default(hostvars[item]['inventory_hostname']) }} >>
-         "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+  known_hosts:
+    path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+    name: "{{ hostvars[item]['ansible_host'] | default(item) }}"
+    key: "{{ hostvars[item]['ansible_host'] | default(item)}} {{ _public_key }}"
   with_items: "{{ play_hosts }}"
   become: "{{ passwordless_ssh_become }}"
   become_user: "{{ passwordless_ssh_become_user }}"
@@ -30,10 +35,15 @@
     var: shell_result
 
 - name: update known hosts with the other hosts in this current group
-  shell: ssh-keyscan {{ item }} >>
-         "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+  known_hosts:
+    path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+    name: "{{ item }}"
+    key: "{{ item }} {{ _public_key }}"
   with_items: "{{ passwordless_ssh_extra_hosts }}"
   become: "{{ passwordless_ssh_become }}"
   become_user: "{{ passwordless_ssh_become_user }}"
   register: shell_result
   changed_when: false
+
+- debug:
+    var: shell_result

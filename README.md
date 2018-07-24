@@ -59,7 +59,7 @@ Example Playbook
 ```
 - hosts: passwordless_ssh_servers
   roles:
-    - role: passwordless_ssh
+    - role: oasis-roles.passwordless_ssh
       passwordless_ssh_private_key: "{{ lookup('env', 'HOME') }}/mytestkeys/id_rsa"
       passwordless_ssh_public_key: "{{ lookup('env', 'HOME') }}/mytestkeys/id_rsa.pub"
       passwordless_ssh_user: testuser

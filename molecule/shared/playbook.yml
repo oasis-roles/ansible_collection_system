@@ -12,7 +12,7 @@
   hosts: all[0]
   tasks:
     - name: try to ssh
-      command: ssh {{ hostvars[groups['all'][1]]['ansible_host'] }} ls
+      command: ssh {{ hostvars[groups['all'][1]]['ansible_host'] }} ls -a /
       become: true
       become_user: derp
       when: ansible_connection != 'docker'
