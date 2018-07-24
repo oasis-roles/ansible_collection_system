@@ -2,7 +2,7 @@ galaxy_info:
   author: Greg Hellings
   description: Install and configure Red Hat JBoss EAP
   company: Red Hat, Inc.
-  license: BSD
+  license: GPLv3
   min_ansible_version: 2.4
   platforms:
     - name: EL
