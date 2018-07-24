@@ -171,7 +171,7 @@ when being used as the RHSM Provider.
 License
 -------
 
-BSD
+[GPLv3](LICENSE)
 
 Author Information
 ------------------
