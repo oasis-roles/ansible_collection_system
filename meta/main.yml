@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Andrew Euredjian
+  description: A role that ensures the chronyd service is installed and running
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

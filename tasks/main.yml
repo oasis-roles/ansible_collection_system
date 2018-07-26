@@ -1,0 +1,24 @@
+# role tasks
+- name: Verify chronyd is installed
+  package:
+    name: "{{ chrony_package }}"
+    state: present
+  become: true
+  become_user: "{{ chrony_become_user }}"
+
+# - name: Edit kdump config file
+#   template:
+#     src: kdump.conf
+#     dest: "{{ kdump_conf_path }}"
+#   become: true
+#   become_user: "{{ kdump_become_user }}"
+#   notify:
+#     - Restart kdump service
+
+- name: Enable chronyd service
+  service:
+    name: chronyd
+    state: started
+    enabled: true
+  become: true
+  become_user: "{{ chrony_become_user }}"

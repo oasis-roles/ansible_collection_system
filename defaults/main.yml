@@ -1,0 +1,7 @@
+# defaults file for chrony
+
+# The package to install on the remote hosts
+chrony_package: chronyd
+
+# The user to run commands as on remote hosts
+chrony_become_user: root
