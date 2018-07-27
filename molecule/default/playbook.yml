@@ -1,0 +1,12 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: upload_files
+      upload_files:
+        - src: "{{ role_path }}/AUTHORS"
+          dest: /AUTHORS
+        - content: DERP!
+          dest: /derp
+          owner: root
+          group: wheel
+  post_tasks: []
