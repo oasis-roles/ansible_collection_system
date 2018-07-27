@@ -101,7 +101,7 @@ rhsm_release: "7.1"
 
 To default to the latest available minor version of repositories:
 
-``yaml
+```yaml
 rhsm_release_unset: true
 ```
 
@@ -110,7 +110,7 @@ rhsm_release_unset: true
 Role Output
 -----------
 
-### oasis_role_rhsm
+### oasis\_role\_rhsm
 
 The `oasis_role_rhsm` fact will be set by this role, containing the following outputs:
 
