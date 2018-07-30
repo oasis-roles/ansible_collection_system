@@ -21,7 +21,20 @@ Currently the following variables are supported:
 
 ### General
 
-* `chrony_var_name` - var_name description
+* `chrony_package` - The package name to install on remote hosts (set to `chrony` by default)
+* `chrony_become_user` - The user to sign into when running commands on remote hosts (set to `root` by default)
+* `chrony_conf_template_path` - Path to a jinja2 template for generating the chrony configuration file (set to `chrony.conf` by default)
+* `chrony_conf_path` - Path in which to store the generated chrony configuration file on the remote hosts (set to `/etc/chrony.conf` by default)
+* `chrony_servers` - A list of servers and their options to be used with the chrony service (set to public servers from the pool.ntp.org project by default)
+* `chrony_driftfile_path` - Path in which to store files on the remote hosts that record the rate at which the systems' clocks gain/lose time (set to `/var/lib/chrony/drift` by default)
+* `chrony_makestep_args` - arguments to pass into the makestep option for chrony (set to `1.0 3` by default)
+* `chrony_enable_rtcsync` - Enable/disable kernel synchronization of the real-time clock (RTC) (set to `true` by default)
+* `chrony_hwtimestamp_interfaces` - A list of interfaces in which to enable hardware timestamping. Entered as a string separating each interface with a space (commented out by default)
+* `chrony_num_minsources` - The minimum number of select-able sources required to adjust the system clock (commented out by default)
+* `chrony_NTP_client` - The local network from which to allow NTP client access (commented out by default)
+* `chrony_keyfile_path` - Path to a key file on the remote hosts for NTP authentication (commented out by default)
+* `chrony_logdir_path` - Path to a directory on the remote hosts in which to store log files (set to `/var/log/chrony` by default)
+* `chrony_logged_information` - A list of information to log. Entered as a string separating each piece of information with a space (commented out by default)
 
 Dependencies
 ------------
