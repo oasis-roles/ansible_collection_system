@@ -6,14 +6,14 @@
   become: true
   become_user: "{{ chrony_become_user }}"
 
-# - name: Edit kdump config file
-#   template:
-#     src: kdump.conf
-#     dest: "{{ kdump_conf_path }}"
-#   become: true
-#   become_user: "{{ kdump_become_user }}"
-#   notify:
-#     - Restart kdump service
+- name: Edit chrony config file
+  template:
+    src: "{{ chrony_conf_template_path }}"
+    dest: "{{ chrony_conf_path }}"
+  become: true
+  become_user: "{{ chrony_become_user }}"
+  notify:
+    - Restart chrony service
 
 - name: Enable chronyd service
   service:
