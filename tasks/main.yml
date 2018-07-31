@@ -8,8 +8,8 @@
 
 - name: Edit chrony config file
   template:
-    src: "{{ chrony_conf_template_path }}"
-    dest: "{{ chrony_conf_path }}"
+    src: chrony.conf
+    dest: /etc/chrony.conf
   become: true
   become_user: "{{ chrony_become_user }}"
   notify:

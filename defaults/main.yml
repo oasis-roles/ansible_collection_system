@@ -6,13 +6,6 @@ chrony_package: chrony
 # The user to run commands as on remote hosts
 chrony_become_user: root
 
-# The path to the template from which to generate a configuration file
-chrony_conf_template_path: chrony.conf
-
-# The path in which to save the chrony service configuration file on the remote
-# host
-chrony_conf_path: /etc/chrony.conf
-
 # A list of servers to use with chrony and the options for each server
 # Default set to public servers from the pool.ntp.org project
 chrony_servers:
