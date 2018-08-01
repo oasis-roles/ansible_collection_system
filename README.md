@@ -1,9 +1,10 @@
 [![Build Status](https://travis-ci.org/oasis-roles/hostname.svg?branch=master)](https://travis-ci.org/oasis-roles/hostname)
 
-ROLE NAME
+Hostname
 ===========
 
-Basic description for hostname
+Sets the hostname to a specified value, and optionally injects that value and
+other aliases into the /etc/hosts file
 
 Requirements
 ------------
@@ -21,7 +22,19 @@ Currently the following variables are supported:
 
 ### General
 
-* `hostname_var_name` - var\_name description
+* `hostname` - The (probably FQDN) hostname to set for the host
+* `hostname_aliases` - An optional array of shortened hostnames to set into
+  the /etc/hosts file.
+* `hostname_hosts_files` - An array of files that match /etc/hosts in syntax
+  into which lines should be injected that map 127.0.0.1 to the new hostname
+  plus any aliases in the array. Defaults to `['/etc/hosts']`.
+* `hostname_inject_hosts_files` - Set to fales if you do not wish to inject
+  lines into the hosts files. Defaults to `true`.
+* `hostname_become` - Set to false if you do not wish to sudo/become a
+  privileged user for the hostname injection (does not affect becoming root
+  to set the hostname). Defaults to `true`.
+* `hostname_become_user` - Set to the value of user who should inject the lines
+  into the hosts files. Defaults to `root`.
 
 Dependencies
 ------------
@@ -35,6 +48,9 @@ Example Playbook
 - hosts: hostname-servers
   roles:
     - role: oasis-roles.hostname
+      hostname: dev.example.com
+      hostname_aliases:
+        - dev
 ```
 
 License
@@ -45,4 +61,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Greg Hellings <greg.hellings@gmail.com>

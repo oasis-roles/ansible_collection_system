@@ -1,1 +1,9 @@
-# defaults file for hostname
+hostname: "{{ ansible_fqdn }}"
+hostname_aliases: []
+hostname_hosts_files:
+  - /etc/hosts
+hostname_inject_hosts_files: true
+
+# For host file inject task only
+hostname_become: true
+hostname_become_user: root
