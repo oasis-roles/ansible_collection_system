@@ -10,16 +10,8 @@
     security_group_name: molecule
     security_group_description: "Security group for testing Molecule"
     security_group_rules:
-      - proto: tcp
-        port: "{{ ssh_port }}"
-        cidr: '0.0.0.0/0'
-      - proto: icmp
-        port: -1
-        cidr: '0.0.0.0/0'
       - ethertype: IPv4
-        group: "{{ security_group.id }}"
       - ethertype: IPv6
-        group: "{{ security_group.id }}"
 
     neutron_network_name: "{{ lookup('env', 'OS_NETWORK') }}"
 
