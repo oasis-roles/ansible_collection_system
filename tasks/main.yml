@@ -4,9 +4,9 @@
   become: true
 
 - name: inject hostname to hosts file
-  lineinfile:
+  blockinfile:
     path: "{{ item }}"
-    line: "127.0.0.1 {{ hostname }} {{ hostname_aliases | join(' ') }}"
+    block: "127.0.0.1 {{ hostname }} {{ hostname_aliases | join(' ') }}"
     state: present
   become: "{{ hostname_become }}"
   become_user: "{{ hostname_become_user }}"

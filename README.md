@@ -28,7 +28,7 @@ Currently the following variables are supported:
 * `hostname_hosts_files` - An array of files that match /etc/hosts in syntax
   into which lines should be injected that map 127.0.0.1 to the new hostname
   plus any aliases in the array. Defaults to `['/etc/hosts']`.
-* `hostname_inject_hosts_files` - Set to fales if you do not wish to inject
+* `hostname_inject_hosts_files` - Set to false if you do not wish to inject
   lines into the hosts files. Defaults to `true`.
 * `hostname_become` - Set to false if you do not wish to sudo/become a
   privileged user for the hostname injection (does not affect becoming root
