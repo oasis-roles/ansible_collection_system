@@ -31,7 +31,7 @@ set. If both the connection name and interface are known, only the connection
 name should be used. `nmcli_add_addrs_connection` takes precedence over
 `nmcli_add_addrs_interface`.
 
-### Notes
+## Notes
 
 ### Picking the default interface
 
@@ -48,9 +48,9 @@ Example vars:
 - `nmcli_add_addrs_interface: "{{ ansible_default_ipv4.interface }}"`
 - `nmcli_add_addrs_interface: "{{ ansible_default_ipv6.interface }}"`
 
-#### Address Formatting
+### Address Formatting
 
-Addresses must be in
+Addresses must be in 
 [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation),
 normalized to be their shortest form, in lowercase, particularly in the case
 of IPv6. Idempotence will be broken if input addresses are not normalized.
