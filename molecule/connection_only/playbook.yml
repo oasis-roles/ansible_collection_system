@@ -1,0 +1,16 @@
+# NetworkManager doesn't want to manage the veth interfaces inside a container,
+# but nmcli will still run. We can at least make some assertions about the
+# playbook skip logic with docker by leaving the ipv4/ipv6 vars unset here.
+- name: converge
+  hosts: all
+  roles:
+    - role: nmcli_add_addrs
+  vars:
+    nmcli_add_addrs_connection: test
+  tasks:
+    - name: Assert playbook skipped getting connection name from interface
+      assert:
+        that: _nmcli_device.skipped
+        msg: >
+          Detection of NetworkManager connection name of interface should be
+          skipped when nmcli_add_addrs_connection is provided.

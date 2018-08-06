@@ -1,0 +1,4 @@
+- name: "Apply changes to NetworkManager connection"
+  command: nmcli connection up "{{ nmcli_add_addrs_connection }}"
+  become: true
+  become_user: "{{ nmcli_add_addrs_become_user }}"

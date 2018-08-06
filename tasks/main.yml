@@ -1,0 +1,73 @@
+- name: Check that either interface or connection name is provided
+  assert:
+    that: >
+      nmcli_add_addrs_connection != omit or
+      nmcli_add_addrs_interface != omit
+    msg: >
+      Either the 'nmcli_add_addrs_connection' or the
+      'nmcli_add_addrs_interface' var must be set to proceed.
+
+- block:
+    - name: Get connection for interface
+      # AWKwardness to print out connection name (including spaces)
+      # for a given interface, since the interface to N-M is nmcli:
+      # - finds lines containing "GENERAL.CONNECTION", there should
+      #   be only one for any single interface
+      # - prints the second field without a trailing newline
+      # - iterates from fields 3 up to the number of fields in the line
+      #   and prints the field separator followed by the Nth field
+      # - no trailing newline, so the entire connection name should be
+      #   the entire stdout property of the registered result.
+      shell: >
+        nmcli device show "{{ nmcli_add_addrs_interface }}" |
+        awk '/GENERAL.CONNECTION/ { printf $2;
+         for (i=3; i <= NF; i++) printf FS$i }'
+      register: _nmcli_device
+      # fact-gathering only, no changes made
+      changed_when: false
+
+    - name: Set nmcli_add_addrs_connection
+      set_fact:
+        nmcli_add_addrs_connection: "{{ _nmcli_device.stdout }}"
+  when: nmcli_add_addrs_connection == omit
+
+- name: Inspect existing addresses
+  # Saner awk to match the item string, and pull out the second field.
+  # Matches nmcli output lines that look like these:
+  # IP4.ADDRESS[1]:        0.0.0.0/0
+  # IP6.ADDRESS[1]:        ::/0
+  # Result items should include existing addresses in stdout_lines to let the
+  # adding of addresses be idempotent. result item 0 is v4, item 1 is v6.
+  shell: >
+    nmcli connection show "{{ nmcli_add_addrs_connection }}" |
+    awk '/{{ item }}/ { print $2 }'
+  # with_items instead of loop means this should work in ansible 2.4
+  with_items:
+    - IP4.ADDRESS
+    - IP6.ADDRESS
+  # nmcli_addresses[0].stdout_lines is newline-separated IPv4 addresses, and
+  # [1].stdout_lines holds IPv6 addresses, corresponding to the loop items
+  register: nmcli_addresses
+  # fact-gathering only, no changes made
+  changed_when: false
+
+- block:
+    - name: "Add IPv4 address(es) to '{{ nmcli_add_addrs_connection }}'"
+      command: >
+        nmcli connection modify "{{ nmcli_add_addrs_connection }}"
+        +ipv4.address {{ item }}
+      with_items: >
+        {{ nmcli_add_addrs_ipv4 |
+        difference(nmcli_addresses.results[0].stdout_lines) }}
+      notify: "Apply changes to NetworkManager connection"
+
+    - name: "Add IPv6 address(es) to '{{ nmcli_add_addrs_connection }}'"
+      command: >
+        nmcli connection modify "{{ nmcli_add_addrs_connection }}"
+        +ipv6.address {{ item }}
+      with_items: >
+        {{ nmcli_add_addrs_ipv6 |
+        difference(nmcli_addresses.results[1].stdout_lines) }}
+      notify: "Apply changes to NetworkManager connection"
+  become: true
+  become_user: "{{ nmcli_add_addrs_become_user }}"
