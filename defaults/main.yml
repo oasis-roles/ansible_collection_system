@@ -1,0 +1,16 @@
+# One of the following two vars must be set. If interface is set, then the
+# connection will be discovered by inspecting the interface. If connection
+# is set, the interface is not needed. They are default to "omit" here purely
+# to make the conditional logic in the tasks yml be easier on the eyes, e.g.
+# "when: var != omit" vs. "when: (var | default(omit)) != omit"
+nmcli_add_addrs_interface: "{{ omit }}"
+nmcli_add_addrs_connection: "{{ omit }}"
+
+# Arrays of addresses to add. Empty by default so that the tasks can always
+# expect to be able to loop over these without errors. Values should be
+# formatted as normalized CIDR addresses, see the README for more details.
+nmcli_add_addrs_ipv4: []
+nmcli_add_addrs_ipv6: []
+
+# By default, become "root" to make changes with nmcli.
+nmcli_add_addrs_become_user: root
