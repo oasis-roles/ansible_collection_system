@@ -1,29 +1,6 @@
 # defaults file for nfs_server
 
-# Packages to install for the NFS server
-nfs_server_packages:
-  - nfs-utils
-
-# Services to enable and start for the NFS server
-nfs_server_services:
-  # required for NFSv3
-  - nfs
-  # required for NFSv3, not used by NFSv4
-  - rpcbind
-
-# Exports file to add shares to.  NOTE:  Files in `/etc/exports.d` must be named
-# with a `.exports` suffix.
-nfs_server_exports_file: /etc/exports.d/nfs.exports
-
-# Whether or not to use the `become` feature of Ansible to gain admin
-# privileges.  This will be necesssary for changing the `root` password, or the
-# password of a user other than Ansible's `remote_user`.
-nfs_server_become: true
-
-# The user to sudo/become
-nfs_server_become_user: root
-
-# List of NFS shares to create in /etc/exports
+# List of NFS shares to create in exports file
 nfs_server_shares: []
 # Example:
 # nfs_server_shares:
@@ -47,3 +24,22 @@ nfs_server_shares: []
 #   - share_path: /srv/share2
 #     host_allow: '192.168.0.0/24'
 #     opts: ro,sync
+
+# Services to enable and start for the NFS server
+nfs_server_services:
+  # required for NFSv3
+  - nfs
+  # required for NFSv3, not used by NFSv4
+  - rpcbind
+
+# Exports file to add shares to.  NOTE:  Files in `/etc/exports.d` must be named
+# with a `.exports` suffix.
+nfs_server_exports_file: /etc/exports.d/nfs.exports
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.  This will be necesssary for changing the `root` password, or the
+# password of a user other than Ansible's `remote_user`.
+nfs_server_become: true
+
+# The user to sudo/become
+nfs_server_become_user: root

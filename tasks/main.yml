@@ -3,9 +3,8 @@
 - block:
   - name: install NFS server packages
     package:
-      name: "{{ item }}"
+      name: "{{ nfs_server_packages }}"
       state: present
-    loop: "{{ nfs_server_packages }}"
 
   - name: optionally create share directories
     file:
@@ -14,7 +13,7 @@
       owner: "{{ item.owner | default(omit) }}"
       group: "{{ item.group | default(omit) }}"
       mode: "{{ item.mode | default(omit) }}"
-    loop: "{{ nfs_server_shares }}"
+    with_items: "{{ nfs_server_shares }}"
     when: item.create_dir
 
   - name: add shares to {{ nfs_server_exports_file }}
@@ -28,13 +27,13 @@
       # errors in the exports file to the user.
       # validate: 'exportfs %s'
     notify: export NFS shares
-    when: nfs_server_shares | length > 0
+    when: nfs_server_shares
 
   - name: enable and start NFS services
     service:
       name: "{{ item }}"
       state: started
       enabled: true
-    loop: "{{ nfs_server_services }}"
+    with_items: "{{ nfs_server_services }}"
   become: "{{ nfs_server_become }}"
   become_user: "{{ nfs_server_become_user }}"

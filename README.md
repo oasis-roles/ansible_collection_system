@@ -21,8 +21,9 @@ Currently the following variables are supported:
 
 ### General
 
-* `nfs_server_packages` - List of packages to install for the NFS server.
-  Defaults to `nfs-utils`.
+* `nfs_server_shares` - List of NFS shares to create in
+  `nfs_server_exports_file`, defined as an empty list by default. See
+  [Example Playbook](#example-playbook) for syntax.
 
 * `nfs_server_services` - List of services to enable and start for the NFS
   server.  Defaults to `nfs` and `rpcbind` to support NFSv3.  Note that
@@ -36,10 +37,6 @@ Currently the following variables are supported:
   to gain admin privileges.  Defaults to `true`.
 
 * `nfs_server_become_user` - The user to sudo/become.  Defaults to `root`.
-
-* `nfs_server_shares` - List of NFS shares to create in
-  `nfs_server_exports_file`, defined as an empty list by default. See
-  [Example Playbook](#example-playbook) for syntax.
 
 Dependencies
 ------------
