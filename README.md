@@ -29,7 +29,7 @@ Currently the following variables are supported:
 * `chrony_enable_rtcsync` - Enable/disable kernel synchronization of the real-time clock (RTC) (set to `true` by default)
 * `chrony_hwtimestamp_interfaces` - A list of interfaces in which to enable hardware timestamping. Entered as a string separating each interface with a space (not configured by default)
 * `chrony_num_minsources` - The minimum number of select-able sources required to adjust the system clock (not configured by default)
-* `chrony_NTP_client` - The local network from which to allow NTP client access (not configured by default)
+* `chrony_ntp_client` - The local network from which to allow NTP client access (not configured by default)
 * `chrony_keyfile_path` - Path to a key file on the remote hosts for NTP authentication (not configured by default)
 * `chrony_logdir_path` - Path to a directory on the remote hosts in which to store log files (set to `/var/log/chrony` by default)
 * `chrony_logged_information` - A list of information to log. Entered as a string separating each piece of information with a space (not configured by default)

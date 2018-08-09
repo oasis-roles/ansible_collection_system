@@ -32,7 +32,7 @@ chrony_enable_rtcsync: true
 # chrony_num_minsources: 2
 
 # Set the local network from which to allow NTP client access
-# chrony_NTP_client: 192.168.0.0/16
+# chrony_ntp_client: 192.168.0.0/16
 
 # Specify path to the file containing keys for NTP authentication
 # chrony_keyfile_path: /etc/chrony.keys
