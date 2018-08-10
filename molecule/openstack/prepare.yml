@@ -1,0 +1,18 @@
+- hosts: all
+  roles:
+    - role: oasis-roles.firewalld
+      firewalld_zone: public
+      firewalld_ports_open:
+        # rpc-bind /usr/lib/firewalld/services/rpc-bind.xml
+        - proto: tcp
+          port: 111
+        - proto: udp
+          port: 111
+        # mountd /usr/lib/firewalld/services/mountd.xml
+        - proto: tcp
+          port: 20048
+        - proto: udp
+          port: 20048
+        # NFSv4 /usr/lib/firewalld/services/nfs.xml
+        - proto: tcp
+          port: 2049

@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/openstack/requirements.yml
 driver:
   name: openstack
 lint:
@@ -15,12 +17,15 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
-    converge: ../shared/playbook.yml
+    prepare: prepare.yml
+    converge: playbook.yml
 scenario:
   name: openstack
 verifier:
   name: testinfra
+  options:
+    # Add a -v so you see the individual test names,
+    # particularly useful with parameterized tests
+    v: true
   lint:
     name: flake8
-  directory: ../shared/
