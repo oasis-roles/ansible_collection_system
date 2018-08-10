@@ -105,8 +105,6 @@ To default to the latest available minor version of repositories:
 rhsm_release_unset: true
 ```
 
-
-
 Role Output
 -----------
 
@@ -117,8 +115,13 @@ The `oasis_role_rhsm` fact will be set by this role, containing the following ou
 - `subscribed` - Whether or not the system is registered. (bool)
 - `subscribed_pool_ids` - A list of pool IDs current attached to the system. Will be an empty list if no pools are attached,
   or if the system is not currently registered.
+
+Deprecated:
+
 - `release` - The current operating system release version being used by `subscription-manager`. Will be `null` if no specific
   version is set, or if the system is not subscribed.
+
+The `release` output is deprecated and will be removed in the next release of `rhsm`.
 
 Dependencies
 ------------

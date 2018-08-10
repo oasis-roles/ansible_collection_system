@@ -22,11 +22,19 @@
   - include_tasks: release.yml
     when: rhsm_release or rhsm_release_unset
 
+  # decide whether or not to use the vendored rhsm_repository module,
+  # which first appeared in ansible 2.5
+  - name: Determine if vendored rhsm_repository module should be used
+    set_fact:
+      _rhsm_repository_task: >-
+        {{ ansible_version.full is version_compare('2.5', '>=') |
+           ternary('rhsm_repository', '_rhsm_repository') }}
+
   - include_tasks: repo_only.yml
     when: "'only' in rhsm_repositories"
 
   - include_tasks: repo_endisable.yml
-    when: "rhsm_repositories and 'only' not in rhsm_repositories"
+    when: "'only' not in rhsm_repositories"
 
   - include_tasks: output.yml
   become: true
