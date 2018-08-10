@@ -1,0 +1,21 @@
+# role tasks
+- block:
+  - name: Verify chronyd is installed
+    package:
+      name: "{{ chrony_package }}"
+      state: present
+
+  - name: Edit chrony config file
+    template:
+      src: chrony.conf
+      dest: /etc/chrony.conf
+    notify:
+      - Restart chrony service
+
+  - name: Enable chronyd service
+    service:
+      name: chronyd
+      state: started
+      enabled: true
+  become: true
+  become_user: "{{ chrony_become_user }}"
