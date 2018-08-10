@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/oasis-roles/chrony.svg?branch=master)](https://travis-ci.org/oasis-roles/chrony)
 
-ROLE NAME
+CHRONY
 ===========
 
 Role to setup the chronyd service
