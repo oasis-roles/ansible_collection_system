@@ -19,6 +19,19 @@ provisioner:
     converge: ../shared/playbook.yml
 scenario:
   name: openstack
+  # Updates made to test_sequence to remove idempotence check.
+  # Rebooting is not an idempotent task.
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - destroy
 verifier:
   name: testinfra
   options:
