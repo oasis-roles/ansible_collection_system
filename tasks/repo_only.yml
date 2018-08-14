@@ -1,5 +1,5 @@
-# these tasks the idempotent equivalent of disabling all repos and then only
-# enabling specific ones, as seen in the rhsm_repository module docs.
+# these tasks are the idempotent equivalent of disabling all repos and then
+# only enabling specific ones, as seen in the rhsm_repository module docs.
 - name: Enable specific repositories
   action: "{{ _rhsm_repository_task }}"
   args:
