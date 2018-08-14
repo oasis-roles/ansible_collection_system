@@ -1,0 +1,2 @@
+[flake8]
+exclude = library/_rhsm_repository.py

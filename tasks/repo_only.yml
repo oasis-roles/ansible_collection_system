@@ -1,15 +1,15 @@
+# these tasks the idempotent equivalent of disabling all repos and then only
+# enabling specific ones, as seen in the rhsm_repository module docs.
 - name: Enable specific repositories
-  rhsm_repository:
+  action: "{{ _rhsm_repository_task }}"
+  args:
     state: enabled
     name: "{{ rhsm_repositories.only | default([]) }}"
   register: rhsm_repositories_enabled
 
-# this fun bit of data-mangling is the idempotent equivalent of
-# disabling all repos and then only enabling specific ones:
-# use the return value from the enable step and remove every
-# enabled repo not in the rhsm_repositories.only list.
 - name: Disable all other repositories
-  rhsm_repository:
+  action: "{{ _rhsm_repository_task }}"
+  args:
     state: disabled
     name: "{{ rhsm_repositories_enabled.repositories |
               map(attribute='id') |
