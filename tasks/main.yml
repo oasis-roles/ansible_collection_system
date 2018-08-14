@@ -5,10 +5,9 @@
 
 - name: inject hostname to hosts file
   blockinfile:
-    path: "{{ item }}"
+    path: /etc/hosts
     block: "127.0.0.1 {{ hostname }} {{ hostname_aliases | join(' ') }}"
     state: present
   become: "{{ hostname_become }}"
   become_user: "{{ hostname_become_user }}"
-  with_items: "{{ hostname_hosts_files }}"
   when: hostname_inject_hosts_files

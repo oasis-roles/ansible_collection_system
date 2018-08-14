@@ -25,9 +25,6 @@ Currently the following variables are supported:
 * `hostname` - The (probably FQDN) hostname to set for the host
 * `hostname_aliases` - An optional array of shortened hostnames to set into
   the /etc/hosts file.
-* `hostname_hosts_files` - An array of files that match /etc/hosts in syntax
-  into which lines should be injected that map 127.0.0.1 to the new hostname
-  plus any aliases in the array. Defaults to `['/etc/hosts']`.
 * `hostname_inject_hosts_files` - Set to false if you do not wish to inject
   lines into the hosts files. Defaults to `true`.
 * `hostname_become` - Set to false if you do not wish to sudo/become a
