@@ -1,0 +1,34 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-localectl
+    image: rhel-7.4-server-x86_64-updated
+    flavor: m1.medium
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+scenario:
+  name: openstack
+verifier:
+  name: testinfra
+  options:
+    # Add a -v so you see the individual test names,
+    # particularly useful with parameterized tests
+    v: true
+  lint:
+    name: flake8
+  # Using the shared directory is useful for sharing tests across scenarios,
+  # but is not a requirement. For scenario specific tests, add the appropriate
+  # file path to the test or test directory below
+  additional_files_or_dirs:
+    - ../shared/*
