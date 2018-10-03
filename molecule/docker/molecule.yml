@@ -20,8 +20,8 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
-    converge: ../shared/playbook.yml
+    prepare: prepare.yml
+    converge: playbook.yml
 scenario:
   name: docker
 verifier:

@@ -1,1 +1,18 @@
 # defaults file for reboot
+
+# seconds to wait before reboot to allow ansible to wrap up its connection.
+reboot_seconds_before_reboot: 2
+
+# time to wait after reboot before trying to connect. Setting this value too
+# low is not recommend as it could present a false failure for this role.
+reboot_wait_for_connection_delay: 60
+
+# time to wait before giving up
+reboot_wait_for_connection_timeout: 300
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.
+reboot_become: true
+
+# The user to sudo/become.
+reboot_become_user: root

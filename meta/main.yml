@@ -1,13 +1,16 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Steve Murray
+  description: Reboot the target system
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4
   platforms:
     - name: EL
       versions:
-        - 7
+        - all
+    - name: Fedora
+      versions:
+        - all
 
   galaxy_tags:
     - oasis
