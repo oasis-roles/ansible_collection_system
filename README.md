@@ -28,6 +28,7 @@ Currently the following variables are supported:
 * `firewalld_zone` - firewall zone for all rules
 * `firewalld_ports_open` - permanently open ports (IPv4+IPv6) for given
   firewall zone
+* `firewalld_services` - a list of named services for firewalld to enable
 * `firewalld_ports_forward` - permanently forward local ports (IPv4+IPV6) for
   given firewall zone, e.g. TCP 80->8080 for webapps
 * `firewalld_become` - use Ansible "become" for proper authorization to manage
@@ -41,7 +42,7 @@ None
 Example Playbook
 ----------------
 
-```
+```yaml
 - hosts: firewalld-servers
   roles:
     - role: firewalld
@@ -51,6 +52,8 @@ Example Playbook
           port: 8080
         - proto: udp
           port: 9990-9999
+      firewalld_services:
+        - ssh
       firewalld_ports_forward:
         - proto: tcp
           port: 80

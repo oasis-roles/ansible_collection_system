@@ -10,6 +10,16 @@
     zone: "{{ firewalld_zone }}"
   loop: "{{ firewalld_ports_open }}"
 
+- name: add services for zone "{{ firewalld_zone }}"
+  become: "{{ firewalld_become }}"
+  firewalld:
+    service: "{{ item }}"
+    state: enabled
+    permanent: true
+    immediate: true
+    zone: "{{ firewalld_zone }}"
+  loop: "{{ firewalld_services }}"
+
 - name: locally forward ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
   become: "{{ firewalld_become }}"
   firewalld:

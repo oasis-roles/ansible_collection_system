@@ -3,6 +3,8 @@
   roles:
     - role: firewalld
       firewalld_zone: public
+      firewalld_services:
+        - ssh
       firewalld_ports_open:
         - proto: tcp
           port: 8080
