@@ -1,5 +1,12 @@
 # role tasks
 
+- name: enable and start firewalld
+  become: "{{ firewalld_become }}"
+  service:
+    name: firewalld
+    state: started
+    enabled: true
+
 - name: open ports for zone "{{ firewalld_zone }}" (IPv4+IPv6)
   become: "{{ firewalld_become }}"
   firewalld:
