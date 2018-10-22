@@ -18,7 +18,7 @@ firewalld_ports_open: []
 # list of service names to add to the firewalld configuration. These services
 # must be ones that are already known to firewalld, for example, those listed
 # in the output of `firewall-cmd --get-services`
-firewalld_services_open: []
+firewalld_services: []
 
 # permanently forward local ports (IPv4+IPV6) for given firewall zone, e.g. TCP
 # 80->8080 for webapps
