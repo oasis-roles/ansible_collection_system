@@ -1,1 +1,4 @@
-# Handlers for update_ca_trust
+- name: update-ca-trust
+  command: update-ca-trust force-enable
+  become: "{{ update_ca_trust_become }}"
+  become_user: "{{ update_ca_trust_become_user }}"
