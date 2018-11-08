@@ -4,6 +4,11 @@
 
 Add IP addresses to a NetworkManager connection using the `nmcli` tool.
 
+This is intended to be used on connections that are already managed by
+NetworkManager, and also already "up". Initial setup of connections should
+be done during system install, or using the ansible
+[nmcli module](https://docs.ansible.com/ansible/latest/modules/nmcli_module.html).
+
 ## Requirements
 
 Ansible 2.4 or higher
@@ -29,7 +34,10 @@ Currently the following variables are supported:
 One of `nmcli_add_addrs_connection` or `nmcli_add_addrs_interface` must be
 set. If both the connection name and interface are known, only the connection
 name should be used. `nmcli_add_addrs_connection` takes precedence over
-`nmcli_add_addrs_interface`.
+`nmcli_add_addrs_interface`, and the ability to determine the NetworkManager
+connection name from an interface is not guaranteed. This role will fail in
+the case where the connection name cannot be determined based on the connection
+name; specifying the connection name is more reliable.
 
 ### Notes
 
