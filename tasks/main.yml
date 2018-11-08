@@ -29,6 +29,16 @@
     - name: Set nmcli_add_addrs_connection
       set_fact:
         nmcli_add_addrs_connection: "{{ _nmcli_device.stdout }}"
+      # If the output is '--', NM does not have a connection
+      # associated with this interface
+      when: _nmcli_device.stdout != '--'
+
+    - name: Fail if connection for interface could not be determined
+      fail:
+        msg: |-
+          Could not determine connection for interface
+          {{ nmcli_add_addrs_interface }}
+      when: nmcli_add_addrs_connection is undefined
   when: nmcli_add_addrs_connection is undefined and
         nmcli_add_addrs_interface is defined
 
