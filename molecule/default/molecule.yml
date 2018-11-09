@@ -1,0 +1,44 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+volumes:
+  - name: gluster_gdeploy_vol0
+    size: 100
+  - name: gluster_gdeploy_vol1
+    size: 100
+  - name: gluster_gdeploy_vol2
+    size: 100
+  - name: gluster_gdeploy_vol3
+    size: 100
+platforms:
+  - name: test-gluster_gdeploy0
+    image: rhel-7.4-server-x86_64-updated
+    flavor: m1.medium
+    volumes:
+      - gluster_gdeploy_vol0
+      - gluster_gdeploy_vol1
+  - name: test-gluster_gdeploy1
+    image: rhel-7.4-server-x86_64-updated
+    flavor: m1.medium
+    volumes:
+      - gluster_gdeploy_vol2
+      - gluster_gdeploy_vol3
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+scenario:
+  name: default
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../shared/

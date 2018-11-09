@@ -1,0 +1,5 @@
+- name: run gdeploy
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"
+  command: gdeploy -c {{ gluster_gdeploy_configuration_file_destination_path }}
+  changed_when: false
