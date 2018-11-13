@@ -1,1 +1,60 @@
 # role tasks
+
+- name: Check localectl status before
+  command: localectl status
+  register: localectl
+  changed_when: "localectl.rc != 0"
+
+- name: set the localectl before fact
+  set_fact:
+    localectl_before: "{{ localectl.stdout_lines | join ('\n') }}"
+
+- name: Set the language locale
+  command: localectl set-locale "{{ localectl_system_locale}}"
+  register: locale
+  changed_when: "locale.rc != 0"
+  become: "{{ localectl_become }}"
+  become_user: "{{ localectl_become_user }}"
+
+- name: Set the keymap
+  command: >
+    localectl set-keymap --no-convert "{{ localectl_vc_keymap }}"
+  register: keymap
+  changed_when: "keymap.rc != 0"
+  become: "{{ localectl_become }}"
+  become_user: "{{ localectl_become_user }}"
+
+- name: Set the X11keymap
+  command: >
+    localectl set-x11-keymap --no-convert "{{ localectl_x11_layout }}"
+  register: layout
+  changed_when: "layout.rc != 0"
+  become: "{{ localectl_become }}"
+  become_user: "{{ localectl_become_user }}"
+
+- name: Check localectl status after
+  command: localectl status
+  register: localectl_after
+  changed_when: "localectl.rc != 0"
+
+- name: set the localectl after fact
+  set_fact:
+    locale_ctl_after: "{{ localectl_after.stdout_lines | join ('\n') }}"
+
+- name: Check for new localectl_system_locale
+  assert:
+    that: locale_ctl_after.split()[2] == "{{ localectl_system_locale }}"
+    msg: >
+       Failed to set localectl_system_locale
+
+- name: Check for new localectl_vc_keymap
+  assert:
+    that: locale_ctl_after.split()[5]  == "{{ localectl_vc_keymap }}"
+    msg: >
+       Failed to set localectl_vc_keymap
+
+- name: Check for new localectl_x11_layout
+  assert:
+    that: locale_ctl_after.split()[8] == "{{ localectl_x11_layout }}"
+    msg: >
+       Failed to set localectl_x11_layout
