@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Steve Murray
+  description: Set systmctl; System Locale, VC Keymap, and X11 Layout settings
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4
