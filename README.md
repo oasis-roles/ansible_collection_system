@@ -27,9 +27,9 @@ Currently the following variables are supported:
 
 * `localectl_x11_layout` Defaults to US.  Use this to set the desired X11 Layout designation for your system.
 
-* `reboot_become` - Defaults to 'true'.  Whether or not to use the    `become` feature of Ansible to gain admin privileges.`
+* `localectl_become` - Defaults to 'true'.  Whether or not to use the    `become` feature of Ansible to gain admin privileges.`
 
-* `reboot_become_user` - Defaults to 'root'.  The user to sudo/become
+* `localectl_become_user` - Defaults to 'root'.  The user to sudo/become
 
 Dependencies
 ------------
