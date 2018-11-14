@@ -7,7 +7,7 @@ localectl_system_locale: LANG=en_US.UTF-8
 localectl_keymap: us
 
 # Set your systems X11-Layout designation
-localectl_x11_layout: us
+localectl_x11_keymap: us
 
 # Whether or not to use the `become` feature of Ansible to gain admin
 # privileges.

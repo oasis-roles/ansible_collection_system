@@ -26,7 +26,7 @@
 
 - name: Set the X11keymap
   command: >
-    localectl set-x11-keymap --no-convert "{{ localectl_x11_layout }}"
+    localectl set-x11-keymap --no-convert "{{ localectl_x11_keymap }}"
   register: layout
   changed_when: "layout.rc != 0"
   become: "{{ localectl_become }}"
@@ -55,6 +55,6 @@
 
 - name: Check for new localectl_x11_layout
   assert:
-    that: locale_ctl_after.split()[8] == "{{ localectl_x11_layout }}"
+    that: locale_ctl_after.split()[8] == "{{ localectl_x11_keymap }}"
     msg: >
        Failed to set localectl_x11_layout
