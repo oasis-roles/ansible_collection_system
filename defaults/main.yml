@@ -4,7 +4,7 @@
 localectl_system_locale: LANG=en_US.UTF-8
 
 # Set your systems Keymap designation
-localectl_vc_keymap: us
+localectl_keymap: us
 
 # Set your systems X11-Layout designation
 localectl_x11_layout: us

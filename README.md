@@ -23,7 +23,7 @@ Currently the following variables are supported:
 
 * `localectl_system_locale` - Defaults to LANG=en_US.UTF-8. Use this to set the desired language System locale designation for your system.
 
-* `localectl_vc_keymap` - Defaults to US.  Use this to set the the desired VC Keymap designation for your system.
+* `localectl_keymap` - Defaults to US.  Use this to set the the desired VC Keymap designation for your system.
 
 * `localectl_x11_layout` Defaults to US.  Use this to set the desired X11 Layout designation for your system.
 
@@ -44,7 +44,7 @@ Example Playbook
   roles:
     - role: oasis-roles.localectl
       localectl_system_locale: LANG=en_US.UTF-8
-      localectl_vc_keymap: us
+      localectl_keymap: us
       localectl_x11_layout: us
       localectl_become: true
       localectl_become_user: root

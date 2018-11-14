@@ -18,7 +18,7 @@
 
 - name: Set the keymap
   command: >
-    localectl set-keymap --no-convert "{{ localectl_vc_keymap }}"
+    localectl set-keymap --no-convert "{{ localectl_keymap }}"
   register: keymap
   changed_when: "keymap.rc != 0"
   become: "{{ localectl_become }}"
@@ -47,11 +47,11 @@
     msg: >
        Failed to set localectl_system_locale
 
-- name: Check for new localectl_vc_keymap
+- name: Check for new localectl_keymap
   assert:
-    that: locale_ctl_after.split()[5]  == "{{ localectl_vc_keymap }}"
+    that: locale_ctl_after.split()[5]  == "{{ localectl_keymap }}"
     msg: >
-       Failed to set localectl_vc_keymap
+       Failed to set localectl_keymap
 
 - name: Check for new localectl_x11_layout
   assert:
