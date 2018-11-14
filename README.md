@@ -58,4 +58,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <stmurray@redhat.com>
+Steve Murray <stmurray@redhat.com>

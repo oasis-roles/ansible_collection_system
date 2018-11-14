@@ -10,8 +10,7 @@
     localectl_before: "{{ localectl.stdout_lines | join ('\n') }}"
 
 - name: Set the language locale
-  command: echo
-  #command: localectl set-locale "{{ localectl_system_locale}}"
+  command: localectl set-locale "{{ localectl_system_locale}}"
   register: locale
   changed_when: "locale.rc != 0"
   become: "{{ localectl_become }}"
