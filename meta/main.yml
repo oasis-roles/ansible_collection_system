@@ -1,6 +1,6 @@
 galaxy_info:
   author: Steve Murray
-  description: Set systmctl; System Locale, VC Keymap, and X11 Layout settings
+  description: Set system locale and keyboard layout settings using localectl
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4

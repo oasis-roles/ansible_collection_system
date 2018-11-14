@@ -1,60 +1,36 @@
 # role tasks
 
-- name: Check localectl status before
-  command: localectl status
-  register: localectl
-  changed_when: "localectl.rc != 0"
+- name: Find the current locale setting
+  slurp:
+    src: /etc/locale.conf
+  register: host_locale
 
-- name: set the localectl before fact
-  set_fact:
-    localectl_before: "{{ localectl.stdout_lines | join ('\n') }}"
-
-- name: Set the language locale
-  command: localectl set-locale "{{ localectl_system_locale}}"
-  register: locale
-  changed_when: "locale.rc != 0"
+- name: update locale if needed
   become: "{{ localectl_become }}"
   become_user: "{{ localectl_become_user }}"
+  command: localectl set-locale LANG="{{ localectl_locale}}"
+  when: localectl_locale not in host_locale.content | b64decode
 
-- name: Set the keymap
+- name: Find the current keymap setting
+  slurp:
+    src: /etc/vconsole.conf
+  register: host_keymap
+
+- name: update keymap if needed
+  become: "{{ localectl_become }}"
+  become_user: "{{ localectl_become_user }}"
   command: >
     localectl set-keymap --no-convert "{{ localectl_keymap }}"
-  register: keymap
-  changed_when: "keymap.rc != 0"
+  when: localectl_keymap not in host_keymap.content | b64decode
+
+- name: Find the current x11_keymap setting
+  slurp:
+    src: /etc/X11/xorg.conf.d/00-keyboard.conf
+  register: host_x11_keymap
+
+- name: update x11keymap if needed
   become: "{{ localectl_become }}"
   become_user: "{{ localectl_become_user }}"
-
-- name: Set the X11keymap
   command: >
     localectl set-x11-keymap --no-convert "{{ localectl_x11_keymap }}"
-  register: layout
-  changed_when: "layout.rc != 0"
-  become: "{{ localectl_become }}"
-  become_user: "{{ localectl_become_user }}"
-
-- name: Check localectl status after
-  command: localectl status
-  register: localectl_after
-  changed_when: "localectl.rc != 0"
-
-- name: set the localectl after fact
-  set_fact:
-    locale_ctl_after: "{{ localectl_after.stdout_lines | join ('\n') }}"
-
-- name: Check for new localectl_system_locale
-  assert:
-    that: locale_ctl_after.split()[2] == "{{ localectl_system_locale }}"
-    msg: >
-       Failed to set localectl_system_locale
-
-- name: Check for new localectl_keymap
-  assert:
-    that: locale_ctl_after.split()[5]  == "{{ localectl_keymap }}"
-    msg: >
-       Failed to set localectl_keymap
-
-- name: Check for new localectl_x11_layout
-  assert:
-    that: locale_ctl_after.split()[8] == "{{ localectl_x11_keymap }}"
-    msg: >
-       Failed to set localectl_x11_layout
+  when: localectl_x11_keymap not in host_x11_keymap.content | b64decode
