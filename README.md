@@ -18,6 +18,14 @@ Red Hat Enterprise Linux 7 or equivalent
 
 Valid Red Hat Subscriptions
 
+**IMPORTANT** This role can only be used to set up a single cluster per invocation.
+Because of the way GDeploy works, being run from only a single host across all of
+the hosts in the Gluster cluster, this role makes use of the `ansible_play_hosts`
+variable to build the cluster. Thus, if you are setting up multiple Gluster clusters
+from a single playbook, you will need to call this role multiple times in your
+playbook with each play setting up a single cluster. Future improvements to this
+role might lift that restriction, but for the time being that limit remains.
+
 Role Variables
 --------------
 
