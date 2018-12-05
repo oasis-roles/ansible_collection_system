@@ -16,9 +16,13 @@ install:
   - flake8 --version
   - molecule --version
 
+env:
+  - TEST=docker
+  - TEST=docker_fedora
+
 script:
   - molecule lint -s openstack
-  - molecule test -s docker
+  - molecule test -s "${TEST}"
   - flake8 $(find . -name '*.py')
 
 notifications:

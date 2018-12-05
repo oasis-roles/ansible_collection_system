@@ -1,0 +1,21 @@
+dependency:
+  name: galaxy
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: instance_fedora
+    image: fedora:latest
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+scenario:
+  name: docker_fedora
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
