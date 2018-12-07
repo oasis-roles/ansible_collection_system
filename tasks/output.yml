@@ -17,8 +17,8 @@
     oasis_roles_rhsm:
       subscribed: "{{ oasis_roles_rhsm_subscription.rc == 0 }}"
       subscribed_pool_ids: "{{ oasis_roles_rhsm_pools.stdout.split() }}"
-      release: "{{ oasis_roles_rhsm_release }}"
 
       # Included here mainly for use by tests to ensure the version-based
-      # task module selection actually works in different versions of ansible.
+      # task module selections actually work in different versions of ansible.
       _rhsm_repository_task: "{{ _rhsm_repository_task }}"
+      _rhsm_repository_release_task: "{{ _rhsm_repository_release_task }}"

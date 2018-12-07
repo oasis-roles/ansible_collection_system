@@ -53,8 +53,9 @@ Note:
 > Using variables related to repository management may result in the role reporting a failure if the system is not registered.
 > Subscription tasks are run before repository management tasks to facilitate registration state before processing these variables.
 
-* `rhsm_release` - Set which operating system release version to use. Remember to quote this, since release versions tend to look like
-  floats to the YAML parser, e.g.  set the value to something like `"7.4"`, not `7.4`
+* `rhsm_release` - Set which operating system release version to use. Remember to quote this for release versions that look like
+  floats to the YAML parser, e.g.  set the value to something like `"7.4"`, not `7.4`. Values like `6Server` and `7Server` do not
+  need to be quoted.
 * `rhsm_release_unset` - Unset which operating system release version to use (bool, default false)
 * `rhsm_repositories` - Specifies which repositories to enable/disable, details below
 
@@ -116,13 +117,6 @@ The `oasis_role_rhsm` fact will be set by this role, containing the following ou
 - `subscribed_pool_ids` - A list of pool IDs current attached to the system. Will be an empty list if no pools are attached,
   or if the system is not currently registered.
 
-Deprecated:
-
-- `release` - The current operating system release version being used by `subscription-manager`. Will be `null` if no specific
-  version is set, or if the system is not subscribed.
-
-The `release` output is deprecated and will be removed in the next release of `rhsm`.
-
 Dependencies
 ------------
 
@@ -134,7 +128,8 @@ Example Playbooks
 -----------------
 
 This example registers a system with a username and password, auto-attaches,
-and enables three RHEL 7 repositories.
+enables three RHEL 7 repositories, and explictly sets the repository release
+version of enabled repositories to "7Server".
 
 ```yaml
 - hosts: rhsm-servers
@@ -149,6 +144,7 @@ and enables three RHEL 7 repositories.
         - rhel-7-server-rpms
         - rhel-7-server-optional-rpms
         - rhel-7-server-extras-rpms
+    rhsm_release: 7Server
 ```
 
 ---

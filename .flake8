@@ -1,2 +1,5 @@
 [flake8]
-exclude = library/_rhsm_repository.py
+# exclude modules vendored from ansible upstream
+exclude =
+    library/_rhsm_repository.py
+    library/_rhsm_repository_release.py

@@ -2,14 +2,13 @@
 #      rhsm_repositories module, which would remove the need to set facts to
 #      ensure idempotence when using the command module.
 - name: Unset subscription-manager release
-  command: subscription-manager release --unset
-  when: rhsm_release_unset and oasis_roles_rhsm_release
-  register: rhsm_release_unset_task
+  action: "{{ _rhsm_repository_release_task }}"
+  args:
+    release: null
+  when: rhsm_release_unset
 
 - name: Set subscription-manager release
-  command: subscription-manager release --set {{ rhsm_release }}
-  when: rhsm_release and oasis_roles_rhsm_release != rhsm_release
-  register: rhsm_release_set_task
-
-# Set facts again after unsetting/setting s-m release
-- include_tasks: release_fact.yml
+  action: "{{ _rhsm_repository_release_task }}"
+  args:
+    release: "{{ rhsm_release }}"
+  when: rhsm_release
