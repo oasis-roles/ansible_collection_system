@@ -1,8 +1,8 @@
 - name: Check that either interface or connection name is provided
   assert:
     that: >
-      nmcli_add_addrs_connection != omit or
-      nmcli_add_addrs_interface != omit
+      nmcli_add_addrs_connection is defined or
+      nmcli_add_addrs_interface is defined
     msg: >
       Either the 'nmcli_add_addrs_connection' or the
       'nmcli_add_addrs_interface' var must be set to proceed.
@@ -29,7 +29,18 @@
     - name: Set nmcli_add_addrs_connection
       set_fact:
         nmcli_add_addrs_connection: "{{ _nmcli_device.stdout }}"
-  when: nmcli_add_addrs_connection == omit
+      # If the output is '--', NM does not have a connection
+      # associated with this interface
+      when: _nmcli_device.stdout != '--'
+
+    - name: Fail if connection for interface could not be determined
+      fail:
+        msg: |-
+          Could not determine connection for interface
+          {{ nmcli_add_addrs_interface }}
+      when: nmcli_add_addrs_connection is undefined
+  when: nmcli_add_addrs_connection is undefined and
+        nmcli_add_addrs_interface is defined
 
 - name: Inspect existing addresses
   # Saner awk to match the item string, and pull out the second field.
