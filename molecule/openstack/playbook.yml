@@ -6,6 +6,10 @@
         - name: jenkins_manual
           baseurl: http://pkg.jenkins.io/redhat-stable
           gpgcheck: true
+          exclude:
+            - a
+            - b
+            - c
       system_repositories_rpm_keys:
         - https://pkg.jenkins.io/redhat-stable/jenkins.io.key
   post_tasks:

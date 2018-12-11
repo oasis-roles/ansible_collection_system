@@ -5,7 +5,7 @@
     description: "{{ item.description | default('Configured by Ansible') }}"
     enabled: "{{ item.enabled | default(omit) }}"
     enablegroups: "{{ item.enablegroups | default(omit) }}"
-    exclude: "{{ ( item.exclude | default([]) ) | join(' ') }}"
+    exclude: "{{ (item | system_repositories_exclude_join) | default(omit) }}"
     failovermethod: "{{ item.failovermethod | default(omit) }}"
     gpgcakey: "{{ item.gpgcakey | default(omit) }}"
     gpgcheck: "{{ item.gpgcheck | default(omit) }}"
@@ -37,10 +37,15 @@
     mode: "{{ system_repositories_mode }}"
   with_items: "{{ system_repositories_repo_files }}"
 
+- name: auto RPM keys
+  set_fact:
+    _auto_rpm_keys: >-
+      {{ system_repositories_configs | system_repositories_gpgkeys }}
+
 - name: install RPM keys
   become: "{{ system_repositories_become }}"
   rpm_key:
     key: "{{ item }}"
     state: present
     validate_certs: "{{ system_repositories_validate_certs }}"
-  with_items: "{{ system_repositories_rpm_keys }}"
+  with_items: "{{ _auto_rpm_keys + system_repositories_rpm_keys }}"
