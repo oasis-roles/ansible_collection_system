@@ -1,0 +1,2 @@
+docker_access_users:
+  - "{{ ansible_user_id }}"

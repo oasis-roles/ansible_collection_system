@@ -1,0 +1,28 @@
+- name: install docker
+  become: true
+  package:
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: add docker group
+  become: true
+  group:
+    name: docker
+    state: present
+  notify: restart docker
+
+- name: add users to docker group
+  become: true
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+    state: present
+  with_items: "{{ docker_access_users }}"
+
+- name: start and enable Docker
+  become: true
+  service:
+    name: docker
+    state: started
+    enabled: true

@@ -1,0 +1,10 @@
+- name: install python2
+  hosts: all
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+    - name: install python2, necessary for testinfra to run
+      become: true
+      package:
+        name: python-unversioned-command
+        state: present
