@@ -18,8 +18,7 @@ install:
   - molecule --version
 
 script:
-  - molecule lint -s openstack
-  - molecule test -s docker
+  - molecule lint
   - flake8 $(find . -name '*.py')
 
 notifications:
