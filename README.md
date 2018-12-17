@@ -3,7 +3,7 @@
 localectl
 ===========
 
-Basic description for localectl
+Set system locale and keyboard layout settings using localectl
 
 Requirements
 ------------
@@ -21,7 +21,15 @@ Currently the following variables are supported:
 
 ### General
 
-* `localectl_var_name` - var\_name description
+* `localectl_locale` - Defaults to en_US.UTF-8. Use this to set the desired language System locale designation for your system.
+
+* `localectl_keymap` - Defaults to US.  Use this to set the the desired VC Keymap designation for your system.
+
+* `localectl_x11_keymap` Defaults to US.  Use this to set the desired X11 Layout designation for your system.
+
+* `localectl_become` - Defaults to 'true'.  Whether or not to use the `become` feature of Ansible to gain admin privileges.`
+
+* `localectl_become_user` - Defaults to 'root'.  The user to sudo/become
 
 Dependencies
 ------------
@@ -35,6 +43,11 @@ Example Playbook
 - hosts: localectl-servers
   roles:
     - role: oasis-roles.localectl
+      localectl_locale: en_US.UTF-8
+      localectl_keymap: us
+      localectl_x11_keymap: us
+      localectl_become: true
+      localectl_become_user: root
 ```
 
 License
@@ -45,4 +58,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Steve Murray <stmurray@redhat.com>
