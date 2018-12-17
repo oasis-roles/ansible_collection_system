@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Steve Murray
-  description: Set system locale and keyboard layout settings using localectl
+  author: Author Name
+  description: My Description
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4
