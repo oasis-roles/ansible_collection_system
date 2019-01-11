@@ -1,0 +1,9 @@
+molecule/default/subscription.yml
+molecule/defulat/gdeploy.conf
+.*.swp
+.*.swo
+*.pyc
+*.pyo
+__pycache__/*
+molecule/*/junit.xml
+molecule/*/pytestdebug.log

@@ -1,0 +1,9 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: gluster_gdeploy
+      gluster_gdeploy_configuration_file:
+        "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/gdeploy.conf"
+    - role: oasis-roles.firewalld
+      firewalld_services:
+        - glusterfs

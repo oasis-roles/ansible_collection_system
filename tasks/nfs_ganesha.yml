@@ -1,0 +1,6 @@
+- name: install Gluster NFS packages
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"
+  package:
+    name: "{{ gluster_gdeploy_nfs_ganesha_packages }}"
+    state: present

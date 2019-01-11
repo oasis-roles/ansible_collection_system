@@ -1,0 +1,6 @@
+- name: install Gluster Samba packages
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"
+  package:
+    name: "{{ gluster_gdeploy_samba_packages }}"
+    state: present

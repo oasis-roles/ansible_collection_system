@@ -1,0 +1,7 @@
+- role: oasis-roles.passwordless_ssh
+  version: also_upload_pub_key
+- oasis-roles.rhsm
+- oasis-roles.firewalld
+- oasis-roles.chrony
+- oasis-roles.reboot
+- oasis-roles.nmcli_add_addrs
