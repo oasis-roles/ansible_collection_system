@@ -9,7 +9,7 @@
         nodes:
           - "{{ hostvars[item]['ansible_host'] | default(item) }}"
         state: present
-      loop: "{{ ansible_play_hosts[1:] }}"
+      loop: "{{ gluster_gdeploy_peers }}"
 
     - name: upload gdeploy conf
       template:
