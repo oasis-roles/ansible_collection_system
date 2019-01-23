@@ -1,5 +1,5 @@
 molecule/default/subscription.yml
-molecule/defulat/gdeploy.conf
+molecule/default/gdeploy.conf
 .*.swp
 .*.swo
 *.pyc
