@@ -34,7 +34,7 @@ Currently the following variables are supported:
 ### General
 
 * `gluster_gdeploy_peers` - A list of hostnames, IP addreses, or similar network
-  addresses that should be probled into the Gluster cluster. This defaults to all
+  addresses that should be probed into the Gluster cluster. This defaults to all
   the hosts in the current play, but can be customized. Doing so is likely to be
   beneficial for production HA or high performance cases where the cluster should
   use a dedicated network that is not the same as the management addresses over
