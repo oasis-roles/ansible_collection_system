@@ -18,11 +18,14 @@
 # as that will be utilized to set known_hosts values in one of the tasks in this
 # role.
 passwordless_ssh_user: root
+
 # The home directory for the user who is being configured.
 passwordless_ssh_user_home: /root
+
 # Name that the private key file will be uploaded to. This should match the
 # key type, by default (id-rsa, id_dsa, etc).
 passwordless_ssh_remote_key_file: id_rsa
+
 # By default all hosts in the current play will be configured to this SSH
 # arrangement. Additional hosts that you want can be added to this array. The
 # values used here should be resolvable as hostnames or IP addresses as they
@@ -30,9 +33,16 @@ passwordless_ssh_remote_key_file: id_rsa
 # into the known_hosts file using the value of this array.
 passwordless_ssh_extra_hosts: []
 
+# Supporting vars for populating known_hosts with host keys
+passwordless_ssh_update_known_hosts: true
+passwordless_ssh_hash_known_hosts: false
+passwordless_ssh_gather_host_keys: false
+passwordless_ssh_host_keys: []
+
 # Whether or not to use the `become` feature of Ansible to gain admin privileges
 # over the user directory where SSH is being configured
 passwordless_ssh_become: true
+
 # The user to sudo/become. If this gets changed from being the same as the user
 # then unexpected things can happen when setting up the known_hosts, as the
 # connections will be performed as a different user than the one who will be
