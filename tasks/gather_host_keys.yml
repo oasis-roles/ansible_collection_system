@@ -1,0 +1,27 @@
+# resolve inventory hostnames to their fqdn, since these lookups
+# will be done from the perspective of the remote host, where the
+# inventory hostname may not resolve
+- name: Collect host names for gathering host keys
+  set_fact:
+    _ssh_gather_hosts: |
+      {{ (ansible_play_batch |
+         map('extract', hostvars, 'ansible_fqdn') |
+         list) + passwordless_ssh_extra_hosts }}
+
+# ssh-keyscan accepts multiple hosts, so we could potentially get all
+# keys for all hosts in one shot, but iterating over hosts provides
+# better feedback at a low overhead cost
+- name: Gather host keys
+  command: ssh-keyscan {{ item }}
+  register: _ssh_host_keyscan
+  with_items: "{{ _ssh_gather_hosts }}"
+  # fact gathering, report no change
+  changed_when: false
+
+# reduce keyscan result to a list of host key entries, which is
+# the expected structure of passwordless_ssh_host_keys.
+- name: Update host keys list with gathered keys
+  set_fact:
+    passwordless_ssh_host_keys: |
+      {{ item.stdout_lines + passwordless_ssh_host_keys }}
+  with_items: "{{ _ssh_host_keyscan.results }}"

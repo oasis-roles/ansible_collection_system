@@ -30,22 +30,22 @@
   become: "{{ passwordless_ssh_become }}"
   become_user: "{{ passwordless_ssh_become_user }}"
 
-- name: update known hosts with the other hosts in this current group
-  known_hosts:
-    path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
-    name: "{{ hostvars[item]['ansible_host'] | default(item) }}"
-    key: "{{ hostvars[item]['ansible_host'] | default(item)}} {{ _public_key }}"
-  with_items: "{{ play_hosts }}"
-  become: "{{ passwordless_ssh_become }}"
-  become_user: "{{ passwordless_ssh_become_user }}"
-  changed_when: false
+- block:
+    - include_tasks: gather_host_keys.yml
+      when: passwordless_ssh_gather_host_keys
 
-- name: update known hosts with the other hosts in this current group
-  known_hosts:
-    path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
-    name: "{{ item }}"
-    key: "{{ item }} {{ _public_key }}"
-  with_items: "{{ passwordless_ssh_extra_hosts }}"
-  become: "{{ passwordless_ssh_become }}"
-  become_user: "{{ passwordless_ssh_become_user }}"
-  changed_when: false
+    - name: update known hosts with all host keys
+      known_hosts:
+        path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+        # The host name is the first element of the key line being added.
+        # Multiple host names are separated by a comma, and hostnames
+        # are separated from the keytype by a space, so split on space
+        # then comma and take the first result.
+        name: "{{ item.split().0.split(',').0 }}"
+        key: "{{ item }}"
+        hash_host: "{{ passwordless_ssh_hash_known_hosts }}"
+      with_items: "{{ passwordless_ssh_host_keys }}"
+      become: "{{ passwordless_ssh_become }}"
+      become_user: "{{ passwordless_ssh_become_user }}"
+      changed_when: false
+  when: passwordless_ssh_update_known_hosts
