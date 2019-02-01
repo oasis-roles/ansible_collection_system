@@ -1,0 +1,53 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    # A custom yamllint file for this scenario, details inside the file
+    config-file: tests/yamllint.yml
+platforms:
+  - name: rhsm-release-set-unset
+    image: rhel-7.5-server-x86_64-updated
+    flavor: m1.medium
+    groups:
+      - rhsm
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../shared/group_vars
+  playbooks:
+    create: ../openstack/create.yml
+    destroy: ../openstack/destroy.yml
+    prepare: ../openstack/prepare.yml
+    converge: playbook.yml
+scenario:
+  name: release_set_unset
+  test_sequence:
+    - lint
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    # idempotence is explicitly excluded from the test sequence for this
+    # scenario, because the playbook is intentionally non-idempotent to
+    # allow for inline assertion tasks
+    # - idempotence
+    - side_effect
+    - verify
+    - destroy
+verifier:
+  name: testinfra
+  options:
+    # Add a -v so you see the individual test names,
+    # particularly useful with parameterized tests
+    v: true
+    junit-xml: junit.xml
+  lint:
+    name: flake8

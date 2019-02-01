@@ -1,0 +1,35 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: rhsm-sub-unsub
+    image: rhel-7.5-server-x86_64-updated
+    flavor: m1.medium
+    groups:
+      - rhsm
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  inventory:
+    links:
+      group_vars: ../shared/group_vars
+  playbooks:
+    create: ../openstack/create.yml
+    destroy: ../openstack/destroy.yml
+    prepare: prepare.yml
+    converge: playbook.yml
+scenario:
+  name: sub_unsub
+verifier:
+  name: testinfra
+  options:
+    v: true
+    junit-xml: junit.xml
+  lint:
+    name: flake8

@@ -1,0 +1,4 @@
+- name: prepare
+  hosts: all
+  roles:
+    - rhsm
