@@ -4,3 +4,7 @@
 *.pyo
 __pycache__/*
 .pytest_cache/*
+
+# artifacts generated during testing
+junit.xml
+output.yml
