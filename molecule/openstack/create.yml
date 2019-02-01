@@ -2,7 +2,6 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
   vars:
     ssh_user: cloud-user
     ssh_port: 22
@@ -10,34 +9,25 @@
     security_group_name: molecule
     security_group_description: "Security group for testing Molecule"
     security_group_rules:
-      - proto: tcp
-        port: "{{ ssh_port }}"
-        cidr: '0.0.0.0/0'
-      - proto: icmp
-        port: -1
-        cidr: '0.0.0.0/0'
       - ethertype: IPv4
-        group: "{{ security_group.id }}"
       - ethertype: IPv6
-        group: "{{ security_group.id }}"
 
     neutron_network_name: "{{ lookup('env', 'OS_NETWORK') }}"
 
     keypair_name: molecule_key
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
-
-    nova_image: rhel-7.4-server-x86_64-updated
-    nova_flavor: "{{ lookup('env', 'OS_NOVA_FLAVOR') }}"
   tasks:
+    - include_tasks: run_hash.yml
+
     - name: Create security group
       os_security_group:
-        name: "{{ security_group_name }}"
+        name: "{{ security_group_name }}-{{ run_hash }}"
         description: "{{ security_group_description }}"
       register: security_group
 
     - name: Create security group rules
       os_security_group_rule:
-        security_group: "{{ security_group_name }}"
+        security_group: "{{ security_group_name }}-{{ run_hash }}"
         protocol: "{{ item.proto | default(omit) }}"
         port_range_min: "{{ item.port | default(omit) }}"
         port_range_max: "{{ item.port | default(omit) }}"
@@ -53,13 +43,13 @@
 
     - name: Delete remote keypair
       os_keypair:
-        name: "{{ keypair_name }}"
+        name: "{{ keypair_name }}-{{ run_hash }}"
         state: absent
       when: not keypair_local.stat.exists
 
     - name: Create keypair
       os_keypair:
-        name: "{{ keypair_name }}"
+        name: "{{ keypair_name }}-{{ run_hash }}"
       register: keypair
 
     - name: Persist the keypair
@@ -75,14 +65,20 @@
 
     - name: Create molecule instance(s)
       os_server:
-        name: "{{ item.name }}"
+        name: "{{ item.name }}-{{ run_hash }}"
         image: "{{ item.image }}"
         flavor: "{{ item.flavor }}"
-        security_groups: "{{ security_group_name }}"
-        key_name: "{{ keypair_name }}"
+        security_groups: "{{ security_group_name }}-{{ run_hash }}"
+        key_name: "{{ keypair_name }}-{{ run_hash }}"
         nics:
           - net-id: "{{ openstack_networks[0]['id'] }}"
         delete_fip: true
+        meta:
+          # The generated inventory will still be using the instance name
+          # as defined in molecule.yml. Stash the original name in the instance
+          # metadata so we can store that in molecule_instance_config, which
+          # is used to generate the inventory.
+          inventory_name: "{{ item.name }}"
       register: server
       with_items: "{{ molecule_yml.platforms }}"
       async: 7200
@@ -97,11 +93,12 @@
       with_items: "{{ server.results }}"
 
     # Mandatory configuration for Molecule to function.
-
     - name: Populate instance config dict
       set_fact:
         instance_conf_dict:
-          instance: "{{ item.openstack.name }}"
+          # Pull the original (non-hashed) instance name out of metadata to
+          # ensure the molecule-generated inventory matches molecule.yml
+          instance: "{{ item.openstack.metadata.inventory_name }}"
           address: "{{ item.openstack.accessIPv4 }}"
           user: "{{ ssh_user }}"
           port: "{{ ssh_port }}"
@@ -119,8 +116,6 @@
 
     - name: Dump instance config
       copy:
-        # NOTE(retr0h): Workaround for Ansible 2.2.
-        #               https://github.com/ansible/ansible/issues/20885
         content: "{{ instance_conf | to_json | from_json | molecule_to_yaml \
                   | molecule_header }}"
         dest: "{{ molecule_instance_config }}"

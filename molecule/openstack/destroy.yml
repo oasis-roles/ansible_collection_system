@@ -2,11 +2,15 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
+  vars:
+    security_group_name: molecule
+    keypair_name: molecule_key
   tasks:
+    - include_tasks: run_hash.yml
+
     - name: Destroy molecule instance(s)
       os_server:
-        name: "{{ item.name }}"
+        name: "{{ item.name }}-{{ run_hash }}"
         state: absent
       register: server
       with_items: "{{ molecule_yml.platforms }}"
@@ -23,15 +27,18 @@
 
     # Mandatory configuration for Molecule to function.
 
-    - name: Populate instance config
-      set_fact:
-        instance_conf: {}
-
-    - name: Dump instance config
+    - name: Clear instance config
       copy:
-        # NOTE(retr0h): Workaround for Ansible 2.2.
-        #               https://github.com/ansible/ansible/issues/20885
-        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml \
-                  | molecule_header }}"
+        content: {}
         dest: "{{ molecule_instance_config }}"
       when: server.changed | bool
+
+    - name: Delete security group
+      os_security_group:
+        name: "{{ security_group_name }}-{{ run_hash }}"
+        state: absent
+
+    - name: Delete remote keypair
+      os_keypair:
+        name: "{{ keypair_name }}-{{ run_hash }}"
+        state: absent
