@@ -15,3 +15,6 @@
       package:
         name: google-chrome-stable
         state: present
+      retries: 2
+      register: install_chrome
+      until: install_chrome is success
