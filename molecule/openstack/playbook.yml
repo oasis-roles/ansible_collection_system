@@ -18,3 +18,6 @@
       package:
         name: jenkins
         state: present
+      retries: 2
+      register: install_jenkins
+      until: install_jenkins is success
