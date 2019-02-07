@@ -1,1 +1,4 @@
 openstack_provision_servers: []
+openstack_provision_wait_for_ssh: true
+
+_wait_hosts: []

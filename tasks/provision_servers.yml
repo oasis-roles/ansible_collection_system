@@ -51,3 +51,9 @@
     servers.groups is defined and item.openstack is defined
     and item.server is defined
   changed_when: false
+
+- name: add hosts to wait for
+  set_fact:
+    _wait_hosts: >-
+      {{ (_wait_hosts | default([])) +
+      (_os_servers | json_query('results[*].openstack.name') ) }}

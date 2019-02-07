@@ -51,6 +51,10 @@ Currently the following variables are supported:
   hosts into the specified groups in your currently running Ansible inventory.
   Both "count" and "groups" are optional arguments, with default values of "1"
   and and empty array being assumed.
+* `openstack_provision_wait_for_ssh` - Default: true. Set to false if you do not
+  want to wait until SSH is accessible before exiting this role. Probably
+  something to consider if you're dealing with Windows hosts or hosts with a
+  strange sense of SSH service running.
 
 Dependencies
 ------------
