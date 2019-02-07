@@ -28,10 +28,8 @@ scenario:
     - check
   converge_sequence:
     - converge
-  destroy_sequence:
-    - destroy
+  destroy_sequence: []
   test_sequence:
-    - destroy
     - lint
     - dependency
     - syntax
