@@ -1,0 +1,34 @@
+- name: Destroy molecule instance(s)
+  os_server:
+    name: "{{ item.name }}-{{ run_hash }}"
+    state: absent
+  register: server
+  with_items: "{{ molecule_yml.platforms }}"
+  async: 7200
+  poll: 0
+
+- name: Wait for instance(s) deletion to complete
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: os_jobs
+  until: os_jobs.finished
+  retries: 300
+  with_items: "{{ server.results }}"
+
+# Mandatory configuration for Molecule to function.
+
+- name: Clear instance config
+  copy:
+    content: {}
+    dest: "{{ molecule_instance_config }}"
+  when: server.changed | bool
+
+- name: Delete security group
+  os_security_group:
+    name: "{{ hashed_security_group_name }}"
+    state: absent
+
+- name: Delete remote keypair
+  os_keypair:
+    name: "{{ hashed_keypair_name }}"
+    state: absent

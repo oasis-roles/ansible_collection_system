@@ -1,0 +1,11 @@
+# Generate a small hash that can be appended to resources during a run to
+# prevent naming collisions during concurrent CI runs.
+- name: Set run_hash
+  set_fact:
+    # Base this on the molecule ephemeral dir and current user, which should be
+    # enough to generate a unique hash per user/scenario/workspace combination.
+    # In the unlikely event we start to see collisions, we can truncate
+    # at a longer length here.
+    run_hash: "{{ (lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') \
+               + lookup('env', 'USER')) \
+               | hash('sha512') | truncate(8, True, '') }}"
