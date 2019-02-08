@@ -13,6 +13,9 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+    options:
+      x:
+        - "204"  # Line-length checking, which yamllint already does
   playbooks:
     prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
