@@ -54,7 +54,7 @@ Currently the following variables are supported:
 * `openstack_provision_wait_for_ssh` - Default: true. Set to false if you do not
   want to wait until SSH is accessible before exiting this role. Probably
   something to consider if you're dealing with Windows hosts or hosts with a
-  strange sense of SSH service running.
+  non-standard SSH service running
 
 Dependencies
 ------------
