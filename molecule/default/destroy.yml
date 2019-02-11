@@ -1,6 +1,8 @@
-- hosts: localhost
+- name: remove servers
+  hosts: localhost
   tasks:
-    - os_server:
-        name: test_server{{ item }}
-        state: absent
-      with_sequence: start=1 end=2
+    - name: delete servers
+      include_tasks: delete_servers.yml
+      with_items: "{{ molecule_yml.platforms }}"
+      loop_control:
+        loop_var: servers

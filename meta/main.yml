@@ -13,7 +13,6 @@ galaxy_info:
   galaxy_tags:
     - oasis
     - openstack
-    - os_server
     - provisioning
 
 dependencies: []

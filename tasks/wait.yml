@@ -1,0 +1,6 @@
+- name: wait for hosts
+  wait_for:
+    host: "{{ hostvars[item]['ansible_host'] | default(item) }}"
+    port: "{{ hostvars[item]['ansible_port'] | default(22) }}"
+    search_regex: "SSH"
+  with_items: "{{ _wait_hosts }}"

@@ -39,7 +39,7 @@
     volumes: "{{ servers.volumes | default(omit) }}"
     wait: "{{ servers.wait | default(omit) }}"
   register: _os_servers
-  with_sequence: start=1 end={{ (servers.count | int | default(1)) }}
+  with_sequence: start=1 end={{ (servers.count | default(1) | int ) }}
 
 - name: add OpenStack servers to groups
   add_host:
@@ -48,6 +48,12 @@
     groups: "{{ servers.groups | default([]) }}"
   with_items: "{{ _os_servers.results }}"
   when: >-
-    servers.groups is defined and item.openstack is defined
+    item.openstack is defined
     and item.server is defined
   changed_when: false
+
+- name: add hosts to wait for
+  set_fact:
+    _wait_hosts: >-
+      {{ (_wait_hosts | default([])) +
+      (_os_servers | json_query('results[*].openstack.name') ) }}

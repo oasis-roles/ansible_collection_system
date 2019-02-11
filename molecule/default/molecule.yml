@@ -7,9 +7,17 @@ lint:
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test-openstack_provision
-    image: rhel-7.4-server-x86_64-updated
+  - name: test_server
     flavor: m1.medium
+    image: 'CentOS-7-x86_64-GenericCloud-released-latest'
+    count: 2
+    cloud: default
+    groups:
+      - test_group
+  - name: fed_test
+    flavor: m1.medium
+    image: 'Fedora 29'
+    cloud: default
 provisioner:
   name: ansible
   lint:
@@ -27,11 +35,11 @@ scenario:
     - converge
     - check
   converge_sequence:
+    - destroy
     - converge
   destroy_sequence:
     - destroy
   test_sequence:
-    - destroy
     - lint
     - dependency
     - syntax

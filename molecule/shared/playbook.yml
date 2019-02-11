@@ -2,13 +2,7 @@
   hosts: localhost
   roles:
     - role: openstack_provision
-      openstack_provision_servers:
-        - name: test_server
-          flavor: m3.medium
-          image: 'CentOS-7-x86_64-GenericCloud-released-latest'
-          count: 2
-          groups:
-            - test_group
+      openstack_provision_servers: "{{ molecule_yml.platforms }}"
 
 - name: run tests
   hosts: localhost
