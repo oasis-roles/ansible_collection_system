@@ -1,5 +1,6 @@
 - name: Destroy molecule instance(s)
   os_server:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ item.name }}-{{ run_hash }}"
     state: absent
   register: server
@@ -25,10 +26,12 @@
 
 - name: Delete security group
   os_security_group:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ hashed_security_group_name }}"
     state: absent
 
 - name: Delete remote keypair
   os_keypair:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ hashed_keypair_name }}"
     state: absent

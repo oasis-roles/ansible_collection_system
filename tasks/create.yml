@@ -2,12 +2,14 @@
 # "molecule init scenario -d openstack ..."
 - name: Create security group for scenario
   os_security_group:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ hashed_security_group_name }}"
     description: "{{ molecule_openstack_ci_security_group_description }}"
   register: security_group
 
 - name: Create security group rules
   os_security_group_rule:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     security_group: "{{ hashed_security_group_name }}"
     protocol: "{{ item.proto | default(omit) }}"
     port_range_min: "{{ item.port | default(omit) }}"
@@ -24,12 +26,14 @@
 
 - name: Delete remote keypair
   os_keypair:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ hashed_keypair_name }}"
     state: absent
   when: not keypair_local.stat.exists
 
 - name: Create keypair
   os_keypair:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ hashed_keypair_name }}"
   register: keypair
 
@@ -42,6 +46,7 @@
 
 - name: Create molecule instance(s)
   os_server:
+    cloud: "{{ molecule_openstack_ci_cloud }}"
     name: "{{ item.name }}-{{ run_hash }}"
     image: "{{ item.image }}"
     flavor: "{{ item.flavor }}"

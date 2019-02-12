@@ -13,3 +13,5 @@ molecule_openstack_ci_security_group_rules:
 
 # run_hash will be appended to keypair name
 molecule_openstack_ci_keypair_name: molecule_key
+
+molecule_openstack_ci_cloud: "{{ omit }}"

@@ -36,12 +36,15 @@ Currently the following variables are supported:
  defaults to "Security group for testing Molecule"
 * `molecule_openstack_ci_security_group_rules` - Array of argument dictionaries passed to
  (os_security_group_rule)[https://docs.ansible.com/ansible/latest/modules/os_security_group_rule_module.html]
- module, defaults to `[{"ethertype": "IPv4"}, {"ethertype": "IPv6"}], effectively allowing
+ module, defaults to `[{"ethertype": "IPv4"}, {"ethertype": "IPv6"}]`, effectively allowing
  all access to molecule instances by default.
 * `molecule_openstack_ci_keypair_name` - molecule_key
 * `molecule_openstack_ci_security_group_name` - SSH keypair name prefix to use
  when generating keypair. Defaults to "molecule_key". The actual keypair
  created will have the run hash appended to its name.
+* `molecule_openstack_ci_cloud` - name of the OpenStack cloud to connect to. This defaults to being omitted,
+ in which case the openstack libraries will read the environment variable "OS\_CLOUD" by default. Set this
+ value if you want to override that for specific cases or do not have the value set.
 
 Dependencies
 ------------
