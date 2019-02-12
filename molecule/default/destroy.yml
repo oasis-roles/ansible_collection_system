@@ -9,3 +9,4 @@
     - name: molecule_openstack_ci
       vars:
         molecule_openstack_ci_state: absent
+        molecule_openstack_ci_cloud: default
