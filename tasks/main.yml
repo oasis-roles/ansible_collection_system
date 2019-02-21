@@ -1,5 +1,11 @@
 # role tasks
 
+- name: install firewalld
+  become: "{{ firewalld_become }}"
+  package:
+    name: firewalld
+    state: present
+
 - name: enable and start firewalld
   become: "{{ firewalld_become }}"
   service:
