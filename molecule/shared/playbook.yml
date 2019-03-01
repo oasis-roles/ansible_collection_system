@@ -4,6 +4,6 @@
     - role: gluster_gdeploy
       gluster_gdeploy_configuration_file:
         "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/gdeploy.conf"
-    - role: oasis-roles.firewalld
+    - role: oasis_roles.firewalld
       firewalld_services:
         - glusterfs

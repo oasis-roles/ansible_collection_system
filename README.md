@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/oasis-roles/gluster_gdeploy.svg?branch=master)](https://travis-ci.org/oasis-roles/gluster_gdeploy)
+[![Build Status](https://travis-ci.com/oasis-roles/gluster_gdeploy.svg?branch=master)](https://travis-ci.com/oasis-roles/gluster_gdeploy)
 
 Gluster Gdeploy
 ===========
@@ -62,7 +62,7 @@ Dependencies
 
 Each of the hosts in the Gluster Cluster should be configured to be mutually
 accessible via SSH from one another. This can be done with the
-[passwordless-ssh](https://github.com/oasis-roles/passwordless_ssh) role from
+[passwordless\_ssh](https://github.com/oasis-roles/passwordless_ssh) role from
 OASIS.
 
 Once the system is subscribed to RHN, certain repos are reqiured. This can be
@@ -89,7 +89,7 @@ Example Playbook
 ```yaml
 - hosts: gluster_gdeploy-servers
   roles:
-    - role: oasis-roles.gluster_gdeploy
+    - role: oasis_roles.gluster_gdeploy
 ```
 
 License

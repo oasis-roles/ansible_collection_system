@@ -7,14 +7,14 @@
   vars:
     molecule: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
   roles:
-    - role: oasis-roles.nmcli_add_addrs
+    - role: oasis_roles.nmcli_add_addrs
       nmcli_add_addrs_interface: "{{ ansible_default_ipv4.interface }}"
       nmcli_add_addrs_ipv4:
         - "{{ ansible_host | default(inventory_hostname) }}"
-    - role: oasis-roles.passwordless_ssh
+    - role: oasis_roles.passwordless_ssh
       passwordless_ssh_private_key: "{{ molecule }}/id_rsa"
       passwordless_ssh_public_key: "{{ molecule }}/id_rsa.pub"
-    - role: oasis-roles.firewalld
+    - role: oasis_roles.firewalld
       firewalld_zone: public
       firewalld_ports_open:
         - port: 22
@@ -56,7 +56,7 @@
           proto: udp
         - port: 963
           proto: udp
-    - role: oasis-roles.rhsm
+    - role: oasis_roles.rhsm
       rhsm_repositories:
         only:
           - rhel-7-server-rpms
@@ -65,7 +65,7 @@
           - rh-gluster-3-samba-for-rhel-7-server-rpms
           - rh-gluster-3-nfs-for-rhel-7-server-rpms
       rhsm_unregister: true
-    - role: oasis-roles.chrony
+    - role: oasis_roles.chrony
   post_tasks:
     - name: update all the things
       become: true
@@ -76,7 +76,7 @@
 - hosts: all
   gather_facts: false
   roles:
-    - role: oasis-roles.reboot
+    - role: oasis_roles.reboot
   post_tasks:
     - name: update gluster.conf file
       delegate_to: localhost

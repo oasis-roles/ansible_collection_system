@@ -1,7 +1,7 @@
 language: python
 versions:
   - "2.7"
-  - "3.5"
+  - "3.7"
 cache: pip
 sudo: required
 services:
@@ -19,7 +19,7 @@ install:
 
 script:
   - molecule lint
-  - flake8 $(find . -name '*.py')
+  - molecule dependency
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
