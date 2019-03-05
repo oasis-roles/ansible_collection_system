@@ -20,9 +20,11 @@
   command: "localectl set-locale {{ localectl_locales | localectl_arglist }}"
   register: localectl_locales_update
   become: "{{ localectl_become }}"
+  # compare against sorted dicts just in case someting wacky happens with
+  # dictionary key ordering in any dependency when we aren't looking
   when: |
     localectl_locales is not none and
-    localectl_facts['Locale'] != localectl_locales
+    (localectl_facts['Locale'] | dictsort) != (localectl_locales | dictsort)
 
 # localectl happily takes quoted empty values to indicate a value is not set.
 # So, e.g. "localectl set-keymap '' 'toggle.keymap'" works, # as does

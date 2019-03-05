@@ -119,3 +119,24 @@
           - localectl_locales_update is skipped
           - localectl_vc_update is skipped
           - localectl_x11_update is changed
+
+# Conditional role idempotence depends on equality working on dicts
+# with potentially different key ordering, so assert that works as expected
+- name: Test that jinja dict equality works as needed for idempotence
+  hosts: localectl
+  vars:
+    # Simulating two dicts with the same content with different ordering.
+    # This normally results in two dicts with the same key order due to
+    # dict's normal key ordering behavior, so this is really here just in
+    # case something like an OrderedDict managed to slip through.
+    current_locale:
+      LANG: en_US.utf8
+      LC_MESSAGES: en_US.utf8
+    reordered_locale:
+      LC_MESSAGES: en_US.utf8
+      LANG: en_US.utf8
+  tasks:
+    - name: Assert dict equality
+      assert:
+        that:
+          - (current_locale | dictsort) == (reordered_locale | dictsort)
