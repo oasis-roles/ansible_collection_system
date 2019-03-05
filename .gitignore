@@ -3,5 +3,6 @@
 *.pyc
 *.pyo
 __pycache__/*
+.pytest_cache
 molecule/*/junit.xml
 molecule/*/pytestdebug.log

@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Sean Myers
+  description: Manage system locale settings with localectl.
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.4

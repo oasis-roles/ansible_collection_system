@@ -1,1 +1,8 @@
-# Vars for localectl
+localectl_properties:
+  - Locale
+  - VConsoleKeymap
+  - VConsoleKeymapToggle
+  - X11Layout
+  - X11Model
+  - X11Options
+  - X11Variant
