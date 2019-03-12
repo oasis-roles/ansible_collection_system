@@ -44,6 +44,23 @@
     mode: 0600
   when: keypair.changed
 
+- name: Create molecule volume(s)
+  os_volume:
+    display_name: "{{ item.name }}"
+    size: "{{ item.size }}"
+  register: volume
+  with_items: "{{ molecule_yml.volumes }}"
+  async: 7200
+  poll: 0
+
+- name: Wait for volume(s) to complete
+  async_status:
+    jid: "{{ item.ansible_job_id }}"
+  register: vol_jobs
+  until: vol_jobs is finished
+  retries: 300
+  with_items: "{{ volume.results }}"
+
 - name: Create molecule instance(s)
   os_server:
     cloud: "{{ molecule_openstack_ci_cloud }}"
@@ -52,6 +69,8 @@
     flavor: "{{ item.flavor }}"
     security_groups: "{{ hashed_security_group_name }}"
     key_name: "{{ hashed_keypair_name }}"
+    volumes: "{{ item.volumes | default(omit) }}"
+    delete_fip: true
     meta:
       # The generated inventory will still be using the instance name
       # as defined in molecule.yml. Stash the original name in the instance
