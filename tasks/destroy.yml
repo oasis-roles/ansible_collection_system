@@ -16,6 +16,12 @@
   retries: 300
   with_items: "{{ server.results }}"
 
+- name: Destroy molecule volume(s)
+  os_volume:
+    display_name: "{{ item.name }}"
+    state: absent
+  with_items: "{{ molecule_yml.volumes }}"
+
 # Mandatory configuration for Molecule to function.
 
 - name: Clear instance config
