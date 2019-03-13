@@ -1,9 +1,28 @@
-- name: prepare systems
+- name: register systems
   hosts: all
   pre_tasks:
     - name: load subscription variables
       include_vars: >
         {{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/subscription.yml
+  roles:
+    - role: oasis_roles.rhsm
+      rhsm_repositories:
+        only:
+          - rhel-7-server-rpms
+          - rh-gluster-3-for-rhel-7-server-rpms
+          - rhel-7-server-ansible-2-rpms
+          - rh-gluster-3-samba-for-rhel-7-server-rpms
+          - rh-gluster-3-nfs-for-rhel-7-server-rpms
+      rhsm_unregister: true
+
+- name: prepare systems
+  hosts: all
+  pre_tasks:
+    - name: install firewalld
+      become: true
+      package:
+        name: firewalld
+        state: present
   vars:
     molecule: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
   roles:
@@ -56,15 +75,6 @@
           proto: udp
         - port: 963
           proto: udp
-    - role: oasis_roles.rhsm
-      rhsm_repositories:
-        only:
-          - rhel-7-server-rpms
-          - rh-gluster-3-for-rhel-7-server-rpms
-          - rhel-7-server-ansible-2-rpms
-          - rh-gluster-3-samba-for-rhel-7-server-rpms
-          - rh-gluster-3-nfs-for-rhel-7-server-rpms
-      rhsm_unregister: true
     - role: oasis_roles.chrony
   post_tasks:
     - name: update all the things
