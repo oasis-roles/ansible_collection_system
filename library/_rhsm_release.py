@@ -3,7 +3,7 @@
 # (c) 2018, Sean Myers <sean.myers@redhat.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-# This is a vendored version of rhsm_repository_release for use in ansible <2.8.
+# This is a vendored version of rhsm_release for use in ansible <2.8.
 
 from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
@@ -16,7 +16,7 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = '''
 ---
-module: rhsm_repository_release
+module: rhsm_release
 short_description: Set or Unset RHSM Repository Release version
 version_added: '2.8'
 description:
@@ -39,17 +39,17 @@ author:
 EXAMPLES = '''
 # Set release version to 7.1
 - name: Set RHSM repository release version
-  rhsm_repository_release:
+  rhsm_release:
       release: "7.1"
 
 # Set release version to 6Server
 - name: Set RHSM repository release version
-  rhsm_repository_release:
+  rhsm_release:
       release: "6Server"
 
 # Unset release version
 - name: Unset RHSM repository release release
-  rhsm_repository_release:
+  rhsm_release:
       release: null
 '''
 
