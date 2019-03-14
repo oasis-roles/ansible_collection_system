@@ -6,9 +6,14 @@
     # enough to generate a unique hash per user/scenario/workspace combination.
     # In the unlikely event we start to see collisions, we can truncate
     # at a longer length here.
-    run_hash: "{{ (lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') \
-               + lookup('env', 'USER')) \
-               | hash('sha512') | truncate(8, True, '')}}"
+    run_hash: |-
+      {{ (lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') + lookup('env', 'USER'))
+         | hash('sha512') | truncate(8, True, '') | trim }}
+
+- name: Set convenience facts for use in later tasks
+  set_fact:
+    hashed_security_group_name: "{{ security_group_name }}-{{ run_hash }}"
+    hashed_keypair_name: "{{ keypair_name }}-{{ run_hash }}"
 
 - debug:
     var: run_hash

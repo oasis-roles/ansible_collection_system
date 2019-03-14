@@ -8,8 +8,6 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: rhsm-basic-subscription
-    image: rhel-7.5-server-x86_64-updated
-    flavor: m1.medium
     groups:
       - rhsm
 provisioner:
@@ -22,8 +20,9 @@ provisioner:
   playbooks:
     create: ../openstack/create.yml
     destroy: ../openstack/destroy.yml
-    prepare: ../openstack/prepare.yml
-    converge: playbook.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
 scenario:
   name: basic_subscription
 verifier:

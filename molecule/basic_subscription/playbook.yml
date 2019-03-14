@@ -12,6 +12,6 @@
     - name: Write output to file for testing
       delegate_to: localhost
       copy:
-        content: "{{ oasis_roles_rhsm | to_nice_yaml }}"
+        content: "{{ oasis_roles_rhsm | to_yaml }}"
         # drop this in the tests dir, which is in yamllint's excludes list
         dest: tests/output.yml
