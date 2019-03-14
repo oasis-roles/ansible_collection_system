@@ -21,4 +21,4 @@
       # Included here mainly for use by tests to ensure the version-based
       # task module selections actually work in different versions of ansible.
       _rhsm_repository_task: "{{ _rhsm_repository_task }}"
-      _rhsm_repository_release_task: "{{ _rhsm_repository_release_task }}"
+      _rhsm_release_task: "{{ _rhsm_release_task }}"
