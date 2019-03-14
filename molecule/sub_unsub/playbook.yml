@@ -7,9 +7,3 @@
     # omit out subscription vars from group_vars
     rhsm_username: "{{ omit }}"
     rhsm_password: "{{ omit }}"
-  post_tasks:
-    - name: Write output to file for testing
-      delegate_to: localhost
-      copy:
-        content: "{{ oasis_roles_rhsm | to_nice_yaml }}"
-        dest: tests/output.yml

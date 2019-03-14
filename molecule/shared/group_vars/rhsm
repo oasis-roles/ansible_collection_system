@@ -1,7 +1,4 @@
 rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
 rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
-rhsm_server_hostname: |-
-  {{ (lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') |
-      default('subscription.rhsm.redhat.com')) }}
-# value should be a yaml array as string, e.g. "['pool1', 'pool2', 'pool3']"
-rhsm_pool_ids: "{{ lookup('env', 'OASIS_RHSM_POOL_IDS') | from_yaml }}"
+rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+rhsm_auto_attach: true
