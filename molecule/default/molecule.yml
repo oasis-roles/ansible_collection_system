@@ -17,14 +17,10 @@ volumes:
     size: 10
 platforms:
   - name: test-gluster_gdeploy0
-    image: RHEL-7.6-Server-x86_64-nightly-latest
-    flavor: ci.m1.medium
     volumes:
       - gluster_gdeploy_vol0
       - gluster_gdeploy_vol1
   - name: test-gluster_gdeploy1
-    image: RHEL-7.6-Server-x86_64-nightly-latest
-    flavor: ci.m1.medium
     volumes:
       - gluster_gdeploy_vol2
       - gluster_gdeploy_vol3
@@ -50,6 +46,19 @@ scenario:
   prepare_sequence:
     - dependency
     - prepare
+  test_sequence:
+    - lint
+    - dependency
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - destroy
 verifier:
   name: testinfra
   lint:

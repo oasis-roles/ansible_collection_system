@@ -33,6 +33,10 @@
     - role: oasis_roles.passwordless_ssh
       passwordless_ssh_private_key: "{{ molecule }}/id_rsa"
       passwordless_ssh_public_key: "{{ molecule }}/id_rsa.pub"
+      passwordless_ssh_gather_host_keys: true
+      passwordless_ssh_extra_hosts: |
+        {{ ansible_play_batch | map('extract', hostvars, 'ansible_host') |
+        list }}
     - role: oasis_roles.firewalld
       firewalld_zone: public
       firewalld_ports_open:
@@ -76,12 +80,6 @@
         - port: 963
           proto: udp
     - role: oasis_roles.chrony
-  post_tasks:
-    - name: update all the things
-      become: true
-      package:
-        name: "*"
-        state: latest
 
 - hosts: all
   gather_facts: false
