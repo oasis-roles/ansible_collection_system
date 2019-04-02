@@ -87,10 +87,13 @@
   roles:
     - role: oasis_roles.reboot
   post_tasks:
-    - name: update gluster.conf file
+    - name: update test files
       delegate_to: localhost
       run_once: true
       template:
         src: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-        }}/gdeploy.conf.j2"
-        dest: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/gdeploy.conf"
+        }}/{{ item }}.j2"
+        dest: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/{{ item }}"
+      with_items:
+        - gdeploy.conf
+        - ../shared/tests/test_basic_mount.py

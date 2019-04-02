@@ -1,4 +1,4 @@
-testinfra_hosts = ["test-gluster_gdeploy0"]
+testinfra_hosts = ["{{ ansible_play_hosts[0] }}"]
 
 
 def test_is_mounted(host):
