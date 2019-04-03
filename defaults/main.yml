@@ -1,0 +1,2 @@
+wipefs_become: true
+wipefs_become_user: root
