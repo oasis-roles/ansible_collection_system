@@ -16,7 +16,7 @@
     keypair_name: molecule_key
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
 
-    nova_image: rhel-7.4-server-x86_64-updated
+    nova_image: rhel-7.4-server-x86_64-released
     nova_flavor: "{{ lookup('env', 'OS_NOVA_FLAVOR') }}"
   tasks:
     - name: Create security group

@@ -3,7 +3,12 @@
 package_updater
 ===========
 
-Basic description for package_updater
+This role:
+Updates all packages. Updating specific packages is not supported.
+Is not idempotent.
+Intended to be used during initial installation of software.
+Will perform the common "Update all packages" step found in many product installation guides.
+
 
 Requirements
 ------------
@@ -22,10 +27,11 @@ Currently the following variables are supported:
 ### General
 
 * `package_updater_become` - Default: true. If this role needs administrator
-  privileges, then use the Ansible become functionality (based off sudo).
+   privileges, then use the Ansible become functionality (based off sudo).
+
 * `package_updater_become_user` - Default: root. If the role uses the become
-  functionality for privilege escalation, then this is the name of the target
-  user to change to.
+   functionality for privilege escalation, then this is the name of the target
+   user to change to.
 
 Dependencies
 ------------
@@ -34,6 +40,7 @@ None
 
 Example Playbook
 ----------------
+This example would update all packages to the latest version and update the cache.
 
 ```yaml
 - hosts: package_updater-servers
@@ -49,4 +56,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Steven Murray <stmurray@redhat.com>
