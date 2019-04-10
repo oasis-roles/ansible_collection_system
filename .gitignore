@@ -1,5 +1,6 @@
 molecule/default/subscription.yml
 molecule/default/gdeploy.conf
+molecule/shared/tests/test_basic_mount.py
 .*.swp
 .*.swo
 *.pyc
