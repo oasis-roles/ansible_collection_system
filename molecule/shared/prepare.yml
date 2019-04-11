@@ -32,8 +32,8 @@
       nmcli_add_addrs_ipv4:
         - "{{ ansible_host | default(inventory_hostname) }}"
     - role: oasis_roles.passwordless_ssh
-      passwordless_ssh_private_key: "{{ molecule }}/id_rsa"
-      passwordless_ssh_public_key: "{{ molecule }}/id_rsa.pub"
+      passwordless_ssh_private_key: "{{ molecule }}/../shared/id_rsa"
+      passwordless_ssh_public_key: "{{ molecule }}/../shared/id_rsa.pub"
       passwordless_ssh_gather_host_keys: true
       passwordless_ssh_extra_hosts: |
         {{ ansible_play_batch | map('extract', hostvars, 'ansible_host') |
@@ -81,19 +81,18 @@
         - port: 963
           proto: udp
     - role: oasis_roles.chrony
-
-- hosts: all
-  gather_facts: false
-  roles:
-    - role: oasis_roles.reboot
   post_tasks:
     - name: update test files
       delegate_to: localhost
       run_once: true
       template:
-        src: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY')
-        }}/{{ item }}.j2"
-        dest: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/{{ item }}"
+        src: "{{ molecule }}/{{ item }}.j2"
+        dest: "{{ molecule }}/{{ item }}"
       with_items:
-        - gdeploy.conf
+        - ../shared/gdeploy.conf
         - ../shared/tests/test_basic_mount.py
+
+- hosts: all
+  gather_facts: false
+  roles:
+    - role: oasis_roles.reboot

@@ -42,6 +42,10 @@ Currently the following variables are supported:
 * `gluster_gdeploy_configuration_file` - REQUIRED: Path to the configuration file
   for use with gdeploy. Consult documentation on GDeploy to learn more about the
   types of files that should be used
+* `gluster_gdeploy_rpm_version` - Optional value to specify a version string for
+  the RPM of Gluster to install. If specified, this must begin with the "-" character
+  as that is how RPM versions are specified (e.g. "redhat-storage-server-3.1.4.0"
+  would lead to this variable being specified as "-3.1.4.0")
 * `gluster_gdeploy_become` - Default: true. Whether to use Ansible become for
   administrative tasks in this role
 * `gluster_gdeploy_become_user` - Default: root. User to become when performing

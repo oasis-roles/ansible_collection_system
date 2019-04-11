@@ -1,5 +1,5 @@
 gluster_gdeploy_packages:
-  - redhat-storage-server
+  - redhat-storage-server{{ gluster_gdeploy_rpm_version }}
 
 gluster_gdeploy_single_host_packages:
   - ansible
