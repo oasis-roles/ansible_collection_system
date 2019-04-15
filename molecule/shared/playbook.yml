@@ -6,7 +6,7 @@
         # yamllint disable-line rule:line-length
         "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../shared/gdeploy.conf"
       gluster_gdeploy_rpm_version: |-
-        {{ molecule_yml.gluster_version | default('') }}
+        {{ gluster_version | default('') }}
     - role: oasis_roles.firewalld
       firewalld_services:
         - glusterfs

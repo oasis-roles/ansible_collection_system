@@ -34,6 +34,10 @@ provisioner:
   config_options:
     defaults:
       stdout_callback: yaml
+  inventory:
+    group_vars:
+      all:
+        gluster_version: "-3.1.3.0"
 scenario:
   create_sequence:
     - dependency
@@ -64,4 +68,3 @@ verifier:
     name: flake8
   additional_files_or_dirs:
     - ../../shared/tests
-gluster_version: "-3.1.3.0"
