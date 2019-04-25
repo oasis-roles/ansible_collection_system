@@ -16,8 +16,9 @@ provisioner:
   playbooks:
     prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
-scenario:
-  name: docker
+  config_options:
+    default:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:
