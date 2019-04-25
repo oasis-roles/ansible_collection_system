@@ -3,7 +3,7 @@
   yum:
     name: "{{ cockpit_version }}"
     state: present
-  become: true
+  become: "{{ cockpit_become }}"
   become_user: "{{ cockpit_become_user }}"
 
 - name: Start cockpit
@@ -11,5 +11,5 @@
     name: cockpit.socket
     state: started
     enabled: true
-  become: true
+  become: "{{ cockpit_become }}"
   become_user: "{{ cockpit_become_user }}"
