@@ -1,7 +1,7 @@
 # role tasks
 - name: Install cockpit
-  yum:
-    name: "{{ cockpit_version }}"
+  package:
+    name: "{{ cockpit_packages + cockpit_additional_packages }}"
     state: present
   become: "{{ cockpit_become }}"
   become_user: "{{ cockpit_become_user }}"

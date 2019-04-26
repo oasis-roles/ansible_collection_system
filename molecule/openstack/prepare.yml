@@ -1,0 +1,17 @@
+- name: setup subscriptions
+  hosts: all
+  roles:
+    - oasis_roles.rhsm
+  vars:
+    rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
+    rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
+    rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+    rhsm_unregister: true
+    rhsm_auto_attach: true
+    rhsm_repositories:
+      only:
+        - rhel-7-server-rpms
+        - rhel-7-server-extras-rpms
+        - rhel-7-server-optional-rpms
+        - rhel-7-server-rhv-4-mgmt-agent-rpms
+        - rhel-7-server-ansible-2-rpms

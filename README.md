@@ -21,13 +21,14 @@ Currently the following variables are supported:
 
 ### General
 
-* `cockpit_version` - the cockpit version the user wants to have installed and run on their instance
+* `cockpit_additional_packages` - Default []. A list of additional cockpit packages in order to install
+  cockpit-adjacent packages.
 * `cockpit_become_user` - the user to execute tasks through
 * `cockpit_become` - Default: true. Wether to use Ansible's "become" to escalate privileges
 
-**Note: To use the default value for `cockpit_version`, your instance must have
-the repos `rhel-7-server-rhv-4-mgmt-agent-rpms`, `rhel-7-server-ansible-2-rpms`, and
-`rhel-7-server-rpms` enabled**
+**Note: To use the default value for `cockpit_version`, your system must have several default
+packages installed. Specifically, rhel-7-server-rpms, rhel-7-server-extras-rpms,
+rhel-7-server-optional-rpms**
 
 Dependencies
 ------------

@@ -8,18 +8,38 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: test-cockpit
-    image: rhel-7.6-server-x86_64-updated
+    image: rhel-7.6-server-x86_64-released
     flavor: ci.m1.medium
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
+    cleanup: ../shared/cleanup.yml
   config_options:
-    default:
+    defaults:
       stdout_callback: yaml
+  group_vars:
+    all:
+      cockpit_additional_packages:
+        - cockpit-ovirt-dashboard
+scenario:
+  test_sequence:
+    - lint
+    - dependency
+    - cleanup
+    - destroy
+    - dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 verifier:
   name: testinfra
   lint:
