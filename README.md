@@ -40,7 +40,7 @@ Example Playbook
 
 Since the cockpit service is dependent on other services being configured
 before installation, this example will include the use of the rhsm and
-firewalld roles located in ansible galaxy under oasis-roles to configure the
+firewalld roles located in ansible galaxy under oasis\_roles to configure the
 hosts for cockpit installation.
 
 First, include the required roles
