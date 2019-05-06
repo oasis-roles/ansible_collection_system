@@ -1,27 +1,8 @@
-#!groovy
-@Library('jenkinsfile-helpers') _
+library('oasis-pipeline')
 
-pipeline {
-	agent { label 'master' }
-	options {
-		disableConcurrentBuilds()
-	}
-	stages {
-		stage('Fetch code and setup environment') {
-			steps {
-				cleanWs()
-				dir('system_repositories') {
-					checkout scm
-				}
-				virtualenv('.venv', ['molecule', 'shade'])
-			}
-		}
-		stage('Run molecule in the environment') {
-			steps {
-				dir('system_repositories') {
-					venvSh('.venv', ['molecule test -s openstack'])
-				}
-			}
-		}
-	}
+oasisMultistreamMoleculePipeline {
+  upstream_git_url = 'https://github.com/oasis-roles/system_repositories.git'
+  molecule_role_name = 'system_repositories'
+  molecule_scenarios = ['openstack']
+  properties = [pipelineTriggers([cron('H H * * *')])]
 }
