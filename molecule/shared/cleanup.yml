@@ -1,0 +1,7 @@
+- name: unregister
+  hosts: all
+  roles:
+    - oasis_roles.rhsm
+  vars:
+    rhsm_username: "{{ omit }}"
+    rhsm_unregister: true

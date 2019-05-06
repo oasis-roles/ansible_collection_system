@@ -1,1 +1,5 @@
-# Vars for cockpit
+cockpit_packages:
+  - cockpit
+  - cockpit-dashboard
+  - cockpit-machines
+  - cockpit-machines-ovirt

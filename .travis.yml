@@ -1,7 +1,7 @@
 language: python
 versions:
   - "2.7"
-  - "3.5"
+  - "3.7"
 cache: pip
 
 install:
@@ -16,6 +16,7 @@ install:
 
 script:
   - molecule lint -s openstack
+  - molecule test -s docker
   - flake8 $(find . -name '*.py')
 
 notifications:
