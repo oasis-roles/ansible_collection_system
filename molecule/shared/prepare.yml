@@ -1,7 +1,7 @@
 - hosts: all
   gather_facts: false
   roles:
-    - role: oasis-roles.system_repositories
+    - role: oasis_roles.system_repositories
       system_repositories_configs:
         - name: my_repo
           baseurl: "{{ lookup('env', 'RHEL_BASE') }}/$basearch/jbeap/6.4/os"
