@@ -1,9 +1,13 @@
 - hosts: all
   gather_facts: false
   roles:
-    - role: oasis_roles.system_repositories
-      system_repositories_configs:
-        - name: my_repo
-          baseurl: "{{ lookup('env', 'RHEL_BASE') }}/$basearch/jbeap/6.4/os"
-          gpgcheck: false
-          repo_gpgcheck: false
+    - role: oasis_roles.rhsm
+      rhsm_repositories:
+        only:
+          - rhel-7-server-rpms
+          - jb-eap-6-for-rhel-7-server-rpms
+      rhsm_unregister: true
+      rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
+      rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
+      rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+      rhsm_auto_attach: true
