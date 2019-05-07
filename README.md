@@ -21,7 +21,6 @@ Currently the following variables are supported:
 
 ### General
 
-* `kdump_version` - the version of kernel tools to install
 * `kdump_conf_path` - the path to the remote host's kernel dump config file
 * `kdump_become_user` - the user to run tasks as on the remote host
 * `kdump_crash_path` - the path in which to store kernel crash dump files
