@@ -23,8 +23,6 @@ provisioner:
   config_options:
     defaults:
       stdout_callback: yaml
-scenario:
-  name: openstack
 verifier:
   name: testinfra
   lint:
