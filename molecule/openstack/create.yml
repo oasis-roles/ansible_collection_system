@@ -2,7 +2,6 @@
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: "{{ not lookup('env', 'MOLECULE_DEBUG') | bool }}"
   vars:
     ssh_user: cloud-user
     ssh_port: 22
