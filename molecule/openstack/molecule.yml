@@ -17,6 +17,9 @@ provisioner:
   playbooks:
     prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
 scenario:
   name: openstack
 verifier:
