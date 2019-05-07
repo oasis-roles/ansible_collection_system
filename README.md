@@ -42,7 +42,7 @@ Example Playbook
 ```
 - hosts: setup_kdump-servers
   roles:
-    - role: oasis-roles.kdump
+    - role: oasis_roles.kdump
       kdump_package: kexec-tools
       kdump_conf_path: /etc/kdump.conf
       kdump_become_user: root
