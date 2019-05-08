@@ -33,7 +33,20 @@ Currently the following variables are supported:
 Dependencies
 ------------
 
-None
+If your system has too little memory for auto-provisioning crash memory, you
+might need to configure a static amount of memory for the crash kernel tool
+on the bootloader commandline. Generally this is only a problem on systems with
+less than 1GB of memory. If this is an issue, you can search for directions on
+editing the boot line of your system.
+
+On a RHEL or CentOS system you would change this value by editing the /etc/defaults/grub
+file and changing the value `crashkernel=auto` to `crashkernel=32M` or whatever
+value you want. You will then need to regenerate your grub2.cfg file using the
+grub2-mkconfig file. On a traditional system this is a command like `grub2-mkconfig
+-o /boot/grub2/grub.cfg`. If your system uses EFI, the path will live under
+`/boot/efi/EFI`. Consult your operating system documentation for appropriate
+directions on how to do this and for the appropriate amount of physical RAM to
+reserve for this purpose.
 
 Example Playbook
 ----------------
@@ -42,7 +55,6 @@ Example Playbook
 - hosts: setup_kdump-servers
   roles:
     - role: oasis_roles.kdump
-      kdump_package: kexec-tools
       kdump_conf_path: /etc/kdump.conf
       kdump_become_user: root
       kdump_crash_path: /var/crash
