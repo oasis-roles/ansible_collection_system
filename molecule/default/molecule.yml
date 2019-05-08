@@ -8,8 +8,8 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: test-kdump
-    image: rhel-7.5-server-x86_64-updated
-    flavor: m1.medium
+    image: rhel-7.6-server-x86_64-updated
+    flavor: ci.m1.small
 provisioner:
   name: ansible
   lint:
@@ -20,8 +20,6 @@ provisioner:
   config_options:
     defaults:
       stdout_callback: yaml
-scenario:
-  name: openstack
 verifier:
   name: testinfra
   lint:
