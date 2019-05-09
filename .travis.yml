@@ -1,7 +1,8 @@
 language: python
-versions:
+dist: xenial
+python:
   - "2.7"
-  - "3.5"
+  - "3.7"
 cache: pip
 
 install:
@@ -15,7 +16,7 @@ install:
   - molecule --version
 
 script:
-  - molecule lint -s openstack
+  - molecule lint
   - flake8 $(find . -name '*.py')
 
 notifications:

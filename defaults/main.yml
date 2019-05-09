@@ -1,7 +1,5 @@
 # defaults file for setup_kdump
 
-# the package to install/update on the host machines for handling kernel dumps
-kdump_package: kexec-tools
 # the absolute path to the kernel dump configuration file
 kdump_conf_path: /etc/kdump.conf
 # the user to login as into the host machines

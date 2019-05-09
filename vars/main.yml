@@ -1,0 +1,2 @@
+# the package to install/update on the host machines for handling kernel dumps
+kdump_package: kexec-tools
