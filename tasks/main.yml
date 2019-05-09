@@ -36,6 +36,9 @@
     group: "{{ system_repositories_group }}"
     mode: "{{ system_repositories_mode }}"
   with_items: "{{ system_repositories_repo_files }}"
+  register: get_repo_file
+  until: get_repo_file is success
+  retries: 3
 
 - name: auto RPM keys
   set_fact:
@@ -49,3 +52,6 @@
     state: present
     validate_certs: "{{ system_repositories_validate_certs }}"
   with_items: "{{ _auto_rpm_keys + system_repositories_rpm_keys }}"
+  register: install_rpm_key
+  until: install_rpm_key is success
+  retries: 3

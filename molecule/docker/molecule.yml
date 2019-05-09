@@ -13,8 +13,11 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
-scenario:
-  name: docker
+  playbooks:
+    prepare: ../shared/prepare.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:
