@@ -26,7 +26,7 @@ Vars in this section directly correspond to the args available to the
 [redhat_subscription module](http://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html).
 
 * `rhsm_username` - access.redhat.com or Satellite (RHSM Provider) username
-* `rhsm_password` - access.redhat.com or Satellite (RHSM Provider) username
+* `rhsm_password` - access.redhat.com or Satellite (RHSM Provider) password
 * `rhsm_org_id` - RHSM Provider organization ID
 * `rhsm_activationkey` - RHSM Provider activation key
 * `rhsm_server_hostname` - hostname for alternate RHSM provider
