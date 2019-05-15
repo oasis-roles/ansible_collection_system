@@ -7,7 +7,9 @@ lint:
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test-wipefs
+  - name: disk_wipe
+    image: rhel-7.6-server-x86_64-released
+    flavor: ci.m1.small.ephemeral
 provisioner:
   name: ansible
   lint:
