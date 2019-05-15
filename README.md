@@ -44,7 +44,7 @@ Vars in this section directly correspond to the args available to the
 * `rhsm_consumer_name` - Name of the system to register (defaults to system hostname)
 * `rhsm_consumer_id` - Existing consumer ID to resume a previous registration
 * `rhsm_force_register` - Register the system even if it is already registered (bool, default false)
-* `rhsm_unregister` - Unregister a system if true. The system will be unsubscribed before subscription is attempted
+* `rhsm_unregister` - Unregister a system if true. The system will be unregistered. System registration *will not be attempted*
   (bool, default false)
 
 ### Repository Management
