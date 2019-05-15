@@ -21,6 +21,7 @@ provisioner:
   playbooks:
     create: ../openstack/create.yml
     destroy: ../openstack/destroy.yml
+    prepare: ../shared/prepare.yml
   config_options:
     defaults:
       stdout_callback: yaml
