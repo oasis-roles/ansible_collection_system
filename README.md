@@ -109,6 +109,9 @@ rhsm_release_unset: true
 Role Output
 -----------
 
+> **DEPRECATION WARNING** Role outputs are deprecated, no longer supported, and will be removed
+> in a future version of this role.
+
 ### oasis\_role\_rhsm
 
 The `oasis_role_rhsm` fact will be set by this role, containing the following outputs:
