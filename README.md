@@ -26,7 +26,7 @@ Vars in this section directly correspond to the args available to the
 [redhat_subscription module](http://docs.ansible.com/ansible/latest/modules/redhat_subscription_module.html).
 
 * `rhsm_username` - access.redhat.com or Satellite (RHSM Provider) username
-* `rhsm_password` - access.redhat.com or Satellite (RHSM Provider) username
+* `rhsm_password` - access.redhat.com or Satellite (RHSM Provider) password
 * `rhsm_org_id` - RHSM Provider organization ID
 * `rhsm_activationkey` - RHSM Provider activation key
 * `rhsm_server_hostname` - hostname for alternate RHSM provider
@@ -44,7 +44,7 @@ Vars in this section directly correspond to the args available to the
 * `rhsm_consumer_name` - Name of the system to register (defaults to system hostname)
 * `rhsm_consumer_id` - Existing consumer ID to resume a previous registration
 * `rhsm_force_register` - Register the system even if it is already registered (bool, default false)
-* `rhsm_unregister` - Unregister a system if true. The system will be unsubscribed before subscription is attempted
+* `rhsm_unregister` - Unregister a system if true. The system will be unregistered. System registration *will not be attempted*
   (bool, default false)
 
 ### Repository Management
@@ -108,6 +108,9 @@ rhsm_release_unset: true
 
 Role Output
 -----------
+
+> **DEPRECATION WARNING** Role outputs are deprecated, no longer supported, and will be removed
+> in a future version of this role.
 
 ### oasis\_role\_rhsm
 
