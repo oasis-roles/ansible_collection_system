@@ -3,6 +3,7 @@
   connection: local
   gather_facts: false
   vars:
+    molecule_openstack_ci_cloud: default
     ssh_user: cloud-user
     ssh_port: 22
 
@@ -15,10 +16,17 @@
 
     keypair_name: molecule_key
     keypair_path: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
-
-    nova_image: rhel-7.4-server-x86_64-updated
-    nova_flavor: "{{ lookup('env', 'OS_NOVA_FLAVOR') }}"
   tasks:
+    - name: Look for the configured cloud to be returned
+      os_client_config:
+        clouds:
+          - "{{ molecule_openstack_ci_cloud }}"
+      failed_when: (openstack.clouds | length) != 1
+
+    - name: Set the cloud fact
+      set_fact:
+        _cloud: "{{ openstack.clouds[0] }}"
+
     - name: Create security group
       os_security_group:
         name: "{{ security_group_name }}"
@@ -61,12 +69,19 @@
 
     - name: Create molecule instance(s)
       os_server:
+        cloud: "{{ molecule_openstack_ci_cloud }}"
         name: "{{ item.name }}"
-        image: "{{ item.image }}"
-        flavor: "{{ item.flavor }}"
+        image: "{{ item.image | default(_cloud.image) }}"
+        flavor: "{{ item.flavor | default(_cloud.nova_flavor) }}"
         security_groups: "{{ security_group_name }}"
         key_name: "{{ keypair_name }}"
         delete_fip: true
+        meta:
+          # The generated inventory will still be using the instance name
+          # as defined in molecule.yml. Stash the original name in the instance
+          # metadata so we can store that in molecule_instance_config, which
+          # is used to generate the inventory.
+          inventory_name: "{{ item.name }}"
       register: server
       with_items: "{{ molecule_yml.platforms }}"
       async: 7200

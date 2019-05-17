@@ -1,1 +1,28 @@
-# role tasks
+- name: Add groups
+  group:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ users_and_groups_add_groups }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
+
+- name: Add users to groups
+  user:
+    name: "{{ item['name'] }}"
+    state: present
+    groups: "{{ item['groups'] }}"
+    append: true
+  with_items: "{{ users_and_groups_add_users }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
+
+- include_tasks: remove_users.yaml
+  with_items: "{{ users_and_groups_remove_users }}"
+
+- name: Remove groups
+  group:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ users_and_groups_remove_groups }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
