@@ -5,8 +5,6 @@ users_and_groups
 
 Ansible role that creates/deletes groups and adds/removes users to those groups.
 
-Note that this role is not idempotent due to the usage of ansible's `command` module.
-
 Requirements
 ------------
 
