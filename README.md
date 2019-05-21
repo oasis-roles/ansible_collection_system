@@ -8,7 +8,7 @@ Ansible role that creates/deletes groups and adds/removes users to those groups.
 Requirements
 ------------
 
-Ansible 2.4 or higher
+Ansible 2.6 or higher, however some options require up to 2.8
 
 Red Hat Enterprise Linux 7 or equivalent
 
