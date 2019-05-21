@@ -6,18 +6,18 @@
   become: "{{ users_and_groups_become }}"
   become_user: "{{ users_and_groups_become_user }}"
 
-- name: Add users to groups
+- name: Add group members
   user:
     name: "{{ item['name'] }}"
     state: present
     groups: "{{ item['groups'] }}"
     append: true
-  with_items: "{{ users_and_groups_add_users }}"
+  with_items: "{{ users_and_groups_add_group_members }}"
   become: "{{ users_and_groups_become }}"
   become_user: "{{ users_and_groups_become_user }}"
 
-- include_tasks: remove_users.yaml
-  with_items: "{{ users_and_groups_remove_users }}"
+- include_tasks: remove_group_members.yaml
+  with_items: "{{ users_and_groups_remove_group_members }}"
 
 - name: Remove groups
   group:
