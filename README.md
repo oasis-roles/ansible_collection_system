@@ -3,7 +3,7 @@
 users_and_groups
 ===========
 
-Ansible role that creates/deletes groups and adds/removes users to those groups.
+Ansible role that manages groups and users
 
 Requirements
 ------------
@@ -142,7 +142,7 @@ This example adds new members to groups while removing members from other groups
   roles:
     - role: oasis_roles.users_and_groups
   vars:
-    users_and_groups_add_users:
+    users_and_groups_add_group_members:
       - name: "john_doe"
         groups:
           - "group1"
@@ -153,7 +153,7 @@ This example adds new members to groups while removing members from other groups
         groups:
           - "new_group2"
         append: true
-    users_and_groups_remove_users:
+    users_and_groups_remove_group_members:
       - name: "jane_smith"
         groups:
           - "old_group1"
