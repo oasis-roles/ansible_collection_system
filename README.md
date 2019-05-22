@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/devroles/docker.svg?branch=master)](https://travis-ci.org/devroles/docker)
+[![Build Status](https://travis-ci.org/oasis-roles/docker.svg?branch=master)](https://travis-ci.org/oasis-roles/docker)
 
 Docker
 ===========
