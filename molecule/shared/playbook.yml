@@ -2,6 +2,3 @@
   hosts: all
   roles:
     - role: docker
-  post_tasks: []
-  vars:
-    ansible_python_interpreter: /usr/bin/python3

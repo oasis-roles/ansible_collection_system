@@ -26,6 +26,9 @@ Currently the following variables are supported:
 * `docker_access_users` - A list of users ought to have access to the Docker
   daemon. Defaults to only the login user for this role. Users in this group
   will not require sudo access in order to use the Docker service.
+* `docker_become` - Default: true. Whether to use the Ansible "become" functionality
+  to escalate privileges.
+* `docker_become_user` - Default: root. User to become when performing sysadmin tasks
 
 Dependencies
 ------------
@@ -38,7 +41,7 @@ Example Playbook
 ```yaml
 - hosts: docker-servers
   roles:
-    - role: greg_hellings.docker
+    - role: oasis_roles.docker
 ```
 
 License
