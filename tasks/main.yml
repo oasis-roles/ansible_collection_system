@@ -2,16 +2,16 @@
   group:
     name: "{{ item['name'] }}"
     state: present
-    gid: "{{ item['gid'] | default(omit)}}"
+    gid: "{{ item['gid'] | default(omit) }}"
     local: "{{ item['local'] | default(omit) }}"
     non_unique: "{{ item['non_unique'] | default(omit) }}"
     system: "{{ item['system'] | default(omit) }}"
-  with_items: "{{ users_and_groups_add-modify_groups }}"
+  with_items: "{{ users_and_groups_add_modify_groups }}"
   become: "{{ users_and_groups_become }}"
   become_user: "{{ users_and_groups_become_user }}"
 
 - include_tasks: add-modify_users.yaml
-  with_items: "{{ users_and_groups_add-modify_users }}"
+  with_items: "{{ users_and_groups_add_modify_users }}"
 
 - name: Add group members
   user:
