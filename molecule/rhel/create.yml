@@ -3,7 +3,7 @@
   connection: local
   gather_facts: false
   vars:
-    ssh_user: fedora
+    ssh_user: cloud-user
     ssh_port: 22
 
     security_group_name: molecule

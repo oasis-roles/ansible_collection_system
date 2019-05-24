@@ -10,10 +10,10 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: test-docker
-    image: Fedora 29
+    image: rhel-7.6-server-x86_64-released
     flavor: ci.m1.small
     groups:
-      - fedora
+      - rhel
 provisioner:
   name: ansible
   lint:
@@ -24,10 +24,6 @@ provisioner:
   config_options:
     default:
       stdout_callback: yaml
-  inventory:
-    group_vars:
-      all:
-        ansible_python_interpreter: /usr/bin/python3
 verifier:
   name: testinfra
   lint:

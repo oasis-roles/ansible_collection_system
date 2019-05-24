@@ -1,5 +1,6 @@
 galaxy_info:
   author: Greg Hellings
+  company: Red Hat, Inc.
   description: >-
     Installs and enables the Docker package. Also configures users with access
     to the service, the login user by default.

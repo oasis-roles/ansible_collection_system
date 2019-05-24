@@ -1,7 +1,8 @@
 language: python
-versions:
+dist: xenial
+python:
   - "2.7"
-  - "3.5"
+  - "3.7"
 cache: pip
 sudo: required
 services:
@@ -19,6 +20,7 @@ install:
 
 script:
   - molecule lint
+  - molecule lint -s rhel
   - flake8 $(find . -name '*.py')
 
 notifications:
