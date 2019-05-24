@@ -1,11 +1,11 @@
 - name: Get groups user is a member of
-  command: groups {{ item['name'] }}
+  command: id -Gn {{ item['name'] }}
   register: current_groups
   changed_when: false
 
-- name: Parse output to just have the group names
+- name: Convert output string to list
   set_fact:
-    current_groups: "{{ current_groups.stdout.split(' : ')[1].split() }}"
+    current_groups: "{{ current_groups.stdout.split() }}"
 
 - name: Get which groups the user is still a member of after removal
   set_fact:
