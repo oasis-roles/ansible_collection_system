@@ -8,7 +8,7 @@ Ansible role that manages groups and users
 Requirements
 ------------
 
-Ansible 2.6 or higher, however some options require up to 2.8
+Ansible 2.8 or higher
 
 Red Hat Enterprise Linux 7 or equivalent
 
@@ -29,12 +29,12 @@ Sub-field format guide: `parameter` - [input type] (application scenario) Descri
   * `name` - [string] (add|modify) The name of the group. **REQUIRED**
   * `gid` - [int] (add|modify) GID to set for the group. **OPTIONAL**
   * `local` - [bool] (add) Forces the use of "local" command alternatives on platforms that implement it. **Default is `false`**
-  * `non_unique` - [bool] (add|modify) Allows admin to change the GID to a non-unique value. Requires ansible 2.8 and gid to be defined. **Default is `false`**
+  * `non_unique` - [bool] (add|modify) Allows admin to change the GID to a non-unique value. Requires gid to be defined. **Default is `false`**
   * `system` - [bool] (add) Indicates the group is a system group if set to `true`. **Default is `false`**
 * `users_and_groups_remove_groups` - A list of groups to remove/delete from remote hosts
 * `users_and_groups_add_modify_users` - A list of users to create/modify on remote hosts. Each list entry has the following parameters (in depth descriptions of some parameters can be found in the [user module docs](https://docs.ansible.com/ansible/latest/modules/user_module.html)):
   * `name` - [string] (add|modify) The name of the user to manage. **REQUIRED**
-  * `authorization` - [string list] (add|modify) Sets the authorization of the user. Requires ansible 2.8. **OPTIONAL**
+  * `authorization` - [string list] (add|modify) Sets the authorization of the user. **OPTIONAL**
   * `comment` - [string] (add|modify) Sets the description of the user account. **OPTIONAL**
   * `create_home` - [bool] (add) Unless set to `false`, a home directory will be made for the user upon creation. **Default is `true`**
   * `expires` - [float] (add|modify) An expiry time for the user in epoch. Specify a negative value to remove an existing expiry time. **OPTIONAL**
@@ -47,8 +47,8 @@ Sub-field format guide: `parameter` - [input type] (application scenario) Descri
   * `non_unique` - [bool] (modify) Allows the user's UID to change to a non-unique value. **Default is `false`**
   * `password` - [string] (add|modify) Set the user's password to this crypted value. See the [ansible docs](https://docs.ansible.com/ansible/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module) for generating password values. **OPTIONAL**
   * `password_lock` - [bool] (add|modify) Lock the user's password. **OPTIONAL**
-  * `profile` - [string list] (add|modify) Sets the profile of the user. Requires ansible 2.8. **OPTIONAL**
-  * `role` - [string list] (add|modify) Sets the role of the user. Requires ansible 2.8. **OPTIONAL**
+  * `profile` - [string list] (add|modify) Sets the profile of the user. **OPTIONAL**
+  * `role` - [string list] (add|modify) Sets the role of the user. **OPTIONAL**
   * `seuser` - [string] (add|modify) Sets the seuser type on selinux enabled systems. **OPTIONAL**
   * `shell` - [string] (add|modify) Sets the user's shell. **OPTIONAL**
   * `skeleton` - [string] (add) Set a home skeleton directory. Requires `create_home` to be defined. **OPTIONAL**
