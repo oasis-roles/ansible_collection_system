@@ -1,9 +1,0 @@
-# Not the traditional destroy.yml file, because this role is all about
-# creating resources in the first place. But this ensures those resources are
-# not bouncing around the OpenStack installation
-- name: delete servers
-  os_server:
-    name: "{{ servers.name }}{{ item }}"
-    state: absent
-    cloud: "{{ servers.cloud }}"
-  with_sequence: start=1 end={{ servers.count | default(1) | int }}

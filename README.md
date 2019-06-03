@@ -27,6 +27,13 @@ Shade will need to be installed on each system where this role is executed,
 as well. That is an exercise left to the user to install the shade package in
 a manner that best suits you.
 
+Most of the authentication arguments to individual OpenStack modules are not
+leveraged in this role. Authentication configuration is left to the os-client-config
+method of configuring a default cloud in the user's `~/.config/openstack/clouds.yaml`
+on Linux hosts (see the documentation for the os-client-config package in OpenStack
+for more information about configuring and where that file might live in other
+operating systems).
+
 Requirements
 ------------
 
@@ -43,6 +50,15 @@ Currently the following variables are supported:
 
 ### General
 
+* `openstack_provision_volumes` - An array of volumes to provision. These will
+  be provisioned before the servers, so if you are attaching the volumes to the
+  server, you are safe to create them with this array and immediately use them
+  in the `openstack_provision_servers` array, provided you do not override the
+  default value of `wait` being set to `true`. Elements in this array should have
+  key/value pairs that match the arguments to the os\_volume module for Ansible.
+* `openstack_provision_keypairs` - An array of keypair values to provision into
+  the configured OpenStack tenant. See the documentation of `os_keypair` module
+  in Ansible to find information on the arguments allowed.
 * `openstack_provision_servers` - array of servers to provision, elements of
   the array should be hashes with keys matching the acceptable arguments from
   the standard os\_server module. Two additional arguments are also accepted -

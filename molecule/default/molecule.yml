@@ -7,49 +7,34 @@ lint:
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test_server
-    flavor: m1.medium
-    image: 'CentOS-7-x86_64-GenericCloud-released-latest'
-    count: 2
-    cloud: default
-    groups:
-      - test_group
-  - name: fed_test
-    flavor: m1.medium
-    image: 'Fedora 29'
-    cloud: default
+  - name: test_server1
+  - name: fed_test1
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   playbooks:
     converge: ../shared/playbook.yml
-scenario:
-  name: default
-  # There should be no create or destroy executed because of this
-  # being a provisioning role. Also, there should be no prepare step,
-  # as the local host needs to have itself prepared, and we don't want
-  # to mess with the developer's localhost.
-  create_sequence: []
-  check_sequence:
-    - converge
-    - check
-  converge_sequence:
-    - destroy
-    - converge
-  destroy_sequence:
-    - destroy
-  test_sequence:
-    - lint
-    - dependency
-    - syntax
-    - converge
-    - idempotence
-    - side_effect
-    - verify
-    - destroy
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
+  inventory:
+    group_vars:
+      all:
+        ansible_ssh_private_key_file: >-
+          {{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/id_rsa_default
+    host_vars:
+      localhost:
+        openstack_provision_servers:
+          - name: test_server
+            flavor: ci.m1.tiny
+            image: 'CentOS-7-x86_64-GenericCloud-released-latest'
+            count: 2
+            groups:
+              - test_group
+          - name: fed_test
+            flavor: ci.m1.tiny
+            image: 'Fedora 29'
 verifier:
   name: testinfra
   lint:
     name: flake8
-  directory: ../shared/
