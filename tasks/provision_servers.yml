@@ -30,7 +30,7 @@
     reuse_ips: "{{ servers.reuse_ips | default(omit) }}"
     scheduler_hints: "{{ servers.scheduler_hints | default(omit) }}"
     security_groups: "{{ servers.security_groups | default(omit) }}"
-    state: "{{ servers.state | default(omit) }}"
+    state: "{{ servers.state | default(openstack_provision_default_state) }}"
     terminate_volume: "{{ servers.terminate_volume | default(omit) }}"
     timeout: "{{ servers.timeout | default(omit) }}"
     userdata: "{{ servers.userdata | default(omit) }}"

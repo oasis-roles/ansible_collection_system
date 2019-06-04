@@ -23,5 +23,12 @@ pipeline {
 				}
 			}
 		}
+		stage('Run additional molecule scenario') {
+			steps {
+				dir('openstack_provision') {
+					venvSh('.venv', ['molecule test -s with_volumes'])
+				}
+			}
+		}
 	}
 }

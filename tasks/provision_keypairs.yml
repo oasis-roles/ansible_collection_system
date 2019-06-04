@@ -1,0 +1,7 @@
+- name: upload key
+  os_keypair:
+    name: "{{ item.name }}"
+    public_key: "{{ item.public_key | default(omit) }}"
+    public_key_file: "{{ item.public_key_file | default(omit) }}"
+    state: "{{ item.state | default(openstack_provision_default_state) }}"
+  with_items: "{{ openstack_provision_keypairs }}"

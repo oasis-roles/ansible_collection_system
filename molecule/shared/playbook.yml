@@ -1,12 +1,7 @@
-- name: converge
-  hosts: localhost
+- hosts: localhost
+  pre_tasks:
+    - name: generate SSH keypair
+      openssh_keypair:
+        path: "{{ ansible_ssh_private_key_file }}"
   roles:
     - role: openstack_provision
-      openstack_provision_servers: "{{ molecule_yml.platforms }}"
-
-- name: run tests
-  hosts: localhost
-  tasks:
-    - name: debug output
-      debug: var=item
-      with_items: "{{ groups['test_group'] }}"
