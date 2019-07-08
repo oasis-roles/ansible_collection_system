@@ -1,9 +1,9 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Andrew Euredjian
+  description: Provisions VMWare hosts and adds them to inventory groups
   company: Red Hat, Inc.
   license: GPLv3
-  min_ansible_version: 2.4
+  min_ansible_version: 2.8
   platforms:
     - name: EL
       versions:

@@ -3,12 +3,12 @@
 vmware_provision
 ===========
 
-Basic description for vmware_provision
+Provisions VMWare hosts and adds them to inventory groups
 
 Requirements
 ------------
 
-Ansible 2.4 or higher
+Ansible 2.8 or higher
 
 Red Hat Enterprise Linux 7 or equivalent
 
@@ -49,4 +49,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Andrew Euredjian <aeuredji@redhat.com>
