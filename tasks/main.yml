@@ -1,1 +1,3 @@
 # role tasks
+- debug:
+    msg: "This is where the role's tasks would go"
