@@ -1,3 +1,8 @@
 # role tasks
-- debug:
-    msg: "This is where the role's tasks would go"
+- name: provision VM
+  include_tasks: deploy_ovf.yml
+  when: vmware_provision_from_ovf is true
+
+- name: provision VM
+  include_tasks: manage_vm.yml
+  when: vmware_provision_from_ovf is false
