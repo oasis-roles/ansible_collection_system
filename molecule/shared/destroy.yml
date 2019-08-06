@@ -1,2 +1,4 @@
-- debug:
-    msg: "This will remove the provisioned VMs"
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: "This destroys VMware instances"

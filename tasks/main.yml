@@ -1,8 +1,12 @@
 # role tasks
-- name: provision VM
-  include_tasks: deploy_ovf.yml
-  when: vmware_provision_from_ovf is true
+- name: Create temp variable to store UUIDs
+  set_fact:
+    uuids: []
 
-- name: provision VM
+- name: provision VM (OVF)
+  include_tasks: deploy_ovf.yml
+  with_items: "{{ vmware_provision_OVFs }}"
+
+- name: provision VM (CUSTOM)
   include_tasks: manage_vm.yml
-  when: vmware_provision_from_ovf is false
+  with_items: "{{ vmware_provision_VMs }}"

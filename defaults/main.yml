@@ -11,4 +11,3 @@ vmware_provision_VMs: []
 
 # Config vars to provision a VM using OVF files
 vmware_provision_OVFs: []
-vmware_provision_from_ovf: false
