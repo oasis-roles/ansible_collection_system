@@ -24,7 +24,3 @@
     wait_for_ip_address: "{{ item['wait_for_ip_address'] | default(omit) }}"
   delegate_to: localhost
   register: vm_instance
-
-- name: Append UUID to temp variable
-  set_fact:
-    uuids: "{{ uuids + [ vm_instance['instance']['instance_uuid'] ] }}"

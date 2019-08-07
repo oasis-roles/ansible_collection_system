@@ -1,4 +1,2 @@
-- hosts: localhost
-  tasks:
-    - debug:
-        msg: "This destroys VMware instances"
+- hosts: []
+  tasks: []
