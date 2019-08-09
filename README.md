@@ -31,13 +31,22 @@ Currently the following variables are supported:
 * `vmware_provision_hostname` - The hostname or IP address of the vSphere vCenter or ESXi server. **REQUIRED**
 * `vmware_provision_username` - The username of the vSphere vCenter or ESXi server. **REQUIRED**
 * `vmware_provision_password` - The password of the vSphere vCenter or ESXi server. **REQUIRED**
-* `vmware_provision_custom_VMs` - A list of custom VM configurations to deploy to a vSphere vCenter or ESXi server. Each list item represents a VM to be provisioned. Parameters of each list item should have key/value pairs that match the arguments to the [vmware_guest](https://docs.ansible.com/ansible/latest/modules/vmware_guest_module.html#vmware-guest-module) module for Ansible.
-* `vmware_provision_OVFs` - A list of configurations using an OVA file to deploy to a vSphere vCenter or ESXi server. Each list item represents a VM to be provisioned. Parameters of each list item should have key/value pairs that match the arguments to the [vmware_deploy_ovf](https://docs.ansible.com/ansible/latest/modules/vmware_deploy_ovf_module.html) module for Ansible. **Note that the `ovf` parameter only accepts `.ova` files. You can use VMware's [ovftool](https://code.vmware.com/web/tool/4.3.0/ovf) to convert an ovf template with its supporting files to an ova template**
+* `vmware_provision_custom_vms` - A list of custom VM configurations to deploy
+to a vSphere vCenter or ESXi server. Each list item represents a VM to be
+provisioned. Parameters of each list item should have key/value pairs that match
+the arguments to the [vmware_guest](https://docs.ansible.com/ansible/latest/modules/vmware_guest_module.html#vmware-guest-module)
+module for Ansible.
+* `vmware_provision_ovfs` - A list of configurations using an OVA file to
+deploy to a vSphere vCenter or ESXi server. Each list item represents a VM to
+be provisioned. Parameters of each list item should have key/value pairs that
+match the arguments to the [vmware_deploy_ovf](https://docs.ansible.com/ansible/latest/modules/vmware_deploy_ovf_module.html)
+module for Ansible. **Note that the `ovf` parameter only accepts `.ova` files.**
+**You can use VMware's [ovftool](https://code.vmware.com/web/tool/4.3.0/ovf) to convert an ovf template with its supporting files to an ova template**
 
 Dependencies
 ------------
 
-None
+Python pip package `pyvmomi`
 
 Example Playbook
 ----------------

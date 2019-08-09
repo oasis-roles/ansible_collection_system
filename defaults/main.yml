@@ -7,7 +7,7 @@ vmware_provision_username: "username"
 vmware_provision_password: "password"
 
 # Config vars to provision a VM using custom user inputs
-vmware_provision_custom_VMs: []
+vmware_provision_custom_vms: []
 
 # Config vars to provision a VM using OVF files
-vmware_provision_OVFs: []
+vmware_provision_ovfs: []

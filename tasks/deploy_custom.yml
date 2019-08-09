@@ -33,7 +33,7 @@
     uuid: "{{ item['uuid'] | default(omit) }}"
     validate_certs: "{{ item['validate_certs'] | default(omit) }}"
     vapp_properties: "{{ item['vapp_properties'] | default(omit) }}"
-    wait_for_customization: "{{ item['wait_for_customization']|default('no') }}"
+    wait_for_customization: "{{ item['wait_for_customization']|default(omit) }}"
     wait_for_ip_address: "{{ item['wait_for_ip_address'] | default(omit) }}"
   delegate_to: localhost
   register: vm_instance
