@@ -1,14 +1,13 @@
 dependency:
   name: galaxy
 driver:
-  name: openstack
+  name: delegated
 lint:
   name: yamllint
   options:
     config-file: tests/yamllint.yml
 platforms:
-  - name: test_server1
-  - name: fed_test1
+  - name: test-vmware_provision
 provisioner:
   name: ansible
   lint:

@@ -5,4 +5,4 @@
 
 - name: Provision VM (CUSTOM)
   include_tasks: manage_vm.yml
-  with_items: "{{ vmware_provision_VMs }}"
+  with_items: "{{ vmware_provision_custom_VMs }}"
