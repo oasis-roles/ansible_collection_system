@@ -1,5 +1,5 @@
 - name: converge
-  hosts: all
+  hosts: localhost
   roles:
     - role: vmware_provision
   post_tasks: []
