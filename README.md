@@ -3,7 +3,9 @@
 vmware_provision
 ===========
 
-Provisions VMWare hosts and adds them to inventory groups
+Provisions VMWare hosts and adds them to inventory groups. This role also
+provides the information for newly provisioned instances through the variable
+`provisioned_vms` for use elsewhere in the playbook
 
 Requirements
 ------------
