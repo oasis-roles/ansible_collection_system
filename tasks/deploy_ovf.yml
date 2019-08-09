@@ -12,7 +12,7 @@
     deployment_option: "{{ item['deployment_option'] | default(omit) }}"
     disk_provisioning: "{{ item['disk_provisioning'] | default(omit) }}"
     fail_on_spec_warnings: "{{ item['fail_on_spec_warnings'] | default(omit) }}"
-    folder: "{{ item['folder'] | default(omit)"
+    folder: "{{ item['folder'] | default(omit) }}"
     inject_ovf_env: "{{ item['inject_ovf_env'] | default(omit) }}"
     networks: "{{ item['networks'] | default(omit) }}"
     port: "{{ item['port'] | default(omit) }}"

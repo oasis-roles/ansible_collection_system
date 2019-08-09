@@ -5,6 +5,6 @@
 __pycache__/*
 molecule/*/junit.xml
 molecule/*/pytestdebug.log
-files/*
 molecule/provision_vms
+molecule/ovf_provision
 molecule/down_shared
