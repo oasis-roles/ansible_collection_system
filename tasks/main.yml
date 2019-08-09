@@ -1,4 +1,8 @@
 # role tasks
+- name: Setup var to store instance info
+  set_fact:
+    provisioned_vms: []
+
 - name: Provision VM (OVF)
   include_tasks: deploy_ovf.yml
   with_items: "{{ vmware_provision_ovfs }}"

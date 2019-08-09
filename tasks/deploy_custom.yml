@@ -37,3 +37,7 @@
     wait_for_ip_address: "{{ item['wait_for_ip_address'] | default(omit) }}"
   delegate_to: localhost
   register: vm_instance
+
+- name: Append instance info to variable
+  set_fact:
+    provisioned_vms: "{{ provisioned_vms + [vm_instance] }}"
