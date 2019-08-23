@@ -27,4 +27,4 @@
 
 - name: Append instance info to variable
   set_fact:
-    provisioned_vms: "{{ provisioned_vms + [vm_instance] }}"
+    vmware_provisioned_vms: "{{ provisioned_vms + [vm_instance] }}"

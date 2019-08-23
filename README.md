@@ -5,7 +5,7 @@ vmware_provision
 
 Provisions VMWare hosts and adds them to inventory groups. This role also
 provides the information for newly provisioned instances through the variable
-`provisioned_vms` for use elsewhere in the playbook
+`vmware_provisioned_vms` for use elsewhere in the playbook
 
 Requirements
 ------------
@@ -63,7 +63,7 @@ This example shows a playbook used to provision VMs with custom configurations
     vmware_provision_username: "username"
     vmware_provision_username: "password"
 
-    vmware_provision_VMs:
+    vmware_provisioned_vms:
       - name: custom_VM-1
         validate_certs: false
         folder: my_vm_folder
