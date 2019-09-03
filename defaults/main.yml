@@ -1,0 +1,13 @@
+vmware_provision_become: true
+vmware_provision_become_user: root
+
+# Credentials to access VMware server
+vmware_provision_hostname: "hostname"
+vmware_provision_username: "username"
+vmware_provision_password: "password"
+
+# Config vars to provision a VM using custom user inputs
+vmware_provision_custom_vms: []
+
+# Config vars to provision a VM using OVF files
+vmware_provision_ovfs: []

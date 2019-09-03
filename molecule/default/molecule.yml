@@ -1,0 +1,22 @@
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-vmware_provision
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    converge: ./playbook.yml
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
