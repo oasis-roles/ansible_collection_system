@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
 driver:
   name: docker
 lint:
@@ -18,7 +20,6 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
 scenario:
   name: docker
