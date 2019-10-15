@@ -21,8 +21,9 @@ provisioner:
     name: ansible-lint
   playbooks:
     converge: ../shared/playbook.yml
-scenario:
-  name: docker
+  config_options:
+    defaults:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:
