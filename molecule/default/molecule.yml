@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/default/requirements.yml
 driver:
   name: openstack
 lint:
@@ -8,14 +10,13 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: test-hostname
-    image: rhel-7.4-server-x86_64-updated
-    flavor: m1.medium
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
-scenario:
-  name: default
+  config_options:
+    default:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:
