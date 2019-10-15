@@ -1,6 +1,8 @@
 # role tasks
 - name: Get the count of previous reboots on the system
-  shell: last | grep -c reboot
+  shell: |
+    set -o pipefail
+    last | grep -c reboot
   register: reboots_count
   changed_when: "reboots_count.rc != 0"
 
@@ -25,7 +27,9 @@
     timeout: "{{ reboot_wait_for_connection_timeout }}"
 
 - name: Get the count of reboots on the system after reboot of system.
-  shell: last | grep -c reboot
+  shell: |
+    set -o pipefail
+    last | grep -c reboot
   register: reboots_count
   changed_when: "reboots_count.rc != 0"
 
