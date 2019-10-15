@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
 driver:
   name: docker
 lint:
@@ -13,6 +15,9 @@ provisioner:
   name: ansible
   lint:
     name: ansible-lint
+  playbooks:
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
 scenario:
   name: docker
 verifier:
