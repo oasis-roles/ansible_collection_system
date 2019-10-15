@@ -1,0 +1,4 @@
+- hosts: localhost
+  roles:
+    - role: oasis_roles.molecule_docker_ci
+      molecule_docker_ci_state: absent
