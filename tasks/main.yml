@@ -19,6 +19,7 @@
       # - no trailing newline, so the entire connection name should be
       #   the entire stdout property of the registered result.
       shell: >
+        set -o pipefail
         nmcli device show "{{ nmcli_add_addrs_interface }}" |
         awk '/GENERAL.CONNECTION/ { printf $2;
          for (i=3; i <= NF; i++) printf FS$i }'
@@ -50,6 +51,7 @@
   # Result items should include existing addresses in stdout_lines to let the
   # adding of addresses be idempotent. result item 0 is v4, item 1 is v6.
   shell: >
+    set -o pipefail
     nmcli connection show "{{ nmcli_add_addrs_connection }}" |
     awk '/{{ item }}/ { print $2 }'
   # with_items instead of loop means this should work in ansible 2.4
