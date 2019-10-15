@@ -1,4 +1,5 @@
 language: python
+dist: xenial
 python:
   - "2.7"
   - "3.7"
@@ -22,7 +23,7 @@ env:
 
 script:
   - molecule lint -s openstack
-  - molecule test -s "${TEST}"
+  - travis_wait molecule test -s "${TEST}"
   - flake8 $(find . -name '*.py')
 
 notifications:

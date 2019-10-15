@@ -18,9 +18,9 @@ provisioner:
   playbooks:
     create: ../shared/create.yml
     destroy: ../shared/destroy.yml
-    prepare: ../shared/prepare.yml
-scenario:
-  name: docker_fedora
+  config_options:
+    defaults:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:

@@ -18,8 +18,9 @@ provisioner:
   playbooks:
     create: ../shared/create.yml
     destroy: ../shared/destroy.yml
-scenario:
-  name: docker
+  config_options:
+    defaults:
+      stdout_callback: yaml
 verifier:
   name: testinfra
   lint:
