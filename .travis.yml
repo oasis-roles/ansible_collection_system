@@ -1,9 +1,9 @@
 language: python
-versions:
+dist: xenial
+python:
   - "2.7"
-  - "3.5"
+  - "3.7"
 cache: pip
-sudo: required
 services:
   - docker
 
