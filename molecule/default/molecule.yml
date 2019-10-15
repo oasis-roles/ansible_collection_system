@@ -18,8 +18,6 @@ provisioner:
   config_options:
     defaults:
       stdout_callback: yaml
-scenario:
-  name: default
 verifier:
   name: testinfra
   lint:
