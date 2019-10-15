@@ -1,0 +1,5 @@
+- name: converge
+  hosts: all
+  tasks:
+    - name: Look for the host
+      wait_for_connection: {}

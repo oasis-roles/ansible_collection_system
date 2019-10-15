@@ -1,0 +1,9 @@
+- name: Assert that required state is specified
+  assert:
+    that:
+      - "molecule_docker_ci_state is defined"
+      - "molecule_docker_ci_state in ('present', 'absent')"
+    msg: The "molecule_docker_ci_state" variable is required,
+         and must be set to either "present" or "absent".
+
+- include_tasks: "{{ molecule_docker_ci_state }}.yml"
