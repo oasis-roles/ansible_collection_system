@@ -59,7 +59,7 @@
     display_name: "{{ item.name }}"
     size: "{{ item.size }}"
   register: volume
-  with_items: "{{ molecule_yml.volumes }}"
+  with_items: "{{ molecule_yml.volumes | default([]) }}"
   async: 7200
   poll: 0
 
