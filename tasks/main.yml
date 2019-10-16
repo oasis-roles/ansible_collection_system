@@ -1,5 +1,3 @@
-# role tasks
-
 - block:
   - name: install NFS server packages
     package:
