@@ -20,7 +20,7 @@
   os_volume:
     display_name: "{{ item.name }}"
     state: absent
-  with_items: "{{ molecule_yml.volumes }}"
+  with_items: "{{ molecule_yml.volumes | default([]) }}"
 
 # Mandatory configuration for Molecule to function.
 
