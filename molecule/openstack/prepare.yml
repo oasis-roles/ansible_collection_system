@@ -1,5 +1,15 @@
 - hosts: all
   roles:
+    - role: oasis_roles.rhsm
+      when: ansible_distribution == 'RedHat'
+      rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
+      rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
+      rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+      rhsm_pool_ids: "{{ lookup('env', 'OASIS_RHSM_POOL_IDS') }}"
+      rhsm_repositories:
+        enable:
+          - rhel-7-server-rpms
+          - rhel-7-extras-rpms
     - role: oasis_roles.firewalld
       firewalld_zone: public
       firewalld_ports_open:
