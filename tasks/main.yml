@@ -25,7 +25,7 @@
       # errors in the exports file to the user.
       # validate: 'exportfs %s'
     notify: export NFS shares
-    when: nfs_server_shares
+    when: (nfs_server_shares | list | length) > 0
 
   - name: enable and start NFS services
     service:
