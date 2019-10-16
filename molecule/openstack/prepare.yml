@@ -1,6 +1,6 @@
 - hosts: all
   roles:
-    - role: oasis-roles.firewalld
+    - role: oasis_roles.firewalld
       firewalld_zone: public
       firewalld_ports_open:
         # rpc-bind /usr/lib/firewalld/services/rpc-bind.xml
