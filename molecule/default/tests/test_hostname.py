@@ -1,5 +1,5 @@
 def test_hostname_set(host):
-    assert host.run("hostname -f").stdout == "dev.example.com"
+    assert host.run("hostname -f").stdout.strip() == "dev.example.com"
 
 
 def test_hostname_resolves(host):
