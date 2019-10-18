@@ -12,7 +12,7 @@ def test_file_write(host):
 
 
 def test_file_read(host):
-    assert host.run('cat /mnt/test_file.txt').stdout == 'test'
+    assert host.run('cat /mnt/test_file.txt').stdout[:-1] == 'test'
 
 
 def test_umount(host):

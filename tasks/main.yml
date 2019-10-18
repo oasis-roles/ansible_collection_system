@@ -1,5 +1,3 @@
-# role tasks
-
 - block:
   - name: install NFS server packages
     package:
@@ -27,7 +25,6 @@
       # errors in the exports file to the user.
       # validate: 'exportfs %s'
     notify: export NFS shares
-    when: nfs_server_shares
 
   - name: enable and start NFS services
     service:
