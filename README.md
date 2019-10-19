@@ -4,7 +4,7 @@ molecule_docker_ci
 ===========
 
 Creates and destroys Docker containers running on the local system for use
-in a molecule playbook. Can also be used to create and destroy docker containres
+in a molecule playbook. Can also be used to create and destroy docker containers
 in a more general sense, but that is not the purpose of this role nor is it a
 particularly supported use case
 
@@ -46,7 +46,7 @@ Molecule
 Example Playbook
 ----------------
 
-The following two playbooks should be sufficient to bring up and teardown
+The following two playbooks should be sufficient to bring up and tear down
 containers in your molecule.yml
 
 create.yml
