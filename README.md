@@ -42,9 +42,10 @@ Currently the following variables are supported:
 * `molecule_openstack_ci_security_group_name` - SSH keypair name prefix to use
  when generating keypair. Defaults to "molecule_key". The actual keypair
  created will have the run hash appended to its name.
-* `molecule_openstack_ci_cloud` - name of the OpenStack cloud to connect to. This defaults to being omitted,
- in which case the openstack libraries will read the environment variable "OS\_CLOUD" by default. Set this
- value if you want to override that for specific cases or do not have the value set.
+* `molecule_openstack_ci_cloud` - name of the OpenStack cloud to connect to. This defaults to the value
+ of the environment variable "`OS\_CLOUD`" if it is set, or "`default`" if not.
+* `molecule_openstack_ci_state` - Whether to create (`present`) or destroy (`absent`) molecule resources.
+ Defaults to `present`.
 
 Dependencies
 ------------
@@ -61,16 +62,10 @@ Molecule scenario `create.yml`:
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: |-
-    {{ not (lookup('env', 'MOLECULE_DEBUG') | bool or
-       molecule_yml.provisioner.log|default(false) | bool) }}
   roles:
-    - name: oasis_roles.molecule_openstack_ci
-      vars:
-        # this var is required for create and destroy
-        molecule_openstack_ci_state: present
-        # other vars can be set here, e.g.
-        # molecule_openstack_ci_ssh_user: yourcloudusername
+    - role: oasis_roles.molecule_openstack_ci
+      # other vars can be set here, e.g.
+      # molecule_openstack_ci_ssh_user: yourcloudusername
 ```
 
 Molecule scenario `destroy.yml`:
@@ -79,22 +74,13 @@ Molecule scenario `destroy.yml`:
   hosts: localhost
   connection: local
   gather_facts: false
-  no_log: |-
-    {{ not (lookup('env', 'MOLECULE_DEBUG') | bool or
-       molecule_yml.provisioner.log|default(false) | bool) }}
   roles:
-    - name: oasis_roles.molecule_openstack_ci
-      vars:
-        molecule_openstack_ci_state: absent
+    - role: oasis_roles.molecule_openstack_ci
+      molecule_openstack_ci_state: absent
 ```
 
-**Note:** Remember to add "oasis_roles.molecule_openstack_ci" to your
+**Note:** Remember to add `oasis_roles.molecule_openstack_ci` to your
 molecule scenario dependencies.
-
-Molecule scenario `requirements.yml`:
-```yaml
-- name: oasis_roles.molecule_openstack_ci
-```
 
 License
 -------

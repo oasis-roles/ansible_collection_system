@@ -3,7 +3,5 @@
   connection: local
   gather_facts: false
   roles:
-    - name: molecule_openstack_ci
-      vars:
-        molecule_openstack_ci_state: absent
-        molecule_openstack_ci_cloud: default
+    - role: molecule_openstack_ci
+      molecule_openstack_ci_state: absent
