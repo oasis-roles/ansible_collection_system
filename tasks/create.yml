@@ -81,6 +81,7 @@
     key_name: "{{ hashed_keypair_name }}"
     volumes: "{{ item.volumes | default(omit) }}"
     delete_fip: true
+    nics: "{{ item.nics | default(omit) }}"
     meta:
       # The generated inventory will still be using the instance name
       # as defined in molecule.yml. Stash the original name in the instance
