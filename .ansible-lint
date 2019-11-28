@@ -1,2 +1,2 @@
 skip_list:
-  - "204"
+  - "204"  # disable LineTooLongRule

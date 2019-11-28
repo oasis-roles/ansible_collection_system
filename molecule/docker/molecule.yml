@@ -18,6 +18,7 @@ provisioner:
   playbooks:
     create: ../shared/create.yml
     destroy: ../shared/destroy.yml
+    converge: ../shared/playbook.yml
   config_options:
     defaults:
       stdout_callback: yaml

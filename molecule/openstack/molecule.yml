@@ -8,14 +8,13 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: molecule-instance
-    image: rhel-7.6-server-x86_64-updated
     flavor: ci.m1.tiny
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
   config_options:
     defaults:
       stdout_callback: yaml
