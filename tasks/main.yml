@@ -40,18 +40,13 @@
   until: get_repo_file is success
   retries: 3
 
-- name: auto RPM keys
-  set_fact:
-    _auto_rpm_keys: >-
-      {{ system_repositories_configs | system_repositories_gpgkeys }}
-
 - name: install RPM keys
   become: "{{ system_repositories_become }}"
   rpm_key:
     key: "{{ item }}"
     state: present
     validate_certs: "{{ system_repositories_validate_certs }}"
-  with_items: "{{ _auto_rpm_keys + system_repositories_rpm_keys }}"
+  with_items: "{{ system_repositories_rpm_keys }}"
   register: install_rpm_key
   until: install_rpm_key is success
   retries: 3
