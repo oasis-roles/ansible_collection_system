@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
 lint:
@@ -8,7 +10,7 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: molecule-instance
-    flavor: ci.m1.tiny
+    flavor: ci.m1.small
 provisioner:
   name: ansible
   lint:
