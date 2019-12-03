@@ -1,1 +1,2 @@
 - oasis_roles.molecule_docker_ci
+- oasis_roles.molecule_openstack_ci
