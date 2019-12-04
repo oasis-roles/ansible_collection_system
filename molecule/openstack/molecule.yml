@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
 lint:
@@ -8,14 +10,13 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: molecule-instance
-    image: rhel-7.6-server-x86_64-updated
-    flavor: ci.m1.tiny
+    flavor: ci.m1.small
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   playbooks:
-    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
   config_options:
     defaults:
       stdout_callback: yaml
