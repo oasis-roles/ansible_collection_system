@@ -20,3 +20,4 @@
     consumer_name: "{{ rhsm_consumer_name }}"
     consumer_id: "{{ rhsm_consumer_id }}"
     force_register: "{{ rhsm_force_register }}"
+    syspurpose: "{{ rhsm_syspurpose }}"
