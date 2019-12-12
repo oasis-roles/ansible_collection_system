@@ -52,7 +52,7 @@ Vars in this section directly correspond to the args available to the
 
 Note:
 > Using variables related to repository management may result in the role reporting a failure if the system is not registered.
-> Subscription tasks are run before repository management tasks to facilitate registration state before processing these variables.
+> Subscription tasks are run before repository management tasks to ensure the correct registration state before processing these variables.
 
 * `rhsm_release` - Set which operating system release version to use. Remember to quote this for release versions that look like
   floats to the YAML parser, e.g.  set the value to something like `"7.4"`, not `7.4`. Values like `6Server` and `7Server` do not
@@ -72,28 +72,27 @@ rhsm_repositories:
 
 The list of repositories in `disabled` is processed before `enabled`.
 
-To enable only specific repositoryies and disable all others:
-
-```yaml
-rhsm_repositories:
-  only:
-    - enabled-repository-1
-    - enabled-repository-2
-```
-
-Using `only` is an idempotence-friendly version of the following:
+To idempotently enable only specific repositories and disable all others,
+setting `disabled` to `'*'` is supported:
 
 ```yaml
 rhsm_repositories:
   disabled:
-    - "*"
+    - '*'
   enabled:
     - enabled-repository-1
     - enabled-repository-2
 ```
 
-Note that globbing in repository names is supported.
-Use of `only` is mutually exclusive with the use of `enabled` and `disabled`, and the use of `only` takes precedence.
+Note that globbing in repository names is supported, e.g.:
+
+```yaml
+rhsm_repositories:
+  disabled:
+    - '*'
+  enabled:
+    - 'enabled-repository*'
+```
 
 To set a specific minor version of RHEL repositories to use:
 
@@ -156,6 +155,43 @@ and attaches to a specific pool by ID.
 
 CA Certificates for Satellite 6 or Katello host should be installed first for HTTPS to work
 when being used as the RHSM Provider.
+
+Changes
+-------
+
+### `rhsm_repositories.only` deprecated
+
+Prior to the introduction of the `purge` parameter to the `rhsm_repository` module in Ansible
+2.8, in order to allow for idempotent operation when enabling certain repositories and
+disabling all others, the following syntax was supported by this role, but is now
+deprecated:
+
+```yaml
+rhsm_repositories:
+  only:
+    - enabled-repository-1
+    - enabled-repository-2
+```
+
+Support for the more idiomatic usage of subscription-manager has since been
+added to the role, so this operation is now idempotent:
+
+```yaml
+rhsm_repositories:
+  disabled:
+    - '*'
+  enabled:
+    - enabled-repository-1
+    - enabled-repository-2
+```
+
+As a result, an in order for there to be "one -- and preferably only one -- obvious
+way to do it," the `only` key in the `rhsm_repositories` dictionary is deprecated, and
+support for it may be removed in a future release of this role. It is currently
+maintained in this role for backward compatibility.
+
+Note that the use of `only` is still mutually exclusive with the use of
+`enabled` or `disabled` in the `rhsm_repositories` dictionary.
 
 License
 -------

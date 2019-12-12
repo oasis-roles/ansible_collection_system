@@ -36,8 +36,7 @@
   - include_tasks: repo_only.yml
     when: "'only' in rhsm_repositories"
 
-  - include_tasks: repo_endisable.yml
-    when: "'only' not in rhsm_repositories"
+  - include_tasks: repositories.yml
   when: not rhsm_unregister
   become: true
   become_user: root
