@@ -64,6 +64,9 @@ rhsm_consumer_id: "{{ omit }}"
 # yes/no bool, default no
 rhsm_force_register: "{{ omit }}"
 
+# Syspurpose dict for rhsm syspurpose.json
+rhsm_syspurpose: "{{ omit }}"
+
 # If true, unregister a system
 # yes/no bool, default no
 rhsm_unregister: false

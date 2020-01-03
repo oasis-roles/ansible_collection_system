@@ -9,7 +9,7 @@ repositories available via subscription.
 Requirements
 ------------
 
-Ansible 2.4 or higher
+Ansible 2.8 or higher
 
 Red Hat Enterprise Linux 7 or equivalent
 
@@ -44,20 +44,24 @@ Vars in this section directly correspond to the args available to the
 * `rhsm_consumer_name` - Name of the system to register (defaults to system hostname)
 * `rhsm_consumer_id` - Existing consumer ID to resume a previous registration
 * `rhsm_force_register` - Register the system even if it is already registered (bool, default false)
-* `rhsm_unregister` - Unregister a system if true. The system will be unregistered. System registration *will not be attempted*
+* `rhsm_syspurpose` - Dictionary of attributes for populating `syspurpose.json` file on RHEL 8 systems (*Requires ansible>=2.9*)
+* `rhsm_unregister` - Unregister a system if true. The system will be unregistered. **System registration will not be attempted if this is true**.
   (bool, default false)
 
 ### Repository Management
 
 Note:
 > Using variables related to repository management may result in the role reporting a failure if the system is not registered.
-> Subscription tasks are run before repository management tasks to facilitate registration state before processing these variables.
+> Subscription tasks are run before repository management tasks to ensure the correct registration state before processing these variables.
 
 * `rhsm_release` - Set which operating system release version to use. Remember to quote this for release versions that look like
   floats to the YAML parser, e.g.  set the value to something like `"7.4"`, not `7.4`. Values like `6Server` and `7Server` do not
   need to be quoted.
 * `rhsm_release_unset` - Unset which operating system release version to use (bool, default false)
 * `rhsm_repositories` - Specifies which repositories to enable/disable, details below
+
+If both `rhsm_release` and `rhsm_release_unset` are set, `rhsm_release_unset` will happen before the `rhsm_release` is set,
+and this role will no longer operate idempotently when setting the release.
 
 To enable/disable specific repositories:
 
@@ -71,28 +75,27 @@ rhsm_repositories:
 
 The list of repositories in `disabled` is processed before `enabled`.
 
-To enable only specific repositoryies and disable all others:
-
-```yaml
-rhsm_repositories:
-  only:
-    - enabled-repository-1
-    - enabled-repository-2
-```
-
-Using `only` is an idempotence-friendly version of the following:
+To idempotently enable only specific repositories and disable all others,
+setting `disabled` to `'*'` is supported:
 
 ```yaml
 rhsm_repositories:
   disabled:
-    - "*"
+    - '*'
   enabled:
     - enabled-repository-1
     - enabled-repository-2
 ```
 
-Note that globbing in repository names is supported.
-Use of `only` is mutually exclusive with the use of `enabled` and `disabled`, and the use of `only` takes precedence.
+Note that globbing in repository names is supported, e.g.:
+
+```yaml
+rhsm_repositories:
+  disabled:
+    - '*'
+  enabled:
+    - 'enabled-repository*'
+```
 
 To set a specific minor version of RHEL repositories to use:
 
@@ -105,20 +108,6 @@ To default to the latest available minor version of repositories:
 ```yaml
 rhsm_release_unset: true
 ```
-
-Role Output
------------
-
-> **DEPRECATION WARNING** Role outputs are deprecated, no longer supported, and will be removed
-> in a future version of this role.
-
-### oasis\_role\_rhsm
-
-The `oasis_role_rhsm` fact will be set by this role, containing the following outputs:
-
-- `subscribed` - Whether or not the system is registered. (bool)
-- `subscribed_pool_ids` - A list of pool IDs current attached to the system. Will be an empty list if no pools are attached,
-  or if the system is not currently registered.
 
 Dependencies
 ------------
@@ -169,6 +158,54 @@ and attaches to a specific pool by ID.
 
 CA Certificates for Satellite 6 or Katello host should be installed first for HTTPS to work
 when being used as the RHSM Provider.
+
+Changes
+-------
+
+### `rhsm_repositories.only` deprecated
+
+Prior to the introduction of the `purge` parameter to the `rhsm_repository` module in Ansible
+2.8, in order to allow for idempotent operation when enabling certain repositories and
+disabling all others, the following syntax was supported by this role, but is now
+deprecated:
+
+```yaml
+rhsm_repositories:
+  only:
+    - enabled-repository-1
+    - enabled-repository-2
+```
+
+Support for the more idiomatic usage of subscription-manager has since been
+added to the role, so this operation is now idempotent:
+
+```yaml
+rhsm_repositories:
+  disabled:
+    - '*'
+  enabled:
+    - enabled-repository-1
+    - enabled-repository-2
+```
+
+As a result, an in order for there to be "one -- and preferably only one -- obvious
+way to do it," the `only` key in the `rhsm_repositories` dictionary is deprecated, and
+support for it may be removed in a future release of this role. It is currently
+maintained in this role for backward compatibility.
+
+Note that the use of `only` is still mutually exclusive with the use of
+`enabled` or `disabled` in the `rhsm_repositories` dictionary.
+
+### Requires Ansible >= 2.8
+
+New features in the `rhsm_repository` Ansible module are being used by this role.
+If using an older version of Ansible, version 2.0.0 of this role can be used.
+
+```yaml
+# example requirements.yaml to install version 2.0.0
+- name: oasis_roles.rhsm
+  version: 2.0.0
+```
 
 License
 -------

@@ -11,35 +11,16 @@
   - include_tasks: subscribe.yml
     when: rhsm_username != omit or rhsm_activationkey != omit
 
-  # decide whether or not to use the vendored rhsm_release module,
-  # which first appeared in ansible 2.8
-  - name: Determine if vendored rhsm_release module should be used
-    set_fact:
-      _rhsm_release_task: >-
-        {{ ansible_version.full is version_compare('2.8', '>=') |
-           ternary('rhsm_release', '_rhsm_release') }}
-
   # setting the release explodes if the system isn't subscribed,
   # so it should go after the subscribe tasks, and should only
   # run if changes to the release are requested.
   - include_tasks: release.yml
     when: rhsm_release or rhsm_release_unset
 
-  # decide whether or not to use the vendored rhsm_repository module,
-  # which first appeared in ansible 2.5
-  - name: Determine if vendored rhsm_repository module should be used
-    set_fact:
-      _rhsm_repository_task: >-
-        {{ ansible_version.full is version_compare('2.5', '>=') |
-           ternary('rhsm_repository', '_rhsm_repository') }}
-
   - include_tasks: repo_only.yml
     when: "'only' in rhsm_repositories"
 
-  - include_tasks: repo_endisable.yml
-    when: "'only' not in rhsm_repositories"
-
-  - include_tasks: output.yml
+  - include_tasks: repositories.yml
   when: not rhsm_unregister
   become: true
   become_user: root

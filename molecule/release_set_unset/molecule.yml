@@ -1,5 +1,7 @@
 dependency:
   name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
 lint:
@@ -19,18 +21,17 @@ provisioner:
     links:
       group_vars: ../shared/group_vars
   playbooks:
-    create: ../openstack/create.yml
-    destroy: ../openstack/destroy.yml
-    prepare: ../shared/prepare.yml
+    cleanup: ../shared/cleanup.yml
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
   config_options:
     defaults:
       stdout_callback: yaml
 scenario:
-  name: release_set_unset
   test_sequence:
     - lint
-    - destroy
     - dependency
+    - destroy
     - syntax
     - create
     - prepare
@@ -41,6 +42,7 @@ scenario:
     # - idempotence
     - side_effect
     - verify
+    - cleanup
     - destroy
 verifier:
   name: testinfra
