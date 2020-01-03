@@ -9,7 +9,7 @@ repositories available via subscription.
 Requirements
 ------------
 
-Ansible 2.4 or higher
+Ansible 2.8 or higher
 
 Red Hat Enterprise Linux 7 or equivalent
 
@@ -59,6 +59,9 @@ Note:
   need to be quoted.
 * `rhsm_release_unset` - Unset which operating system release version to use (bool, default false)
 * `rhsm_repositories` - Specifies which repositories to enable/disable, details below
+
+If both `rhsm_release` and `rhsm_release_unset` are set, `rhsm_release_unset` will happen before the `rhsm_release` is set,
+and this role will no longer operate idempotently when setting the release.
 
 To enable/disable specific repositories:
 
@@ -192,6 +195,17 @@ maintained in this role for backward compatibility.
 
 Note that the use of `only` is still mutually exclusive with the use of
 `enabled` or `disabled` in the `rhsm_repositories` dictionary.
+
+### Requires Ansible >= 2.8
+
+New features in the `rhsm_repository` Ansible module are being used by this role.
+If using an older version of Ansible, version 2.0.0 of this role can be used.
+
+```yaml
+# example requirements.yaml to install version 2.0.0
+- name: oasis_roles.rhsm
+  version: 2.0.0
+```
 
 License
 -------

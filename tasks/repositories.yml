@@ -1,6 +1,5 @@
 - name: Disable repositories
-  action: "{{ _rhsm_repository_task }}"
-  args:
+  rhsm_repository:
     state: disabled
     name: "{{ rhsm_repositories.disabled | default([]) }}"
   when:
@@ -10,8 +9,7 @@
     - "'*' not in (rhsm_repositories.disabled | default([], True))"
 
 - name: Enable repositories
-  action: "{{ _rhsm_repository_task }}"
-  args:
+  rhsm_repository:
     state: enabled
     name: "{{ rhsm_repositories.enabled | default([]) }}"
     # purge if rhsm_repositories.disabled contains '*'
