@@ -39,7 +39,7 @@ Example Playbook
 ```yaml
 - hosts: upload_files-servers
   roles:
-    - role: oasis-roles.upload_files
+    - role: oasis_roles.upload_files
       upload_files:
         - src: /my/local/file
           dest: /home/me/file_name
