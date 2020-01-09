@@ -1,44 +1,10 @@
-# role tasks
-- name: Get the count of previous reboots on the system
-  shell: |
-    set -o pipefail
-    last | grep -c reboot
-  register: reboots_count
-  changed_when: "reboots_count.rc != 0"
-
-- name: set the reboot count before
-  set_fact:
-    reboots_before: "{{ reboots_count.stdout_lines }}"
-
-- name: Rebooting in {{ reboot_seconds_before_reboot }} seconds
-  command: >
-    systemd-run --on-active="{{ reboot_seconds_before_reboot }}"
-    systemctl reboot
+- name: Rebooting system
+  reboot:
+    connect_timeout: "{{ reboot_connect_timeout | default(omit) }}"
+    msg: "{{ reboot_msg | default(omit) }}"
+    post_reboot_delay: "{{ reboot_post_delay }}"
+    pre_reboot_delay: "{{ reboot_pre_delay }}"
+    reboot_timeout: "{{ reboot_timeout }}"
+    test_command: "{{ reboot_test_command | default(omit) }}"
   become: "{{ reboot_become }}"
   become_user: "{{ reboot_become_user }}"
-  tags: skip_ansible_lint
-  register: reboot_command
-
-- name: >
-    Reboot command has been issued, waiting a maximum of
-    {{ reboot_wait_for_connection_timeout }} seconds to reconnect.
-  wait_for_connection:
-    delay: "{{ reboot_wait_for_connection_delay }}"
-    timeout: "{{ reboot_wait_for_connection_timeout }}"
-
-- name: Get the count of reboots on the system after reboot of system.
-  shell: |
-    set -o pipefail
-    last | grep -c reboot
-  register: reboots_count
-  changed_when: "reboots_count.rc != 0"
-
-- name: set the reboot count after
-  set_fact:
-    reboots_after: "{{ reboots_count.stdout_lines }}"
-
-- name: Provide feedback on failure
-  assert:
-    that: "reboots_after != reboots_before"
-    msg: >
-      Failed to reboot.  No new entry in reboot log.
