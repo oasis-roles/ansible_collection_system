@@ -1,0 +1,38 @@
+# Tests that deprecated vars are correctly converted to new vars
+# based on the reboot module params. Since this causes the system
+# to reboot, also verify that the reboot happened while we're here.
+- name: converge
+  hosts: all
+  roles:
+    - role: reboot
+      reboot_seconds_before_reboot: 0
+      reboot_wait_for_connection_delay: 0
+      reboot_wait_for_connection_timeout: 600
+  pre_tasks:
+    - name: Assert deprecated variables are mapped to their new var names
+      assert:
+        that:
+          - reboot_pre_delay == reboot_seconds_before_reboot
+          - reboot_post_delay == reboot_wait_for_connection_delay
+          - reboot_timeout == reboot_wait_for_connection_timeout
+        msg: Deprecated variables not properly mapped to new names
+
+    - name: Register pre-reboot 'last reboot' output
+      command: last reboot
+      register: last_pre_reboot
+      changed_when: false
+  tasks:
+    - name: Register post-reboot 'last reboot' output
+      command: last reboot
+      register: last_post_reboot
+      changed_when: false
+
+    # This is not strictly necessary, since there's no reason to doubt that the
+    # ansible reboot module will do its job. But since we're already in here
+    # asserting against the pre- and post-deprecation vars, it's easy enough to
+    # check and make sure the role did actually reboot a thing.
+    - name: Assert system rebooted
+      assert:
+        that:
+          - last_pre_reboot.stdout != last_post_reboot.stdout
+        msg: System did not reboot

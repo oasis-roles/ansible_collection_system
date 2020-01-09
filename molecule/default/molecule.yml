@@ -1,0 +1,36 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-reboot
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  config_options:
+    defaults:
+      stdout_callback: yaml
+scenario:
+  # Rebooting is not an idempotent task.
+  test_sequence:
+    - lint
+    - dependency
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - destroy
+verifier:
+  name: testinfra
+  options:
+    v: true
+  lint:
+    name: flake8

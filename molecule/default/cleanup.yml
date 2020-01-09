@@ -1,0 +1,11 @@
+- name: cleanup
+  gather_facts: false
+  hosts: rhsm
+  ignore_unreachable: true
+  tasks:
+    - name: Unregister system
+      include_role:
+        name: rhsm
+      vars:
+        rhsm_username: "{{ omit }}"
+        rhsm_unregister: true
