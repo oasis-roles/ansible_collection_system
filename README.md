@@ -94,37 +94,8 @@ Dependencies
 
 None
 
-Example Playbook
-----------------
-
-All vars defined, for reference:
-
-```yaml
-- hosts: reboot-servers
-  roles:
-    - role: oasis-roles.reboot
-  vars:
-      # Override the underlying connection plugin's connection timeout value,
-      # setting it to 10 seconds
-      reboot_connect_timeout: 10
-      # Show a custom message to users on the system being rebooted
-      reboot_msg: 'A custom message displayed to users on the system being rebooted.'
-      # Give the system 30 seconds to quiesce after rebooting.
-      reboot_post_delay: 30
-      # Wait two minutes before requesting reboot
-      reboot_pre_delay: 120
-      # Find the "shutdown" command in very strange places
-      reboot_search_paths:
-        - '/opt/customshutdown/bin'
-        - '/tmp/'
-      # Test responsiveness with the "uptime" command instead of the default "whoami"
-      reboot_test_command: uptime
-      # Fail if the system is not responsive without 300 seconds of issuing the reboot
-      reboot_timeout: 300
-      # Become the "reboot_user" instead of root to issue the reboot command
-      reboot_become: true
-      reboot_become_user: reboot_user
-```
+Example Playbooks
+-----------------
 
 Rebooting a system when ansible is already a privileged user:
 
@@ -169,6 +140,35 @@ This role can of course be invoked as a task or handler in playbooks or roles:
 - name: Reboot
   include_role:
     name: oasis_roles.reboot
+```
+
+All vars defined, for reference:
+
+```yaml
+- hosts: reboot-servers
+  roles:
+    - role: oasis-roles.reboot
+  vars:
+      # Override the underlying connection plugin's connection timeout value,
+      # setting it to 10 seconds
+      reboot_connect_timeout: 10
+      # Show a custom message to users on the system being rebooted
+      reboot_msg: 'A custom message displayed to users on the system being rebooted.'
+      # Give the system 30 seconds to quiesce after rebooting.
+      reboot_post_delay: 30
+      # Wait two minutes before requesting reboot
+      reboot_pre_delay: 120
+      # Find the "shutdown" command in very strange places
+      reboot_search_paths:
+        - '/opt/customshutdown/bin'
+        - '/tmp/'
+      # Test responsiveness with the "uptime" command instead of the default "whoami"
+      reboot_test_command: uptime
+      # Fail if the system is not responsive without 300 seconds of issuing the reboot
+      reboot_timeout: 300
+      # Become the "reboot_user" instead of root to issue the reboot command
+      reboot_become: true
+      reboot_become_user: reboot_user
 ```
 
 License
