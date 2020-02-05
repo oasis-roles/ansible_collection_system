@@ -7,11 +7,10 @@ cache: pip
 services:
   - docker
 
-matrix:
-  env:
-    - TEST=fedora
-    - TEST=centos7
-    - TEST=centos8
+env:
+  - TEST=fedora
+  - TEST=centos7
+  - TEST=centos8
 
 install:
   - pip install -U pip
