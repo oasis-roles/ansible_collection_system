@@ -11,6 +11,10 @@ lint:
 platforms:
   - name: timezone
     image: fedora:latest
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /usr/lib/systemd/systemd --system
 provisioner:
   name: ansible
   lint:

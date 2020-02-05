@@ -10,7 +10,11 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: timezone
-    image: centos:8
+    image: greghellings/centos-systemd:8
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /usr/lib/systemd/systemd --system
 provisioner:
   name: ansible
   lint:
