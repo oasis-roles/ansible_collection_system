@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Author Name
-  description: My Description
+  author: Greg Hellings
+  description: Installs and configures Red Hat IDM client
   company: Red Hat, Inc.
   license: GPLv3
   min_ansible_version: 2.8
@@ -8,6 +8,7 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+        - 8
 
   galaxy_tags:
     - oasis
