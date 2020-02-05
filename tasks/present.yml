@@ -37,6 +37,9 @@
       pull: "{{ item.pull | default(true) }}"
     force_source: "{{ item.item.force | default(true) }}"
   with_items: "{{ platforms.results }}"
+  retries: 3
+  until: _molecule_docker_ci_build is success
+  register: _molecule_docker_ci_build
   when: >-
     platforms.changed or docker_images.results
     | map(attribute='images')
