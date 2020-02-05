@@ -42,6 +42,8 @@ Currently the following variables are supported:
 
 ### Client settings
 
+* `register_idm_hostname` - Default: ansible\_fqdn. The full hostname of this system
+  to register with the IPA server.
 * `register_idm_client_reconfigure` - Default: false. If the system already has a file in
   /etc/ipa/default.conf
 * `register_idm_client_configure_ssh` - Default: true. Have IPA manage your system's

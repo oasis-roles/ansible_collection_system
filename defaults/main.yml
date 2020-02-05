@@ -9,6 +9,7 @@ register_idm_server_domain: "{{ register_idm_domain }}"
 register_idm_server_admin_username: admin
 register_idm_server_admin_password: ADMIN_PASS
 
+register_idm_hostname: "{{ ansible_fqdn }}"
 # Assume its first time client installation
 register_idm_client_reconfigure: false
 #

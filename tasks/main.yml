@@ -17,7 +17,7 @@
         --principal {{ register_idm_server_admin_username
             }}@{{ register_idm_server_realm }}
         --password {{ register_idm_server_admin_password }}
-        --hostname={{ ansible_fqdn }}
+        --hostname={{ register_idm_hostname }}
         --enable-dns-updates
         {{ '--mkhomedir' if register_idm_client_mkhomedir else '' }}
         {{ '--ssh-trust-dns' if register_idm_client_ssh_trust_dns else '' }}
