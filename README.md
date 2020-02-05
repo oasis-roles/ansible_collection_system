@@ -150,7 +150,7 @@ and attaches to a specific pool by ID.
     - role: rhsm
   vars:
     rhsm_org_id: your_organization_id
-    rhsm_activitionkey: activation_key
+    rhsm_activationkey: activation_key
     rhsm_pool_ids:
       - poolid
     rhsm_server_hostname: your.satellite6.hostname
