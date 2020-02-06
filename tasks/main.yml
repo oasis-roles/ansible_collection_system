@@ -1,3 +1,10 @@
+- name: ensure values are set
+  assert:
+    that:
+      - register_idm_server_admin_username is not none
+      - register_idm_server_admin_password is not none
+      - register_idm_domain is not none
+
 - block:
     - name: install IPA client packages
       package:
@@ -7,6 +14,7 @@
     - name: run the IPA uninstaller, if necessary
       command: "{{ register_idm_client_base_command }} --uninstall"
       when: register_idm_client_reconfigure
+      changed_when: false
 
     - name: run the IPA client installer
       command: >-
@@ -24,8 +32,7 @@
         {{ '' if register_idm_client_setup_ntp else '--no-ntp' }}
         {{ '' if register_idm_client_configure_ssh else '--no-ssh' }}
         {{ '' if register_idm_client_configure_sshd else '--no-sshd' }}
-      args:
-        creates: /etc/ipa/default.conf
       register: idmclientsetup
+      changed_when: false
   become: "{{ register_idm_become }}"
   become_user: "{{ register_idm_become_user }}"

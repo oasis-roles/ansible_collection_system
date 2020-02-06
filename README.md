@@ -1,8 +1,5 @@
 [![Build Status](https://travis-ci.com/oasis-roles/register_idm.svg?branch=master)](https://travis-ci.com/oasis-roles/register_idm)
 
-**NOTE** - because of the need to authenticate against an actual IPA server, this role's tests
-will not pass in Travis CI.
-
 register\_idm
 ===========
 
@@ -32,13 +29,12 @@ Currently the following variables are supported:
 
 ### Server settings
 
-* `register_idm_domain` - Default: ipa.example.com. The IDM domain to be
-  registered with.
+* `reigster_idm_server_admin_username` - **REQUIRED**. Username to log in to server
+* `register_idm_server_admin_password` - **REQUIRED**. Password to log in to server
+* `register_idm_domain` - **REQUIRED**. The IDM domain to be registered with.
 * `register_idm_server_realm` - Default: upper-case transformation of
   `register_idm_domain`.
 * `register_idm_server_domain` - Default: copy of `register_idm_domain`.
-* `reigster_idm_server_admin_username` - Default 'admin'
-* `register_idm_server_admin_password` - Default ADMIN\_PASS
 
 ### Client settings
 

@@ -1,13 +1,13 @@
 register_idm_become: true
 register_idm_become_user: root
 
-register_idm_domain: ipa.example.com
+register_idm_domain: null
 register_idm_server_realm: "{{ register_idm_domain | upper }}"
 register_idm_server_domain: "{{ register_idm_domain }}"
 
 # IPA Server Admin login
-register_idm_server_admin_username: admin
-register_idm_server_admin_password: ADMIN_PASS
+register_idm_server_admin_username: null
+register_idm_server_admin_password: null
 
 register_idm_hostname: "{{ ansible_fqdn }}"
 # Assume its first time client installation
