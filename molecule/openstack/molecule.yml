@@ -10,6 +10,7 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: test-register_idm
+    flavor: ci.m1.small
 provisioner:
   name: ansible
   lint:
