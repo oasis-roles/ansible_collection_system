@@ -34,7 +34,7 @@
       dockerfile: >
         {{ item.item.dockerfile
         | default(item.invocation.module_args.dest) }}
-      pull: "{{ item.pull | default(true) }}"
+      pull: "{{ item.item.pull | default(true) }}"
     force_source: "{{ item.item.force | default(true) }}"
   with_items: "{{ platforms.results }}"
   when: >-
