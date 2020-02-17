@@ -1,2 +1,4 @@
 sshd_become: true
 sshd_become_user: root
+sshd_allow_password_login: false
+sshd_allow_root_login: true
