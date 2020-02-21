@@ -1,0 +1,9 @@
+# Typical temporary files
+.*.swp
+.*.swo
+*.pyc
+*.pyo
+__pycache__
+
+# Build artifacts
+*.tar.gz
