@@ -6,5 +6,5 @@ def test_upload_settings(host):
 
 
 def test_upload_minimal(host):
-    authors = host.file('/AUTHORS')
-    assert authors.contains('@')
+    authors = host.file('/main.yml')
+    assert authors.contains('-')

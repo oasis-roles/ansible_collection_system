@@ -52,6 +52,7 @@ jobs:
           - register_idm
           - sshd
           - timezone
+          - upload_files
     steps:
       - uses: actions/checkout@v2
       - name: Checkout submodules
