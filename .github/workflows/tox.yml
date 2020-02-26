@@ -49,6 +49,7 @@ jobs:
       matrix:
         role:
           - molecule_docker_ci
+          - passwordless_ssh
           - register_idm
           - sshd
           - system_repositories

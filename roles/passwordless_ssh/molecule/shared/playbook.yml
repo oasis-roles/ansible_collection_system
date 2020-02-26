@@ -2,8 +2,8 @@
   hosts: all
   roles:
     - role: passwordless_ssh
-      passwordless_ssh_public_key: "{{ role_path }}/tests/id_rsa.pub"
-      passwordless_ssh_private_key: "{{ role_path }}/tests/id_rsa"
+      passwordless_ssh_public_key: "{{ role_path }}/molecule/shared/id_rsa.pub"
+      passwordless_ssh_private_key: "{{ role_path }}/molecule/shared/id_rsa"
       passwordless_ssh_user: derp
       passwordless_ssh_user_home: /home/derp
   post_tasks: []
