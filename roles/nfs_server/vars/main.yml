@@ -1,0 +1,3 @@
+# Packages to install for the NFS server
+nfs_server_packages:
+  - nfs-utils

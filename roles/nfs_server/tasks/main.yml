@@ -1,0 +1,36 @@
+- block:
+  - name: install NFS server packages
+    package:
+      name: "{{ nfs_server_packages }}"
+      state: present
+
+  - name: optionally create share directories
+    file:
+      path: "{{ item.share_path }}"
+      state: directory
+      owner: "{{ item.owner | default(omit) }}"
+      group: "{{ item.group | default(omit) }}"
+      mode: "{{ item.mode | default(omit) }}"
+    with_items: "{{ nfs_server_shares }}"
+    when: item.create_dir
+
+  - name: add shares to {{ nfs_server_exports_file }}
+    template:
+      src: exports
+      dest: "{{ nfs_server_exports_file }}"
+      # It would be ideal to use the 'validate' option here, but the 'exportfs'
+      # command, while it can report errors, also takes action on any valid
+      # lines in the 'exports' file.  We don't want the 'validate' option to
+      # take any action, so we must depend on our handler to report syntax
+      # errors in the exports file to the user.
+      # validate: 'exportfs %s'
+    notify: export NFS shares
+
+  - name: enable and start NFS services
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: true
+    with_items: "{{ nfs_server_services }}"
+  become: "{{ nfs_server_become }}"
+  become_user: "{{ nfs_server_become_user }}"

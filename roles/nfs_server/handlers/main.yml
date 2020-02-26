@@ -1,0 +1,6 @@
+# Handlers for nfs_server
+
+- name: export NFS shares
+  command: exportfs -r
+  become: "{{ nfs_server_become }}"
+  become_user: "{{ nfs_server_become_user }}"

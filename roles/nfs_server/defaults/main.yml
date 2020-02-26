@@ -1,0 +1,45 @@
+# defaults file for nfs_server
+
+# List of NFS shares to create in exports file
+nfs_server_shares: []
+# Example:
+# nfs_server_shares:
+#     # path to share (required)
+#   - share_path: /srv/share1
+#     # IP networks for which to allow access (required)
+#     host_allow: '*'
+#     # Comma-separated list of mount options (required)
+#     opts: rw,sync,all_squash
+#     # create the share directory (optional)
+#     create_dir: true
+#     # owner of the NFS share directory (optional)
+#     owner: nfsnobody
+#     # group of the NFS share directory (optional)
+#     group: nfsnobody
+#     # mode of the NFS share directory (optional)
+#     # NOTE: Even though this is an integer value, it still must be quoted
+#     # here due to the linked issue below:
+#     # https://github.com/ansible/ansible/issues/31952
+#     mode: '0755'
+#   - share_path: /srv/share2
+#     host_allow: '192.168.0.0/24'
+#     opts: ro,sync
+
+# Services to enable and start for the NFS server
+nfs_server_services:
+  # required for NFSv3
+  - nfs
+  # required for NFSv3, not used by NFSv4
+  - rpcbind
+
+# Exports file to add shares to.  NOTE:  Files in `/etc/exports.d` must be named
+# with a `.exports` suffix.
+nfs_server_exports_file: /etc/exports.d/nfs.exports
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.  This will be necesssary for changing the `root` password, or the
+# password of a user other than Ansible's `remote_user`.
+nfs_server_become: true
+
+# The user to sudo/become
+nfs_server_become_user: root
