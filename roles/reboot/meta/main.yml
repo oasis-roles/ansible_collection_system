@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Sean Myers
+  description: Reboot the target system
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

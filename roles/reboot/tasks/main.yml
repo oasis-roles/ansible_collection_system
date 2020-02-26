@@ -1,0 +1,10 @@
+- name: Rebooting system
+  reboot:
+    connect_timeout: "{{ reboot_connect_timeout | default(omit) }}"
+    msg: "{{ reboot_msg | default(omit) }}"
+    post_reboot_delay: "{{ reboot_post_delay }}"
+    pre_reboot_delay: "{{ reboot_pre_delay }}"
+    reboot_timeout: "{{ reboot_timeout }}"
+    test_command: "{{ reboot_test_command | default(omit) }}"
+  become: "{{ reboot_become }}"
+  become_user: "{{ reboot_become_user }}"

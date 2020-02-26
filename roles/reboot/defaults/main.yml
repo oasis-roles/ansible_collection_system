@@ -1,0 +1,22 @@
+# Deprecated params, defaulted first for backward compatibility
+# with previous version's names. New role var names are below.
+# omits used to default to module defaults...by default
+reboot_seconds_before_reboot: "{{ omit }}"
+reboot_wait_for_connection_delay: "{{ omit }}"
+reboot_wait_for_connection_timeout: "{{ omit }}"
+
+# These are the new names, matching the reboot module. They reference
+# the old deprecated var names for backward compatibility, so users
+# still using the old vars will get the expected functionality
+reboot_pre_delay: "{{ reboot_seconds_before_reboot }}"
+reboot_post_delay: "{{ reboot_wait_for_connection_delay }}"
+reboot_timeout: "{{ reboot_wait_for_connection_timeout }}"
+
+# new params from reboot module
+reboot_msg: "{{ omit }}"
+reboot_test_command: "{{ omit }}"
+reboot_search_paths: "{{ omit }}"
+
+# normal become vars
+reboot_become: true
+reboot_become_user: root
