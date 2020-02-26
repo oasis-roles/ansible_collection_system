@@ -51,6 +51,7 @@ jobs:
           - molecule_docker_ci
           - register_idm
           - sshd
+          - system_repositories
           - timezone
           - upload_files
     steps:
