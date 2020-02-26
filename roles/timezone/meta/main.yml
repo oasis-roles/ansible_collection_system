@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Greg Hellings
+  description: >
+    Configures the timezone settings on the system.
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []
