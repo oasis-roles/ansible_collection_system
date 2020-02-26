@@ -1,32 +1,15 @@
-dependency:
-  name: galaxy
-  options:
-    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    # A custom yamllint file for this scenario, details inside the file
-    config-file: tests/yamllint.yml
 platforms:
   - name: rhsm-release-set-unset
     groups:
       - rhsm
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
   inventory:
     links:
       group_vars: ../shared/group_vars
   playbooks:
-    cleanup: ../shared/cleanup.yml
-    create: ../shared/create.yml
-    destroy: ../shared/destroy.yml
-  config_options:
-    defaults:
-      stdout_callback: yaml
+    converge: playbook.yml
 scenario:
   test_sequence:
     - lint
@@ -44,12 +27,3 @@ scenario:
     - verify
     - cleanup
     - destroy
-verifier:
-  name: testinfra
-  options:
-    # Add a -v so you see the individual test names,
-    # particularly useful with parameterized tests
-    v: true
-    junit-xml: junit.xml
-  lint:
-    name: flake8

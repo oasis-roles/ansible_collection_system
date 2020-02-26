@@ -1,35 +1,12 @@
-dependency:
-  name: galaxy
-  options:
-    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: rhsm-basic-subscription
     groups:
       - rhsm
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
+  playbooks:
+    converge: playbook.yml
   inventory:
     links:
       group_vars: ../shared/group_vars
-  playbooks:
-    cleanup: ../shared/cleanup.yml
-    create: ../shared/create.yml
-    destroy: ../shared/destroy.yml
-  config_options:
-    defaults:
-      stdout_callback: yaml
-verifier:
-  name: testinfra
-  options:
-    v: true
-    junit-xml: junit.xml
-  lint:
-    name: flake8
