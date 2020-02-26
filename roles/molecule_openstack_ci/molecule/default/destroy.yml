@@ -1,0 +1,7 @@
+- name: Destroy
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - role: molecule_openstack_ci
+      molecule_openstack_ci_state: absent

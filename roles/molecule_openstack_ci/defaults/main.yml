@@ -1,0 +1,19 @@
+# ssh connection settings
+molecule_openstack_ci_ssh_user: cloud-user
+molecule_openstack_ci_ssh_port: 22
+
+# run_hash will be appended to security group name
+molecule_openstack_ci_security_group_name: molecule
+molecule_openstack_ci_security_group_description:
+  "Security group for Molecule testing"
+molecule_openstack_ci_security_group_rules:
+  # changed from upstream molecule - allows all ports
+  - ethertype: IPv4
+  - ethertype: IPv6
+
+# run_hash will be appended to keypair name
+molecule_openstack_ci_keypair_name: molecule_key
+
+molecule_openstack_ci_cloud: >-
+  {{ lookup('env', 'OS_CLOUD') | default('default', true) }}
+molecule_openstack_ci_state: present

@@ -1,0 +1,7 @@
+# molecule already checks SSH available, so this is arguably redundant,
+# but is here in support of the complete molecule test workflow
+- name: converge
+  hosts: all
+  tasks:
+    - name: Wait for SSH to become available
+      wait_for_connection: {}

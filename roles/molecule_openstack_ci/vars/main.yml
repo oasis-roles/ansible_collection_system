@@ -1,0 +1,5 @@
+# The normal molecule create tasks don't include a provision for using an
+# existing private key, but we could potentially add that both here and
+# in upstream molecule, at which point this would move over into defaults.
+molecule_openstack_ci_keypair_path:
+  "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/ssh_key"
