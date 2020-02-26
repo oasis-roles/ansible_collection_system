@@ -2,4 +2,4 @@
   hosts: all
   roles:
     - role: timezone
-  post_tasks: []
+      timezone: 'America/Anchorage'

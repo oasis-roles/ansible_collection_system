@@ -7,6 +7,11 @@ cache: pip
 services:
   - docker
 
+env:
+  - TEST=fedora
+  - TEST=centos7
+  - TEST=centos8
+
 install:
   - pip install -U pip
   - pip --version
@@ -18,11 +23,9 @@ install:
   - molecule --version
 
 script:
-  # every scenario with a converge playbook should be linted
-  - molecule lint -s openstack
   # flake8 is not guaranteed to run on lint, do that before testing
   - flake8 $(find . -name '*.py')
-  - molecule test -s docker
+  - molecule test -s "${TEST}"
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

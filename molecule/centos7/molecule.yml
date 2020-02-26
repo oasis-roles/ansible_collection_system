@@ -10,13 +10,11 @@ lint:
     config-file: tests/yamllint.yml
 platforms:
   - name: timezone
-    image: centos:7
-    ## Remove 'image' above and uncomment the following to run systemd in Docker
-    # image: centos/systemd
-    # privileged: true
-    # command: /usr/lib/systemd/systemd --system
-    # volumes:
-    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    image: greghellings/centos-systemd:7
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    command: /usr/lib/systemd/systemd --system
 provisioner:
   name: ansible
   lint:
@@ -25,6 +23,8 @@ provisioner:
     prepare: ../shared/prepare.yml
     converge: ../shared/playbook.yml
     cleanup: ../shared/cleanup.yml
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
   config_options:
     defaults:
       stdout_callback: yaml
