@@ -1,0 +1,2 @@
+sshd_become: true
+sshd_become_user: root
