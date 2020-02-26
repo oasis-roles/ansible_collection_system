@@ -1,0 +1,83 @@
+name: Test with Ansible
+
+on:
+  push: {}
+  pull_request: {}
+  schedule:
+    - cron: '12 0 * * *'
+
+env:
+  TOX_ANSIBLE_DRIVER: docker
+  ANSIBLE_COLLECTIONS_PATHS: ~/.ansible/:~/work/
+  COLLECTION: system
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --remote --recursive
+      - name: Setup pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: pip-modules
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --upgrade pip
+          pip install tox tox-ansible
+      - name: Run lint
+        shell: bash
+        run: tox -e lint_all
+
+  build:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        role:
+          - molecule_docker_ci
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --remote --recursive
+      - name: Setup pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: pip-modules
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox tox-ansible
+      - name: Test with tox
+        run: |
+          cd ..
+          dest="${HOME}/work/ansible_collections/oasis"
+          mkdir -p "${dest}"
+          mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
+          # post actions fail if this doesn't exist
+          mkdir -p "$(basename "${GITHUB_REPOSITORY}")"
+          cd "${dest}/${COLLECTION}"
+          tox --ansible-role ${{ matrix.role }}
