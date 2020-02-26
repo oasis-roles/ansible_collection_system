@@ -1,0 +1,43 @@
+- name: provision VM from inputs
+  vmware_guest:
+    name: "{{ item['name'] }}"
+    state: "{{ item['state'] | default(omit) }}"
+    hostname: "{{ vmware_provision_hostname }}"
+    username: "{{ vmware_provision_username }}"
+    password: "{{ vmware_provision_password }}"
+    port: "{{ item['port'] | default(vmware_provision_port) }}"
+    validate_certs: |-
+      {{ item['validate_certs'] | default(vmware_provision_validate_certs) }}
+    annotation: "{{ item['annotation'] | default(omit) }}"
+    cdrom: "{{ item['cdrom'] | default(omit) }}"
+    cluster: "{{ item['cluster'] | default(omit) }}"
+    convert: "{{ item['convert'] | default(omit) }}"
+    customization: "{{ item['customization'] | default(omit) }}"
+    customization_spec: "{{ item['customization_spec'] | default(omit) }}"
+    customvalues: "{{ item['customvalues'] | default(omit) }}"
+    datacenter: "{{ item['datacenter'] | default(omit) }}"
+    datastore: "{{ item['datastore'] | default(omit) }}"
+    disk: "{{ item['disk'] | default(omit) }}"
+    esxi_hostname: "{{ item['esxi_hostname'] | default(omit) }}"
+    folder: "{{ item['folder'] | default(omit) }}"
+    force: "{{ item['force'] | default(omit) }}"
+    guest_id: "{{ item['guest_id'] | default(omit) }}"
+    hardware: "{{ item['hardware'] | default(omit) }}"
+    is_template: "{{ item['is_template'] | default(omit) }}"
+    linked_clone: "{{ item['linked_clone'] | default(omit) }}"
+    name_match: "{{ item['name_match'] | default(omit) }}"
+    networks: "{{ item['networks'] | default(omit) }}"
+    resource_pool: "{{ item['resource_pool'] | default(omit) }}"
+    snapshot_src: "{{ item['snapshot_src'] | default(omit) }}"
+    state_change_timeout: "{{ item['state_change_timeout'] | default(omit) }}"
+    template: "{{ item['template'] | default(omit) }}"
+    use_instance_uuid: "{{ item['use_instance_uuid'] | default(omit) }}"
+    uuid: "{{ item['uuid'] | default(omit) }}"
+    vapp_properties: "{{ item['vapp_properties'] | default(omit) }}"
+    wait_for_customization: "{{ item['wait_for_customization']|default(omit) }}"
+    wait_for_ip_address: "{{ item['wait_for_ip_address'] | default(omit) }}"
+  register: vm_instance
+
+- name: Append instance info to variable
+  set_fact:
+    vmware_provisioned_vms: "{{ vmware_provisioned_vms + [vm_instance] }}"

@@ -1,0 +1,30 @@
+- name: provision VM from OVF file
+  vmware_deploy_ovf:
+    name: "{{ item['name'] }}"
+    ovf: "{{ item['ovf'] }}"
+    hostname: "{{ vmware_provision_hostname }}"
+    username: "{{ vmware_provision_username }}"
+    password: "{{ vmware_provision_password }}"
+    port: "{{ item['port'] | default(vmware_provision_port) }}"
+    validate_certs: |-
+      {{ item['validate_certs'] | default(vmware_provision_validate_certs) }}
+    allow_duplicates: "{{ item['allow_duplicates'] | default(omit) }}"
+    cluster: "{{ item['cluster'] | default(omit) }}"
+    datacenter: "{{ item['datacenter'] | default(omit) }}"
+    datastore: "{{ item['datastore'] | default(omit) }}"
+    deployment_option: "{{ item['deployment_option'] | default(omit) }}"
+    disk_provisioning: "{{ item['disk_provisioning'] | default(omit) }}"
+    fail_on_spec_warnings: "{{ item['fail_on_spec_warnings'] | default(omit) }}"
+    folder: "{{ item['folder'] | default(omit) }}"
+    inject_ovf_env: "{{ item['inject_ovf_env'] | default(omit) }}"
+    networks: "{{ item['networks'] | default(omit) }}"
+    power_on: "{{ item['power_on'] | default(omit) }}"
+    properties: "{{ item['properties'] | default(omit) }}"
+    resource_pool: "{{ item['resource_pool'] | default(omit) }}"
+    wait: "{{ item['wait'] | default(omit) }}"
+    wait_for_ip_address: "{{ item['wait_for_ip_address'] | default(omit) }}"
+  register: vm_instance
+
+- name: Append instance info to variable
+  set_fact:
+    vmware_provisioned_vms: "{{ vmware_provisioned_vms + [vm_instance] }}"

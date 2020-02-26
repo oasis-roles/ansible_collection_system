@@ -1,0 +1,19 @@
+vmware_provision_become: true
+vmware_provision_become_user: root
+
+# Credentials to access VMware server are required,
+# do not default them
+# vmware_provision_hostname: null
+# vmware_provision_username: null
+# vmware_provision_password: null
+
+# default these to omit here, to allow the module
+# defaults to be used if not specified by the user
+vmware_provision_port: "{{ omit }}"
+vmware_provision_validate_certs: "{{ omit }}"
+
+# Config vars to provision a VM using custom user inputs
+vmware_provision_custom_vms: []
+
+# Config vars to provision a VM using OVF files
+vmware_provision_ovfs: []

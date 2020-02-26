@@ -1,0 +1,11 @@
+- name: Setup var to store instance info
+  set_fact:
+    vmware_provisioned_vms: []
+
+- name: Provision VM (OVF)
+  include_tasks: deploy_ovf.yml
+  with_items: "{{ vmware_provision_ovfs }}"
+
+- name: Provision VM (CUSTOM)
+  include_tasks: deploy_custom.yml
+  with_items: "{{ vmware_provision_custom_vms }}"
