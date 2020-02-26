@@ -1,1 +1,1 @@
-# Vars for sshd
+sshd_config_file: /etc/ssh/sshd_config

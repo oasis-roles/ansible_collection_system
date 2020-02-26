@@ -3,16 +3,12 @@
 sshd
 ===========
 
-Basic description for sshd
+Installs and configures basic options for sshd
 
 Requirements
 ------------
 
 Ansible 2.8 or higher
-
-Red Hat Enterprise Linux 7 or equivalent
-
-Valid Red Hat Subscriptions
 
 Role Variables
 --------------
@@ -21,6 +17,11 @@ Currently the following variables are supported:
 
 ### General
 
+* `sshd_allow_password_login` - Default: false. If set to false, then password
+  auth logins will be disabled. Set to true to allow users to login with
+  passwords.
+* `sshd_allow_root_login` - Default: true. If set to false, then the root user
+  will not be allowed to login. Set to true to enable direct root access.
 * `sshd_become` - Default: true. If this role needs administrator
   privileges, then use the Ansible become functionality (based off sudo).
 * `sshd_become_user` - Default: root. If the role uses the become
@@ -49,4 +50,4 @@ GPLv3
 Author Information
 ------------------
 
-Author Name <authoremail@domain.net>
+Greg Hellings <greg.hellings@gmail.com>

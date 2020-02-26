@@ -1,1 +1,10 @@
-# Handlers for sshd
+- name: restart sshd
+  become: "{{ sshd_become }}"
+  become_user: "{{ sshd_become_user }}"
+  service:
+    name: sshd
+    state: restarted
+  notify: wait for reconnect
+
+- name: wait for reconnect
+  wait_for_connection:
