@@ -51,6 +51,7 @@ jobs:
           - molecule_docker_ci
           - register_idm
           - sshd
+          - timezone
     steps:
       - uses: actions/checkout@v2
       - name: Checkout submodules
