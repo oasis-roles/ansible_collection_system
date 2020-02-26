@@ -1,0 +1,13 @@
+# Use of 'only' is deprecated, convert to enabled/disabled prior to
+# running repository tasks. Since there's no real benefit to disabling
+# this conversion at the moment, it's probably reasonable to leave this
+# in the role until/unless there's a specific reason to remove it.
+- name: Set rhsm_repositories fact based on 'only' value
+  set_fact:
+    rhsm_repositories:
+      enabled: "{{ rhsm_repositories.only }}"
+      disabled:
+        - '*'
+
+- name: Inform user of 'only' deprecation
+  action: oasis_rhsm_repositories_only_deprecated

@@ -1,0 +1,9 @@
+- name: Unset subscription-manager release
+  rhsm_release:
+    release: null
+  when: rhsm_release_unset
+
+- name: Set subscription-manager release
+  rhsm_release:
+    release: "{{ rhsm_release }}"
+  when: rhsm_release

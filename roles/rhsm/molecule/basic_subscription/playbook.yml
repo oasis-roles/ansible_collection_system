@@ -1,0 +1,12 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: rhsm
+  vars:
+    rhsm_repositories:
+      enabled:
+        - rhel-7-server-rpms
+        - rhel-7-server-optional-rpms
+        - rhel-7-server-extras-rpms
+      disabled:
+        - '*'

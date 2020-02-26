@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Sean Myers
+  description: Role to automate subscription-manager usage.
+  company: Red Hat, Inc.
+  license: BSD
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

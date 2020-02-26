@@ -1,0 +1,8 @@
+ansible
+ansible-lint
+docker
+yamllint
+flake8
+molecule
+shade
+openstacksdk

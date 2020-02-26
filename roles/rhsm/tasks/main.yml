@@ -1,0 +1,26 @@
+# role tasks
+- block:
+  # Some of the tasks we run are scary-looking, even when skipped, so wrap the
+  # various stages up in include_tasks and only show scary things when told to
+  - include_tasks: unsubscribe.yml
+  when: rhsm_unregister
+  become: true
+  become_user: root
+
+- block:
+  - include_tasks: subscribe.yml
+    when: rhsm_username != omit or rhsm_activationkey != omit
+
+  # setting the release explodes if the system isn't subscribed,
+  # so it should go after the subscribe tasks, and should only
+  # run if changes to the release are requested.
+  - include_tasks: release.yml
+    when: rhsm_release or rhsm_release_unset
+
+  - include_tasks: repo_only.yml
+    when: "'only' in rhsm_repositories"
+
+  - include_tasks: repositories.yml
+  when: not rhsm_unregister
+  become: true
+  become_user: root

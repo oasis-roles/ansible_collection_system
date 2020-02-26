@@ -1,0 +1,9 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: rhsm
+  vars:
+    rhsm_unregister: true
+    # omit out subscription vars from group_vars
+    rhsm_username: "{{ omit }}"
+    rhsm_password: "{{ omit }}"

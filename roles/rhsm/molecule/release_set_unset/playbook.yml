@@ -1,0 +1,111 @@
+- name: converge
+  hosts: all
+  # Invoke the rhsm role with a few different settings,
+  # and run assertion tasks in between to verify the state
+  tasks:
+    # Start off with a basic subscription, but set the target release back
+    # to rhel 7.0
+    - name: Subscribe system, set release version, and enable repositories
+      include_role:
+        name: rhsm
+      vars:
+        # set release to an old version of el7 for testing
+        rhsm_release: "7.0"
+        rhsm_repositories:
+          only:
+            - rhel-7-server-rpms
+    # Check that the 'only' key in rhsm_repositories was correctly converted
+    # to 'enable'/'disable'
+    - name: Check rhsm_repositories 'only' conversion
+      assert:
+        that: >-
+          rhsm_repositories == {
+            'enabled': ['rhel-7-server-rpms'],
+            'disabled': ['*']
+          }
+        msg: rhsm_repositories 'only' key was not converted correctly
+    # Check that the rhel-7-server-rpms repository URL correctly includes the
+    # '7.0' release string using ini_file. If this fails, the rhsm_release var
+    # did not correctly set the subscription-manager release before enabling
+    # repositories. While this effectively tests s-m's functionality, it helps
+    # us to make sure this role's documentation is correct in *not* stipulating
+    # that rhsm_release(_unset) requires rhsm_repositories to also be set,
+    # proving that the vars for this functionality are independent of the
+    # rhsm_repositories var.
+    - name: Check redhat.repo urls for assertion
+      ini_file:
+        path: /etc/yum.repos.d/redhat.repo
+        section: rhel-7-server-rpms
+        option: baseurl
+        # yamllint disable rule:line-length
+        value: https://cdn.redhat.com/content/dist/rhel/server/7/7.0/$basearch/os
+        # yamllint enable
+      check_mode: true
+      register: check_repo_baseurl
+    # In this assertion, and in similar assertions later in this playbook,
+    # ini_file should report no change. If ini_file does report that it
+    # would have made a change, redhat.repo was not correctly updated.
+    - name: Assert repo URL set correctly
+      assert:
+        that:
+          - not check_repo_baseurl.changed
+        msg: >
+          rhel-7-server-rpms url does not include correct release version.
+          release set failed to update /etc/yum.repos.d/redhat.repo
+
+    # unset release and re-enable repositories, subscription-manager should
+    # update redhat.repo base urls.
+    - name: Unset release version
+      include_role:
+        name: rhsm
+      vars:
+        rhsm_release_unset: true
+    # When rhsm_release_unset is true, the baseurl for the rhel-7-server-rpms
+    # repo should have changed to replace the explicit "7.0" release version
+    # with the "$releasever" replacement string
+    - name: Check redhat.repo urls for assertion
+      ini_file:
+        path: /etc/yum.repos.d/redhat.repo
+        section: rhel-7-server-rpms
+        option: baseurl
+        # yamllint disable rule:line-length
+        value: https://cdn.redhat.com/content/dist/rhel/server/7/$releasever/$basearch/os
+        # yamllint enable
+      check_mode: true
+      register: check_repo_baseurl
+    - name: Assert repo URL unset correctly
+      assert:
+        that:
+          - not check_repo_baseurl.changed
+        msg: >
+          rhel-7-server-rpms url does not include correct release version.
+          release set failed to update /etc/yum.repos.d/redhat.repo
+
+    # test that you can set rhsm_release *after* enabling repositories, just
+    # like with unset above, and s-m will again fix up redhat.repo correctly
+    - name: Set release version after repos already enabled
+      include_role:
+        name: rhsm
+      vars:
+        # unset release and re-enable repositories, subscription-manager should
+        # update redhat.repo base urls.
+        rhsm_release: "7.0"
+    # the url for "rhel-7-server-rpms" should include "7.0" again, ini_file
+    # should report no change
+    - name: Check redhat.repo urls for assertion
+      ini_file:
+        path: /etc/yum.repos.d/redhat.repo
+        section: rhel-7-server-rpms
+        option: baseurl
+        # yamllint disable rule:line-length
+        value: https://cdn.redhat.com/content/dist/rhel/server/7/7.0/$basearch/os
+        # yamllint enable
+      check_mode: true
+      register: check_repo_baseurl
+    - name: Assert repo URL set correctly again
+      assert:
+        that:
+          - not check_repo_baseurl.changed
+        msg: >
+          rhel-7-server-rpms url does not include correct release version.
+          release set failed to update /etc/yum.repos.d/redhat.repo

@@ -1,0 +1,87 @@
+# default vars for rhsm role
+
+# vars used by this role closely match args that the redhat_subscription and
+# redhat_repository modules take, with the added "rhsm_" prefix for
+# namespacing. Either rhsm_username or rhsm_activiationkey must be set to
+# register a system.
+
+# access.redhat.com or Satellite (RHSM provider) username/password
+rhsm_username: "{{ omit }}"
+rhsm_password: "{{ omit }}"
+
+# Organization ID/activation key to use instead of username/password
+rhsm_org_id: "{{ omit }}"
+rhsm_activationkey: "{{ omit }}"
+
+# hostname for alternate RHSM provider
+rhsm_server_hostname: "{{ omit }}"
+
+# disable https server certificate verification when connecting to provider
+# yes/no bool, default no
+rhsm_server_insecure: "{{ omit }}"
+
+# Base URL of package repositories if not using Red Hat CDN
+rhsm_baseurl: "{{ omit }}"
+
+# Proxy settings for accessing the RHSM
+rhsm_server_proxy_hostname: "{{ omit }}"
+rhsm_server_proxy_port: "{{ omit }}"
+rhsm_server_proxy_user: "{{ omit }}"
+rhsm_server_proxy_password: "{{ omit }}"
+
+# automatically consume available subscriptions when registration succeeds
+# yes/no bool, default no -- requires ansible >=2.5
+rhsm_auto_attach: "{{ omit }}"
+
+# Register with a specific environment in the destination org.
+# Used with Red Hat Satellite 6 or Katello
+rhsm_environment: "{{ omit }}"
+
+# specific pool name to consume
+# can use regex as input for this variable
+# use rhsm_pool_ids when possible as it is much faster
+# mutually exclusive with `rhsm_pool_ids`
+rhsm_pool: "{{ omit }}"
+
+# list of pool IDs to consume, or a dict with pool IDs as keys and quantity
+# of entitlements to consume as values
+# must be a list or dict, even if specifying a single pool
+# mutually exclusive with `rhsm_pool`
+rhsm_pool_ids: []
+
+# The type of unit to register (string), defaults to system
+rhsm_consumer_type: "{{ omit }}"
+
+# Name of the system to register, defaults to the hostname
+rhsm_consumer_name: "{{ omit }}"
+
+# Existing consumer ID to resume a previous registration
+# Probably rarely used, particularly when using ansible,
+# but it's here in case you need it.
+rhsm_consumer_id: "{{ omit }}"
+
+# Register the system even if it is already registered
+# yes/no bool, default no
+rhsm_force_register: "{{ omit }}"
+
+# Syspurpose dict for rhsm syspurpose.json
+rhsm_syspurpose: "{{ omit }}"
+
+# If true, unregister a system
+# yes/no bool, default no
+rhsm_unregister: false
+
+# Bool, whether or not to unset the subscription-manager release,
+# run before the release is set
+rhsm_release_unset: false
+
+# Value to pass to subscription-manager release --set
+rhsm_release: null
+
+# a dict where keys are repository states, and values are a list of
+# repository names  to set to that state. Valid repository states are
+# "enabled", and "disabled". Additionally, the special "only" state can be
+# used to ensure that only the repositories listed will be enabled, and that
+# all other repositories will be disabled. The "only" state is mutally
+# exclusive to the enabled/disabled states.
+rhsm_repositories: {}

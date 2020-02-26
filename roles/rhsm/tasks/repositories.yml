@@ -1,0 +1,18 @@
+- name: Disable repositories
+  rhsm_repository:
+    state: disabled
+    name: "{{ rhsm_repositories.disabled | default([]) }}"
+  when:
+    # run if there is a list of repositories to disable,
+    # and if that list is does not contain '*' (if it does, use purge below)
+    - "'disabled' in rhsm_repositories"
+    - "'*' not in (rhsm_repositories.disabled | default([], True))"
+
+- name: Enable repositories
+  rhsm_repository:
+    state: enabled
+    name: "{{ rhsm_repositories.enabled | default([]) }}"
+    # purge if rhsm_repositories.disabled contains '*'
+    purge: >-
+      {{ '*' in (rhsm_repositories.disabled | default([], True))  }}
+  when: "'enabled' in rhsm_repositories"
