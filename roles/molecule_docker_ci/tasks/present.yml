@@ -25,7 +25,7 @@
   with_items: "{{ platforms.results }}"
   register: docker_images
 
-- name: Build an Ansible compatible image
+- name: Build an Ansible compatible image  # noqa 503 (this is complex logic)
   docker_image:
     name: molecule_local/{{ item.item.image }}
     source: build
