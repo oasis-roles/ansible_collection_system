@@ -1,0 +1,52 @@
+# Path to the LOCAL file that will be uploaded as the private key (that matches
+# the public key on the next line) for the passwordless SSH usage. This should
+# probably not be the current user's private key as that might compromise the
+# remote system in that manner
+# passwordless_ssh_private_key:
+# Path to the LOCAL file that will be read as the public key for the remote
+# user. This should probably not be the key of the currently running user, as
+# you might not want to upload the current user's public/private key pair to the
+# remote systems
+# passwordless_ssh_public_key:
+
+# This is the user that will have SSH access out and in configured. By default
+# this should be changed, as accessing a remote system as the 'root' user
+# directly is not considered best practice. However, for now, it will be left
+# as is.
+#
+# The user you access the system as must also have `become` access to this user
+# as that will be utilized to set known_hosts values in one of the tasks in this
+# role.
+passwordless_ssh_user: root
+
+# The home directory for the user who is being configured.
+passwordless_ssh_user_home: /root
+
+# Name that the private key file will be uploaded to. This should match the
+# key type, by default (id-rsa, id_dsa, etc).
+passwordless_ssh_remote_key_file: id_rsa
+
+# By default all hosts in the current play will be configured to this SSH
+# arrangement. Additional hosts that you want can be added to this array. The
+# values used here should be resolvable as hostnames or IP addresses as they
+# will be referenced later. The pubkey for the remote systems will be entered
+# into the known_hosts file using the value of this array.
+passwordless_ssh_extra_hosts: []
+
+# Supporting vars for populating known_hosts with host keys
+passwordless_ssh_update_known_hosts: true
+passwordless_ssh_hash_known_hosts: false
+passwordless_ssh_gather_host_keys: false
+passwordless_ssh_host_keys: []
+
+# Whether or not to use the `become` feature of Ansible to gain admin privileges
+# over the user directory where SSH is being configured
+passwordless_ssh_become: true
+
+# The user to sudo/become. If this gets changed from being the same as the user
+# then unexpected things can happen when setting up the known_hosts, as the
+# connections will be performed as a different user than the one who will be
+# used in the connections later on. This could result in different keys being
+# discovered on the remote system than the ones used to do the connections
+# later on.
+passwordless_ssh_become_user: "{{ passwordless_ssh_user }}"

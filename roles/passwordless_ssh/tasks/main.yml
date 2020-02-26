@@ -1,0 +1,51 @@
+- name: read public key
+  set_fact:
+    _public_key: "{{ lookup('template', passwordless_ssh_public_key) | trim }}"
+
+- name: set authorized keys
+  authorized_key:
+    user: "{{ passwordless_ssh_user }}"
+    state: present
+    key: "{{ _public_key }}"
+  become: "{{ passwordless_ssh_become }}"
+  become_user: "{{ passwordless_ssh_become_user }}"
+
+- name: copy private key to remote SSH dir
+  copy:
+    src: "{{ passwordless_ssh_private_key }}"
+    dest: "{{ passwordless_ssh_user_home }}/.ssh/\
+           {{ passwordless_ssh_remote_key_file }}"
+    mode: 0600
+    owner: "{{ passwordless_ssh_user }}"
+  become: "{{ passwordless_ssh_become }}"
+  become_user: "{{ passwordless_ssh_become_user }}"
+
+- name: copy public key to remote SSH dir
+  copy:
+    content: "{{ _public_key }}"
+    dest: "{{ passwordless_ssh_user_home }}/.ssh/\
+           {{ passwordless_ssh_remote_key_file }}.pub"
+    mode: 0600
+    owner: "{{ passwordless_ssh_user }}"
+  become: "{{ passwordless_ssh_become }}"
+  become_user: "{{ passwordless_ssh_become_user }}"
+
+- block:
+    - include_tasks: gather_host_keys.yml
+      when: passwordless_ssh_gather_host_keys
+
+    - name: update known hosts with all host keys
+      known_hosts:
+        path: "{{ passwordless_ssh_user_home }}/.ssh/known_hosts"
+        # The host name is the first element of the key line being added.
+        # Multiple host names are separated by a comma, and hostnames
+        # are separated from the keytype by a space, so split on space
+        # then comma and take the first result.
+        name: "{{ item.split().0.split(',').0 }}"
+        key: "{{ item }}"
+        hash_host: "{{ passwordless_ssh_hash_known_hosts }}"
+      with_items: "{{ passwordless_ssh_host_keys }}"
+      become: "{{ passwordless_ssh_become }}"
+      become_user: "{{ passwordless_ssh_become_user }}"
+      changed_when: false
+  when: passwordless_ssh_update_known_hosts
