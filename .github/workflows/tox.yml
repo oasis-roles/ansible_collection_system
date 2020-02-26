@@ -49,6 +49,7 @@ jobs:
       matrix:
         role:
           - molecule_docker_ci
+          - register_idm
           - sshd
     steps:
       - uses: actions/checkout@v2
