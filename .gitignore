@@ -7,3 +7,4 @@ __pycache__
 
 # Build artifacts
 *.tar.gz
+.tox
