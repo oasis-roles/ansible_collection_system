@@ -49,6 +49,7 @@ jobs:
       matrix:
         role:
           - molecule_docker_ci
+          - sshd
     steps:
       - uses: actions/checkout@v2
       - name: Checkout submodules
