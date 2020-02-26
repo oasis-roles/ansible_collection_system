@@ -11,4 +11,3 @@
             owner: nfsnobody
             group: nfsnobody
             mode: '0755'
-  post_tasks: []

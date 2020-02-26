@@ -5,4 +5,3 @@
     # empty list for `nfs_server_shares` so the actual export operation is
     # skipped during the Travis CI tests.
     - role: nfs_server
-  post_tasks: []
