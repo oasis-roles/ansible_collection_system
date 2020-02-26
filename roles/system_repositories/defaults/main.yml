@@ -1,0 +1,19 @@
+# An array of configs that can be passed into the yum_repositories module
+# for Ansible. Each item will be passed into that module as is. Most of the
+# arguments for the module are supported. Those less common ones that are not
+# are not omitted by design but rather through lack of need. Should the need
+# for them arise, simply open a PR or issue with this role
+system_repositories_configs: []
+# A list of URLs of files to download into the /etc/yum.repos.d directory to
+# add to the list of repositories
+system_repositories_repo_files: []
+# A list of GPG keys that should be allowed on target systems
+system_repositories_rpm_keys: >-
+  {{ system_repositories_configs | system_repositories_gpgkeys }}
+# Whether to validate SSL certificates when downloading files for either
+# the system_repositories_repo_files list or the system_repositories_rpm_keys
+# list.
+system_repositories_validate_certs: true
+# Whether this module should use the "become" option for configuring repos
+# and installing rpm keys
+system_repositories_become: true

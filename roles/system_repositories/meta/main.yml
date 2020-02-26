@@ -1,0 +1,23 @@
+galaxy_info:
+  author: Greg Hellings
+  description: Installs yum/dnf repositories and their keys
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 5
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - oasis
+    - repositories
+    - yum
+    - dnf
+
+dependencies: []

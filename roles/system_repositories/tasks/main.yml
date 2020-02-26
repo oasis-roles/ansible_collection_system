@@ -1,0 +1,52 @@
+- name: configure system repositories
+  become: "{{ system_repositories_become }}"
+  yum_repository:
+    baseurl: "{{ item.baseurl | default(omit) }}"
+    description: "{{ item.description | default('Configured by Ansible') }}"
+    enabled: "{{ item.enabled | default(omit) }}"
+    enablegroups: "{{ item.enablegroups | default(omit) }}"
+    exclude: "{{ (item | system_repositories_exclude_join) | default(omit) }}"
+    failovermethod: "{{ item.failovermethod | default(omit) }}"
+    gpgcakey: "{{ item.gpgcakey | default(omit) }}"
+    gpgcheck: "{{ item.gpgcheck | default(omit) }}"
+    gpgkey: "{{ item.gpgkey | default(omit) }}"
+    keepalive: "{{ item.keepalive | default(omit) }}"
+    metalink: "{{ item.metalink | default(omit) }}"
+    mirrorlist: "{{ item.mirrorlist | default(omit) }}"
+    name: "{{ item.name | default(omit) }}"
+    priority: "{{ item.priority | default(omit) }}"
+    repo_gpgcheck: "{{ item.repo_gpgcheck | default(omit) }}"
+    skip_if_unavailable: "{{ item.skip_if_unavailable | default(omit) }}"
+    sslverify: "{{ item.sslverify | default(omit) }}"
+    state: "{{ item.state | default(omit) }}"
+    # These options are not part of the per-config options
+    owner: "{{ system_repositories_owner }}"
+    group: "{{ system_repositories_group }}"
+    mode: "{{ system_repositories_mode }}"
+    reposdir: "{{ system_repositories_destination_folder }}"
+  with_items: "{{ system_repositories_configs }}"
+
+- name: download repo files
+  become: "{{ system_repositories_become }}"
+  get_url:
+    url: "{{ item }}"
+    validate_certs: "{{ system_repositories_validate_certs }}"
+    dest: "{{ system_repositories_destination_folder }}"
+    owner: "{{ system_repositories_owner }}"
+    group: "{{ system_repositories_group }}"
+    mode: "{{ system_repositories_mode }}"
+  with_items: "{{ system_repositories_repo_files }}"
+  register: get_repo_file
+  until: get_repo_file is success
+  retries: 3
+
+- name: install RPM keys
+  become: "{{ system_repositories_become }}"
+  rpm_key:
+    key: "{{ item }}"
+    state: present
+    validate_certs: "{{ system_repositories_validate_certs }}"
+  with_items: "{{ system_repositories_rpm_keys }}"
+  register: install_rpm_key
+  until: install_rpm_key is success
+  retries: 3

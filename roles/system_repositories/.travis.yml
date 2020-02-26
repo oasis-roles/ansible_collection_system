@@ -1,0 +1,29 @@
+language: python
+dist: xenial
+python:
+  - "2.7"
+  - "3.7"
+cache: pip
+services:
+  - docker
+
+install:
+  - pip install -U pip
+  - pip --version
+  - pip install ansible ansible-lint yamllint flake8 molecule docker
+  - ansible-lint --version
+  - yamllint --version
+  - flake8 --version
+  - molecule --version
+
+env:
+  - TEST=docker
+  - TEST=docker_fedora
+
+script:
+  - molecule lint -s openstack
+  - travis_wait molecule test -s "${TEST}"
+  - flake8 $(find . -name '*.py')
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

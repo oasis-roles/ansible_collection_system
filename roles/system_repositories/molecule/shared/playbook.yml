@@ -1,0 +1,21 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: system_repositories
+      system_repositories_configs:
+        - name: epel
+          baseurl: https://dl.fedoraproject.org/pub/epel/$releasever/$basearch/
+          gpgcheck: false
+          exclude:
+            - a
+            - b
+            - c
+  post_tasks:
+    - name: install sword
+      become: true
+      package:
+        name: sword  # epel-only package
+        state: present
+      retries: 2
+      register: install_sword
+      until: install_sword is success

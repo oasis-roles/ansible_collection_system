@@ -1,0 +1,20 @@
+- name: Converge
+  hosts: all
+  roles:
+    - role: system_repositories
+      system_repositories_configs:
+        - name: google-chrome
+          baseurl: http://dl.google.com/linux/chrome/rpm/stable/x86_64
+          gpgcheck: true
+          enabled: true
+          description: google-chrome
+          gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+  post_tasks:
+    - name: install google-chrome
+      become: true
+      package:
+        name: google-chrome-stable
+        state: present
+      retries: 2
+      register: install_chrome
+      until: install_chrome is success

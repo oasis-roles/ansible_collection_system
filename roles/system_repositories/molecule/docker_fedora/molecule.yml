@@ -1,0 +1,27 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: instance_fedora
+    image: fedora:latest
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    create: ../shared/create.yml
+    destroy: ../shared/destroy.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
