@@ -52,7 +52,7 @@
     dest: "{{ molecule_openstack_ci_keypair_path }}"
     content: "{{ keypair.key.private_key }}"
     mode: 0600
-  when: keypair.changed
+  when: keypair.changed  # noqa 503 - We don't want to handler this
 
 - name: Create molecule volume(s)
   os_volume:

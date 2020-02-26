@@ -28,7 +28,7 @@
   copy:
     content: {}
     dest: "{{ molecule_instance_config }}"
-  when: server.changed | bool
+  when: server.changed | bool  # noqa 503 - don't make this a handler
 
 - name: Delete security group
   os_security_group:
