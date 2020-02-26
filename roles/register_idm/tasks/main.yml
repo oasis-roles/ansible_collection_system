@@ -1,0 +1,38 @@
+- name: ensure values are set
+  assert:
+    that:
+      - register_idm_server_admin_username is not none
+      - register_idm_server_admin_password is not none
+      - register_idm_domain is not none
+
+- block:
+    - name: install IPA client packages
+      package:
+        name: "{{ register_idm_packages }}"
+        state: installed
+
+    - name: run the IPA uninstaller, if necessary
+      command: "{{ register_idm_client_base_command }} --uninstall"
+      when: register_idm_client_reconfigure
+      changed_when: false
+
+    - name: run the IPA client installer
+      command: >-
+        {{ register_idm_client_base_command }}
+        --force-join
+        --realm {{ register_idm_server_realm }}
+        --domain {{ register_idm_server_domain }}
+        --principal {{ register_idm_server_admin_username
+            }}@{{ register_idm_server_realm }}
+        --password {{ register_idm_server_admin_password }}
+        --hostname={{ register_idm_hostname }}
+        --enable-dns-updates
+        {{ '--mkhomedir' if register_idm_client_mkhomedir else '' }}
+        {{ '--ssh-trust-dns' if register_idm_client_ssh_trust_dns else '' }}
+        {{ '' if register_idm_client_setup_ntp else '--no-ntp' }}
+        {{ '' if register_idm_client_configure_ssh else '--no-ssh' }}
+        {{ '' if register_idm_client_configure_sshd else '--no-sshd' }}
+      register: idmclientsetup
+      changed_when: false
+  become: "{{ register_idm_become }}"
+  become_user: "{{ register_idm_become_user }}"

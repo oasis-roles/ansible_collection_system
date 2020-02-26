@@ -1,0 +1,10 @@
+register_idm_packages:
+  - ipa-client
+  - ipa-admintools
+  - sssd-ipa
+  - sssd-ldap
+  - ipa-python
+  - libipa_hbac
+  - python-libipa_hbac
+  - python-iniparse
+  - ca-certificates

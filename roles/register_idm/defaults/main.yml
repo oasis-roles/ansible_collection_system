@@ -1,0 +1,23 @@
+register_idm_become: true
+register_idm_become_user: root
+
+register_idm_domain: null
+register_idm_server_realm: "{{ register_idm_domain | upper }}"
+register_idm_server_domain: "{{ register_idm_domain }}"
+
+# IPA Server Admin login
+register_idm_server_admin_username: null
+register_idm_server_admin_password: null
+
+register_idm_hostname: "{{ ansible_fqdn }}"
+# Assume its first time client installation
+register_idm_client_reconfigure: false
+#
+# IPA Client configuration settings
+register_idm_client_configure_ssh: true
+register_idm_client_configure_sshd: true
+register_idm_client_mkhomedir: true
+register_idm_client_ssh_trust_dns: true
+register_idm_client_setup_ntp: true
+
+register_idm_client_base_command: ipa-client-install -U

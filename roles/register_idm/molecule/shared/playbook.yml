@@ -1,0 +1,8 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: register_idm
+      register_idm_domain: test.domain.com
+      register_idm_server_admin_username: someuser
+      register_idm_server_admin_password: Sup3r_s3cR3T
+      ignore_errors: true  # role errors without IPA server
