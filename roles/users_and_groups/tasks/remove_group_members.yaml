@@ -1,0 +1,22 @@
+- name: Get groups user is a member of
+  command: id -Gn {{ item['name'] }}
+  register: current_groups
+  changed_when: false
+
+- name: Convert output string to list
+  set_fact:
+    current_groups: "{{ current_groups.stdout.split() }}"
+
+- name: Get which groups the user is still a member of after removal
+  set_fact:
+    new_groups: "{{ current_groups | difference(item['groups']) }}"
+
+- name: Edit user's group membership
+  user:
+    name: "{{ item['name'] }}"
+    state: present
+    group: "{{ item['primary_group'] | default(omit) }}"
+    groups: "{{ new_groups }}"
+    append: false
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"

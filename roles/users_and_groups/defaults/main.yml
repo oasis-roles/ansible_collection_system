@@ -1,0 +1,14 @@
+users_and_groups_become: true
+users_and_groups_become_user: root
+
+# group management vars
+users_and_groups_add_modify_groups: []
+users_and_groups_remove_groups: []
+
+# user management vars
+users_and_groups_add_modify_users: []
+users_and_groups_remove_users: []
+
+# group member management vars
+users_and_groups_add_group_members: []
+users_and_groups_remove_group_members: []

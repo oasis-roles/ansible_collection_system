@@ -1,0 +1,46 @@
+- name: Add groups or modify existing groups
+  group:
+    name: "{{ item['name'] }}"
+    state: present
+    gid: "{{ item['gid'] | default(omit) }}"
+    local: "{{ item['local'] | default(omit) }}"
+    non_unique: "{{ item['non_unique'] | default(omit) }}"
+    system: "{{ item['system'] | default(omit) }}"
+  with_items: "{{ users_and_groups_add_modify_groups }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
+
+- include_tasks: add-modify_users.yaml
+  with_items: "{{ users_and_groups_add_modify_users }}"
+
+- name: Add group members
+  user:
+    name: "{{ item['name'] }}"
+    state: present
+    group: "{{ item['primary_group'] | default(omit) }}"
+    groups: "{{ item['groups'] }}"
+    append: "{{ item['append'] | default(true) }}"
+  with_items: "{{ users_and_groups_add_group_members }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
+
+- include_tasks: remove_group_members.yaml
+  with_items: "{{ users_and_groups_remove_group_members }}"
+
+- name: Remove users
+  user:
+    name: "{{ item['name'] }}"
+    state: absent
+    force: "{{ item['force'] | default(omit) }}"
+    remove: "{{ item['remove'] | default(omit) }}"
+  with_items: "{{ users_and_groups_remove_users }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
+
+- name: Remove groups
+  group:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ users_and_groups_remove_groups }}"
+  become: "{{ users_and_groups_become }}"
+  become_user: "{{ users_and_groups_become_user }}"
