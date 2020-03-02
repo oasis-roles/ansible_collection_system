@@ -1,0 +1,13 @@
+- name: set hostname
+  hostname:
+    name: "{{ hostname }}"
+  become: true
+
+- name: inject hostname to hosts file
+  blockinfile:
+    path: /etc/hosts
+    block: "127.0.0.1 {{ hostname }} {{ hostname_aliases | join(' ') }}"
+    state: present
+  become: "{{ hostname_become }}"
+  become_user: "{{ hostname_become_user }}"
+  when: hostname_inject_hosts_files

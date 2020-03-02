@@ -1,0 +1,18 @@
+galaxy_info:
+  author: Greg Hellings
+  description: Set hostname and, optionally, inject /etc/hosts value
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - all
+    - name: Fedora
+      versions:
+        - all
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

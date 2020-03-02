@@ -1,0 +1,7 @@
+hostname: "{{ ansible_fqdn }}"
+hostname_aliases: []
+hostname_inject_hosts_files: true
+
+# For host file inject task only
+hostname_become: true
+hostname_become_user: root
