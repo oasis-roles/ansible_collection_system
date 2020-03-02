@@ -1,0 +1,44 @@
+# defaults file for chrony
+
+# The package to install on the remote hosts
+chrony_package: chrony
+
+# The user to run commands as on remote hosts
+chrony_become_user: root
+
+# A list of servers to use with chrony and the options for each server
+# Default set to public servers from the pool.ntp.org project
+chrony_servers:
+  - 0.rhel.pool.ntp.org iburst
+  - 1.rhel.pool.ntp.org iburst
+  - 2.rhel.pool.ntp.org iburst
+  - 3.rhel.pool.ntp.org iburst
+
+# Where to store the file that records the rate at which the system clock
+# gains/losses time.
+chrony_driftfile_path: /var/lib/chrony/drift
+
+# Arguments for the makestep configuration option for chrony
+chrony_makestep_args: 1.0 3
+
+# Whether or not to enable kernel synchronization of the real-time clock (RTC)
+chrony_enable_rtcsync: true
+
+# The interfaces in which to enable hardware timestamping
+# chrony_hwtimestamp_interfaces: *
+
+# Define the minimum number of selectable sources required to adjust the system
+# clock
+# chrony_num_minsources: 2
+
+# Set the local network from which to allow NTP client access
+# chrony_ntp_client: 192.168.0.0/16
+
+# Specify path to the file containing keys for NTP authentication
+# chrony_keyfile_path: /etc/chrony.keys
+
+# Specify path to the directory in which to store log files
+chrony_logdir_path: /var/log/chrony
+
+# Select which information is logged
+# chrony_logged_information: measurements statistics tracking
