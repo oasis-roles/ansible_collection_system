@@ -1,0 +1,6 @@
+- name: restart docker
+  become: "{{ docker_become }}"
+  become_user: "{{ docker_become_user }}"
+  service:
+    name: docker
+    service: restarted

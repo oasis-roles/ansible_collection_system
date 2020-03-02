@@ -1,0 +1,23 @@
+- name: install python2
+  hosts: fedora
+  tasks:
+    - name: install python2, necessary for testinfra to run
+      become: true
+      package:
+        name: python-unversioned-command
+        state: present
+
+- name: configure repositories
+  hosts: rhel
+  roles:
+    - role: oasis_roles.rhsm
+  vars:
+    rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
+    rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
+    rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+    rhsm_pool_ids: "{{ lookup('env', 'OASIS_RHSM_POOL_IDS') }}"
+    rhsm_repositories:
+      enabled:
+        - rhel-7-server-rpms
+        - rhel-7-server-extras-rpms
+        - rhel-7-server-optional-rpms

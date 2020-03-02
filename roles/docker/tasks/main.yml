@@ -1,0 +1,32 @@
+- name: install docker
+  become: "{{ docker_become }}"
+  become_user: "{{ docker_become_user }}"
+  package:
+    name: "{{ docker_packages }}"
+    state: present
+
+- name: add docker group
+  become: "{{ docker_become }}"
+  become_user: "{{ docker_become_user }}"
+  group:
+    name: docker
+    state: present
+  notify: restart docker
+
+- name: add users to docker group
+  become: "{{ docker_become }}"
+  become_user: "{{ docker_become_user }}"
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+    state: present
+  with_items: "{{ docker_access_users }}"
+
+- name: start and enable Docker
+  become: "{{ docker_become }}"
+  become_user: "{{ docker_become_user }}"
+  service:
+    name: docker
+    state: started
+    enabled: true

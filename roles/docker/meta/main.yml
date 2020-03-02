@@ -1,0 +1,17 @@
+galaxy_info:
+  author: Greg Hellings
+  company: Red Hat, Inc.
+  description: >-
+    Installs and enables the Docker package. Also configures users with access
+    to the service, the login user by default.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

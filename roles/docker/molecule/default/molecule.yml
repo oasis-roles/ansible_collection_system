@@ -1,0 +1,35 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-docker
+    image: Fedora 29
+    flavor: ci.m1.small
+    groups:
+      - fedora
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+  config_options:
+    default:
+      stdout_callback: yaml
+  inventory:
+    group_vars:
+      all:
+        ansible_python_interpreter: /usr/bin/python3
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../shared/

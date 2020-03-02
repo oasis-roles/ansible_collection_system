@@ -1,0 +1,31 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-docker
+    image: rhel-7.6-server-x86_64-released
+    flavor: ci.m1.small
+    groups:
+      - rhel
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+  config_options:
+    default:
+      stdout_callback: yaml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../shared/
