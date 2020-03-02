@@ -48,8 +48,10 @@ jobs:
     strategy:
       matrix:
         role:
+          - chrony
           - molecule_docker_ci
           - nfs_server
+          - nmcli_add_addrs
           - passwordless_ssh
           - register_idm
           - sshd
