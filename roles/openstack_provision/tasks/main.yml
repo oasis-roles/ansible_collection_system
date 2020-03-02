@@ -1,0 +1,15 @@
+- name: provision openstack volumes
+  include_tasks: provision_volumes.yml
+
+- name: provision openstack keys
+  include_tasks: provision_keypairs.yml
+
+- name: provision openstack VMs
+  include_tasks: provision_servers.yml
+  with_items: "{{ openstack_provision_servers }}"
+  loop_control:
+    loop_var: servers
+
+- name: wait for VMs
+  include_tasks: wait.yml
+  when: openstack_provision_wait_for_ssh | bool

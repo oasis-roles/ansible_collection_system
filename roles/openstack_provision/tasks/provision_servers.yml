@@ -1,0 +1,59 @@
+- name: provision VMs
+  os_server:
+    api_timeout: "{{ servers.api_timeout | default(omit) }}"
+    auth: "{{ servers.auth | default(omit) }}"
+    auth_type: "{{ servers.auth_type | default(omit) }}"
+    auto_ip: "{{ servers.auto_ip | default(omit) }}"
+    availability_zone: "{{ servers.availability_zone | default(omit) }}"
+    boot_from_volume: "{{ servers.boot_from_volume | default(omit) }}"
+    boot_volume: "{{ servers.boot_volume | default(omit) }}"
+    cacert: "{{ servers.cacert | default(omit) }}"
+    cert: "{{ servers.cert | default(omit) }}"
+    cloud: "{{ servers.cloud | default(omit) }}"
+    config_drive: "{{ servers.config_drive | default(omit) }}"
+    delete_fip: "{{ servers.delete_fip | default(omit) }}"
+    flavor: "{{ servers.flavor | default(omit) }}"
+    flavor_include: "{{ servers.flavor_include | default(omit) }}"
+    flavor_ram: "{{ servers.flavor_ram | default(omit) }}"
+    floating_ip_pools: "{{ servers.floating_ip_pools | default(omit) }}"
+    floating_ips: "{{ servers.floating_ips | default(omit) }}"
+    image: "{{ servers.image | default(omit) }}"
+    image_exclude: "{{ servers.image_exclude | default(omit) }}"
+    interface: "{{ servers.interface | default(omit) }}"
+    key: "{{ servers.key | default(omit) }}"
+    key_name: "{{ servers.key_name | default(omit) }}"
+    meta: "{{ servers.meta | default(omit) }}"
+    name: "{{ servers.name | default(omit) }}{{ item }}"
+    network: "{{ servers.network | default(omit) }}"
+    nics: "{{ servers.nics | default(omit) }}"
+    region_name: "{{ servers.region_name | default(omit) }}"
+    reuse_ips: "{{ servers.reuse_ips | default(omit) }}"
+    scheduler_hints: "{{ servers.scheduler_hints | default(omit) }}"
+    security_groups: "{{ servers.security_groups | default(omit) }}"
+    state: "{{ servers.state | default(openstack_provision_default_state) }}"
+    terminate_volume: "{{ servers.terminate_volume | default(omit) }}"
+    timeout: "{{ servers.timeout | default(omit) }}"
+    userdata: "{{ servers.userdata | default(omit) }}"
+    verify: "{{ servers.verify | default(omit) }}"
+    volume_size: "{{ servers.volume_size | default(omit) }}"
+    volumes: "{{ servers.volumes | default(omit) }}"
+    wait: "{{ servers.wait | default(omit) }}"
+  register: _os_servers
+  with_sequence: start=1 end={{ (servers.count | default(1) | int ) }}
+
+- name: add OpenStack servers to groups
+  add_host:
+    name: "{{ item.openstack.name }}"
+    ansible_host: "{{ item.server.interface_ip }}"
+    groups: "{{ servers.groups | default([]) }}"
+  with_items: "{{ _os_servers.results }}"
+  when: >-
+    item.openstack is defined
+    and item.server is defined
+  changed_when: false
+
+- name: add hosts to wait for
+  set_fact:
+    _wait_hosts: >-
+      {{ (_wait_hosts | default([])) +
+      (_os_servers | json_query('results[*].openstack.name') ) }}

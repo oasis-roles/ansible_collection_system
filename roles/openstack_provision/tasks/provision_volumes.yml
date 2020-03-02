@@ -1,0 +1,9 @@
+- name: provision volume
+  os_volume:
+    display_name: "{{ item.display_name }}"
+    size: "{{ item.size | default(omit) }}"
+    snapshot_id: "{{ item.snapshot_id | default(omit) }}"
+    state: "{{ item.state | default(openstack_provision_default_state) }}"
+    volume_type: "{{ item.volume_type | default(omit) }}"
+    wait: "{{ item.wait | default(true) }}"
+  with_items: "{{ openstack_provision_volumes }}"

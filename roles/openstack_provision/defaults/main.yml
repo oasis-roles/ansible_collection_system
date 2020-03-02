@@ -1,0 +1,7 @@
+openstack_provision_servers: []
+openstack_provision_volumes: []
+openstack_provision_keypairs: []
+openstack_provision_wait_for_ssh: true
+openstack_provision_default_state: present
+
+_wait_hosts: []

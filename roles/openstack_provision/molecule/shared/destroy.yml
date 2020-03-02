@@ -1,0 +1,14 @@
+- name: remove servers
+  hosts: localhost
+  vars:
+    openstack_provision_default_state: absent
+  roles:
+    # Have to de-provision servers before volumes
+    - role: openstack_provision
+      openstack_provision_keypairs:
+        - name: openstack_provision
+      openstack_provision_volumes: []
+
+    - role: openstack_provision
+      openstack_provision_servers: []
+      openstack_provision_keypairs: []

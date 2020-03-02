@@ -1,0 +1,7 @@
+- hosts: localhost
+  pre_tasks:
+    - name: generate SSH keypair
+      openssh_keypair:
+        path: "{{ ansible_ssh_private_key_file }}"
+  roles:
+    - role: openstack_provision
