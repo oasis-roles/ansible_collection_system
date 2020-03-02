@@ -1,23 +1,7 @@
-dependency:
-  name: galaxy
-  options:
-    role-file: molecule/default/requirements.yml
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: test-hostname
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-  config_options:
-    default:
-      stdout_callback: yaml
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  playbooks:
+    converge: playbook.yml

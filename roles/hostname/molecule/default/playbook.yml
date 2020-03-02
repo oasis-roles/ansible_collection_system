@@ -3,4 +3,3 @@
   roles:
     - role: hostname
       hostname: dev.example.com
-  post_tasks: []
