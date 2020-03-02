@@ -102,7 +102,7 @@ Rebooting a system when ansible is already a privileged user:
 ```yaml
 - hosts: reboot-servers
   roles:
-    - role: oasis-roles.reboot
+    - role: oasis_roles.reboot
 ```
 
 Explicitly `become` root to reboot:
@@ -110,7 +110,7 @@ Explicitly `become` root to reboot:
 ```yaml
 - hosts: reboot-servers
   roles:
-    - role: oasis-roles.reboot
+    - role: oasis_roles.reboot
   vars:
       reboot_become: true
       reboot_become_user: root
@@ -121,7 +121,7 @@ Using the deprecated vars:
 ```yaml
 - hosts: reboot-servers
   roles:
-    - role: oasis-roles.reboot
+    - role: oasis_roles.reboot
   vars:
     # Wait two minutes before requesting reboot
     # Becomes the "reboot_pre_delay" variable
@@ -147,7 +147,7 @@ All vars defined, for reference:
 ```yaml
 - hosts: reboot-servers
   roles:
-    - role: oasis-roles.reboot
+    - role: oasis_roles.reboot
   vars:
       # Override the underlying connection plugin's connection timeout value,
       # setting it to 10 seconds
