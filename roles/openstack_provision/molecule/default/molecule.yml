@@ -1,18 +1,9 @@
-dependency:
-  name: galaxy
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: test_server1
   - name: fed_test1
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
   playbooks:
     converge: ../shared/playbook.yml
     create: ../shared/create.yml
@@ -34,7 +25,3 @@ provisioner:
           - name: fed_test
             flavor: ci.m1.tiny
             image: 'Fedora 29'
-verifier:
-  name: testinfra
-  lint:
-    name: flake8

@@ -1,17 +1,8 @@
-dependency:
-  name: galaxy
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: fed_test1
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
   playbooks:
     create: ../shared/create.yml
     destroy: ../shared/destroy.yml
@@ -42,7 +33,3 @@ provisioner:
         openstack_provision_keypairs:
           - name: openstack_provision
             public_key_file: "{{ ansible_ssh_private_key_file }}.pub"
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
