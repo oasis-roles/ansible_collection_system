@@ -57,6 +57,7 @@ jobs:
           - sshd
           - system_repositories
           - timezone
+          - users_and_groups
           - upload_files
     steps:
       - uses: actions/checkout@v2
