@@ -1,24 +1,8 @@
-dependency:
-  name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: nmcli-add-addrs-connection-only
     image: centos:7
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-scenario:
-  name: connection_only
-verifier:
-  name: testinfra
-  options:
-    v: true
-    junit-xml: junit.xml
-  lint:
-    name: flake8
+  playbooks:
+    converge: playbook.yml

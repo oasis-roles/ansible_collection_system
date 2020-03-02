@@ -88,7 +88,7 @@ Bad:
 ```yaml
 - hosts: all
   roles:
-    - role: oasis-roles.nmcli_add_addrs
+    - role: oasis_roles.nmcli_add_addrs
   vars:
     nmcli_add_addrs_interface: eth0
     nmcli_add_addrs_ipv4:
