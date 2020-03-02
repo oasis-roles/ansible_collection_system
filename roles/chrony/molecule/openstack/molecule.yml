@@ -1,27 +1,4 @@
-dependency:
-  name: galaxy
-  options:
-    role-file: molecule/shared/requirements.yml
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: test-chrony
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-  playbooks:
-    prepare: ../shared/prepare.yml
-    converge: ../shared/playbook.yml
-  config_options:
-    defaults:
-      stdout_callback: yaml
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
-  directory: ../shared/

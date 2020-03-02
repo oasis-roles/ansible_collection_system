@@ -2,4 +2,3 @@
   hosts: all
   roles:
     - role: chrony
-  post_tasks: []
