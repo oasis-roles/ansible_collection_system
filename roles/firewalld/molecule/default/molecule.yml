@@ -2,7 +2,11 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: centos:7
+    image: centos/systemd
+    command: /usr/lib/systemd/systemd --system
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   playbooks:
     converge: playbook.yml
