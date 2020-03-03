@@ -1,11 +1,8 @@
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
+driver:
+  name: docker
 platforms:
   - name: instance
     image: centos:7
+provisioner:
+  playbooks:
+    converge: playbook.yml

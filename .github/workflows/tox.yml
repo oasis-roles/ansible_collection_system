@@ -51,6 +51,7 @@ jobs:
           - cockpit
           - chrony
           - disk_wipe
+          - firewalld
           - localectl
           - molecule_docker_ci
           - nfs_server

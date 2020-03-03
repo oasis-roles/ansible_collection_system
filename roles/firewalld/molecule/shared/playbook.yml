@@ -15,4 +15,3 @@
           port: 80
           to_port: 8080
       firewalld_become: true
-  post_tasks: []
