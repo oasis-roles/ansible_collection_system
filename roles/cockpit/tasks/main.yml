@@ -1,0 +1,15 @@
+# role tasks
+- name: Install cockpit
+  package:
+    name: "{{ cockpit_packages + cockpit_additional_packages }}"
+    state: present
+  become: "{{ cockpit_become }}"
+  become_user: "{{ cockpit_become_user }}"
+
+- name: Start cockpit
+  service:
+    name: cockpit.socket
+    state: started
+    enabled: true
+  become: "{{ cockpit_become }}"
+  become_user: "{{ cockpit_become_user }}"
