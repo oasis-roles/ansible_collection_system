@@ -1,0 +1,23 @@
+- name: Prepare
+  hosts: localectl
+  gather_facts: false
+  vars:
+    localectl_locales:
+      LANG: en_GB.utf8
+    localectl_vc_keymap: 'xx'
+    localectl_x11_layout: 'xx'
+  roles:
+    - role: localectl
+  tasks:
+    # These checks are here to make sure the role actually called
+    # localectl, not that localectl did its job correctly.
+    - name: Check that system locale changed to "en_GB.utf8"
+      command: grep LANG=en_GB.utf8 /etc/locale.conf
+      changed_when: false
+    - name: Check that system locale changed to "xx"
+      command: grep KEYMAP="xx" /etc/vconsole.conf
+      changed_when: false
+    - name: Check that x11 layout changed to "xx"
+      command:
+        grep 'Option "XkbLayout" "xx"' /etc/X11/xorg.conf.d/00-keyboard.conf
+      changed_when: false

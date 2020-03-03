@@ -1,0 +1,142 @@
+# This looks like a prepare task, but this is in here to ensure that converge
+# does not fail when run multiple times. It would fail if the "task is changed"
+# assertions run in subsequent converges, due to the idempotent nature of the
+# role. For this same reason, this scenario is exempted from the idempotence
+# check. Idempotence is verified by the default scenario.
+- name: Set initial playbook state
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_locales:
+      LANG: en_GB.utf8
+    localectl_vc_keymap: ''
+    localectl_x11_layout: ''
+
+- name: Test only system locales task runs when locales changes
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_locales:
+      LANG: en_US.utf8
+  tasks:
+    - name: Assert that only locales update task runs
+      assert:
+        that:
+          - localectl_locales_update is changed
+          - localectl_vc_update is skipped
+          - localectl_x11_update is skipped
+
+- name: Test only virtual console keymap task runs (normal keymap)
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_vc_keymap: 'us'
+  tasks:
+    - name: Assert that only vc keymap task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is changed
+          - localectl_x11_update is skipped
+
+- name: Test only virtual console keymap task runs (toggle keymap)
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_vc_keymap_toggle: 'us'
+  tasks:
+    - name: Assert that only vc keymap update task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is changed
+          - localectl_x11_update is skipped
+
+- name: Test only the x11 update task runs with x11_layout
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_x11_layout: 'us'
+  tasks:
+    - name: Assert that only the x11 update task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is skipped
+          - localectl_x11_update is changed
+
+- name: Test only the x11 update task runs with x11_model
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_x11_model: 'pc105'
+  tasks:
+    - name: Assert that only the x11 update task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is skipped
+          - localectl_x11_update is changed
+
+- name: Test only the x11 update task runs with x11_layout
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_x11_variant: 'us'
+  tasks:
+    - name: Assert that only the x11 update task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is skipped
+          - localectl_x11_update is changed
+
+- name: Test only the x11 update task runs with x11_layout
+  hosts: localectl
+  gather_facts: false
+  roles:
+    - localectl
+  vars:
+    localectl_x11_options: 'compose:ralt'
+  tasks:
+    - name: Assert that only the x11 update task runs
+      assert:
+        that:
+          - localectl_locales_update is skipped
+          - localectl_vc_update is skipped
+          - localectl_x11_update is changed
+
+# Conditional role idempotence depends on equality working on dicts
+# with potentially different key ordering, so assert that works as expected
+- name: Test that jinja dict equality works as needed for idempotence
+  hosts: localectl
+  vars:
+    # Simulating two dicts with the same content with different ordering.
+    # This normally results in two dicts with the same key order due to
+    # dict's normal key ordering behavior, so this is really here just in
+    # case something like an OrderedDict managed to slip through.
+    current_locale:
+      LANG: en_US.utf8
+      LC_MESSAGES: en_US.utf8
+    reordered_locale:
+      LC_MESSAGES: en_US.utf8
+      LANG: en_US.utf8
+  tasks:
+    - name: Assert dict equality
+      assert:
+        that:
+          - (current_locale | dictsort) == (reordered_locale | dictsort)

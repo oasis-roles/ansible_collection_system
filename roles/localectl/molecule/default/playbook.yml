@@ -1,0 +1,25 @@
+# Change values set in the prepare playbook, and assert via grep
+# that those changes were correctly applied.
+- name: Converge
+  hosts: localectl
+  gather_facts: false
+  vars:
+    localectl_locales:
+      LANG: en_US.utf8
+    localectl_vc_keymap: 'us'
+    localectl_x11_layout: 'us'
+  roles:
+    - role: localectl
+  tasks:
+    # These checks are here to make sure the role actually called
+    # localectl, not that localectl did its job correctly.
+    - name: Check that system locale changed to "en_US.utf8"
+      command: grep LANG=en_US.utf8 /etc/locale.conf
+      changed_when: false
+    - name: Check that system locale changed to "us"
+      command: grep KEYMAP="us" /etc/vconsole.conf
+      changed_when: false
+    - name: Check that x11 layout changed to "us"
+      command:
+        grep 'Option "XkbLayout" "us"' /etc/X11/xorg.conf.d/00-keyboard.conf
+      changed_when: false

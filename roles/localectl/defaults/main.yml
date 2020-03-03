@@ -1,0 +1,18 @@
+# "become" handling
+localectl_become: true
+
+# values are defaulted to null so the role can tell the difference
+# between "don't change this value" and "unset this value"
+
+# set-locale
+localectl_locales:
+
+# set-keymap
+localectl_vc_keymap:
+localectl_vc_keymap_toggle:
+
+# set-x11-keymap
+localectl_x11_layout:
+localectl_x11_model:
+localectl_x11_variant:
+localectl_x11_options:

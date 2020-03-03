@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Sean Myers
+  description: Manage system locale settings with localectl.
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

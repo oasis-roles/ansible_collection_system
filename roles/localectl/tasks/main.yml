@@ -1,0 +1,71 @@
+- name: Gather system locale facts for idempotence checks
+  command: >
+    busctl --system get-property org.freedesktop.locale1
+    /org/freedesktop/locale1 org.freedesktop.locale1
+    {{ localectl_properties | join(' ') }}
+  register: localectl_busctl_gather
+  changed_when: false
+
+# crush the busctl returns down to a 'localectl_property: value' dict for
+# easy idempotence checks later.
+- name: Parse system locale facts
+  set_fact:
+    localectl_facts: |
+      {{ localectl_busctl_gather.stdout_lines |
+         localectl_busctl_parse(localectl_properties) }}
+
+- name: Update system locale settings
+  # localectl_arglist filter handles converting {'LOCALEVAR': value} dict
+  # into space-separated quoted "LOCALEVAR=value" strings for localectl.
+  command: "localectl set-locale {{ localectl_locales | localectl_arglist }}"
+  register: localectl_locales_update
+  become: "{{ localectl_become }}"
+  # compare against sorted dicts just in case someting wacky happens with
+  # dictionary key ordering in any dependency when we aren't looking
+  when: |
+    localectl_locales is not none and
+    (localectl_facts['Locale'] | dictsort) != (localectl_locales | dictsort)
+
+# localectl happily takes quoted empty values to indicate a value is not set.
+# So, e.g. "localectl set-keymap '' 'toggle.keymap'" works, # as does
+# "localectl set-keymap '' ''". The VC keymap is unset in both cases.
+- name: Update virtual console keymap
+  command: >
+    localectl set-keymap --no-convert
+    {{ localectl_vc_keymap | quote }}
+    {{ localectl_vc_keymap_toggle | quote }}
+  register: localectl_vc_update
+  become: "{{ localectl_become }}"
+  when: |
+    (localectl_vc_keymap is not none and
+     localectl_facts['VConsoleKeymap'] != localectl_vc_keymap) or
+    (localectl_vc_keymap_toggle is not none and
+     localectl_facts['VConsoleKeymapToggle'] != localectl_vc_keymap_toggle)
+
+# localectl behavior note:
+# when any one of the four options is changed, all options are set,
+# defaulting to the empty string if not included.
+# So 'localectl set-x11-keymap "us"' will unset model, variant, and options,
+# as though the actual command run was 'localectl set-x11-keymap "us" "" "" ""'
+# This means that no special handling is required in this role to call
+# localectl differently based on the number of args, but users should be warned
+# to be explicit with all values here, as values may be unexpectedly changed by
+# localectl's inability to operate on each of these options independently.
+- name: Update X11 layout, model, variant, and options
+  command: >
+    localectl set-x11-keymap --no-convert
+    {{ localectl_x11_layout | quote }}
+    {{ localectl_x11_model | quote }}
+    {{ localectl_x11_variant | quote }}
+    {{ localectl_x11_options | quote }}
+  register: localectl_x11_update
+  become: "{{ localectl_become }}"
+  when: |
+    (localectl_x11_layout is not none and
+     localectl_facts['X11Layout'] != localectl_x11_layout) or
+    (localectl_x11_model is not none and
+     localectl_facts['X11Model'] != localectl_x11_model) or
+    (localectl_x11_variant is not none and
+     localectl_facts['X11Variant'] != localectl_x11_variant) or
+    (localectl_x11_options is not none and
+     localectl_facts['X11Options'] != localectl_x11_options)
