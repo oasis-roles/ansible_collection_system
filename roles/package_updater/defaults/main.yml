@@ -1,0 +1,9 @@
+# Defaults file for package_updater
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.  This will be necesssary for running the ansible module
+# package
+package_updater_become: true
+
+# The user to sudo/become
+package_updater_become_user: root

@@ -1,0 +1,9 @@
+# Run Ansible package module that will use the underlying OS package manager
+# of the target system to update all packages and update the cache.
+- name: Update all packages
+  package:
+    name: '*'
+    state: latest
+    update_cache: true
+  become: "{{ package_updater_become }}"
+  become_user: "{{ package_updater_become_user }}"
