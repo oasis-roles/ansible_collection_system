@@ -51,6 +51,7 @@ jobs:
           - cockpit
           - chrony
           - disk_wipe
+          - localectl
           - molecule_docker_ci
           - nfs_server
           - nmcli_add_addrs

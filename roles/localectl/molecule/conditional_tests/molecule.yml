@@ -1,11 +1,5 @@
-dependency:
-  name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: localectl
     image: centos/systemd
@@ -14,11 +8,9 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
+  playbooks:
+    converge: playbook.yml
 scenario:
-  name: conditional_tests
   # converge playbook is not idempotent due to test setup and assertions
   test_sequence:
     - lint
@@ -31,6 +23,3 @@ scenario:
     - side_effect
     - verify
     - destroy
-verifier:
-  lint:
-    name: flake8
