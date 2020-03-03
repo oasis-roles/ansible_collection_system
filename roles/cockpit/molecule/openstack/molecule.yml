@@ -1,47 +1,5 @@
-dependency:
-  name: galaxy
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 platforms:
   - name: test-cockpit
-    image: rhel-7.6-server-x86_64-released
     flavor: ci.m1.medium
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-  playbooks:
-    converge: ../shared/playbook.yml
-    cleanup: ../shared/cleanup.yml
-  config_options:
-    defaults:
-      stdout_callback: yaml
-  group_vars:
-    all:
-      cockpit_additional_packages:
-        - cockpit-ovirt-dashboard
-scenario:
-  test_sequence:
-    - lint
-    - dependency
-    - cleanup
-    - destroy
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    - side_effect
-    - verify
-    - cleanup
-    - destroy
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
-  directory: ../shared/

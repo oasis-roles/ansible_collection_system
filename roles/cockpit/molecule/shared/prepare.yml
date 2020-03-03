@@ -1,7 +1,8 @@
 - name: setup subscriptions
   hosts: all
   roles:
-    - oasis_roles.rhsm
+    - role: oasis.system.rhsm
+      when: ansible_distribution == 'RedHat'
   vars:
     rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
     rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"

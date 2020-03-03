@@ -48,6 +48,7 @@ jobs:
     strategy:
       matrix:
         role:
+          - cockpit
           - chrony
           - disk_wipe
           - molecule_docker_ci
