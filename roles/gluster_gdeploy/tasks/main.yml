@@ -1,0 +1,35 @@
+- name: ensure variables exist
+  assert:
+    that: gluster_gdeploy_configuration_file is defined
+    fail_msg: You must provide a path to your GDeploy configuration file.
+
+- name: install necessary packages
+  package:
+    name: "{{ gluster_gdeploy_packages }}"
+    state: present
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"
+
+- name: ensure glusterd is up and running
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"
+  service:
+    name: glusterd
+    state: started
+    enabled: true
+
+- name: install Samba support
+  include_tasks: samba.yml
+  when: gluster_gdeploy_samba_enable
+
+- name: install NFS Ganesha support
+  include_tasks: nfs_ganesha.yml
+  when: gluster_gdeploy_nfs_ganesha_enable
+
+- name: install gstatus support
+  include_tasks: gstatus.yml
+  when: gluster_gdeploy_gstatus_enable
+
+- name: run gdeploy work
+  include_tasks: run_gdeploy.yml
+  when: inventory_hostname == ansible_play_hosts[0]

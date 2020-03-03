@@ -1,0 +1,7 @@
+gluster_gdeploy_become: true
+gluster_gdeploy_become_user: root
+gluster_gdeploy_samba_enable: false
+gluster_gdeploy_nfs_ganesha_enable: false
+gluster_gdeploy_gstatus_enable: false
+gluster_gdeploy_peers: "{{ ansible_play_hosts[1:] }}"
+gluster_gdeploy_rpm_version: ''

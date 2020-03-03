@@ -1,0 +1,22 @@
+- block:
+    - name: install gdeploy
+      package:
+        name: "{{ gluster_gdeploy_single_host_packages }}"
+        state: present
+
+    - name: probe hosts
+      gluster_peer:
+        nodes:
+          - "{{ hostvars[item]['ansible_host'] | default(item) }}"
+        state: present
+      loop: "{{ gluster_gdeploy_peers }}"
+
+    - name: upload gdeploy conf
+      template:
+        src: "{{ gluster_gdeploy_configuration_file }}"
+        dest: "{{ gluster_gdeploy_configuration_file_destination_path }}"
+        owner: "{{ gluster_gdeploy_become_user }}"
+        mode: 0600
+      notify: run gdeploy
+  become: "{{ gluster_gdeploy_become }}"
+  become_user: "{{ gluster_gdeploy_become_user }}"

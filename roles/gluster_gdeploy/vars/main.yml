@@ -1,0 +1,25 @@
+gluster_gdeploy_packages:
+  - redhat-storage-server{{ gluster_gdeploy_rpm_version }}
+
+gluster_gdeploy_single_host_packages:
+  - ansible
+  - gdeploy
+
+gluster_gdeploy_configuration_file_destination_path: "/tmp/gdeploy.conf"
+
+gluster_gdeploy_samba_packages:
+  - "@RH-Gluster-Samba-Server"
+  - samba
+
+# Not supported at this moment, but we might add it
+#gluster_gdeploy_samba_activedirectory_packages:
+#  - "@RH-Gluster-AD-Integration"
+#  - samba-winbind
+#  - samba-winbind-clients
+#  - samba-winbind-krb5-locator
+
+gluster_gdeploy_nfs_ganesha_packages:
+  - glusterfs-ganesha
+
+gluster_gdeploy_gstatus_packages:
+  - gstatus

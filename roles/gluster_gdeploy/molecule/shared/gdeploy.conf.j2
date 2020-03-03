@@ -1,0 +1,39 @@
+[hosts]
+{% for host in ansible_play_hosts %}
+{{ hostvars[host]['ansible_host'] | default(host) }}
+{% endfor %}
+
+[disktype]
+jbod
+
+[diskcount]
+1
+
+[service1]
+action=enable
+service=chronyd
+
+[service2]
+action=restart
+service=chronyd
+
+[backend-setup]
+devices=vdb,vdc
+vgs=vg1,vg2
+pools=pool1,pool2
+lvs=lv1,lv2
+
+[volume1]
+action=create
+volname=test_volume
+transport=tcp
+replica=yes
+replica_count=2
+ignore_volume_errors=no
+
+[clients]
+action=mount
+volname=test_volume
+hosts={{ hostvars[ansible_play_hosts[0]]['ansible_host'] | default(ansible_play_hosts[0]) }}
+fstype=glusterfs
+client_mount_points=/mnt/gluster_mount
