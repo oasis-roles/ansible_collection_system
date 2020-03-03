@@ -1,0 +1,22 @@
+# defaults file for setup_kdump
+
+# the absolute path to the kernel dump configuration file
+kdump_conf_path: /etc/kdump.conf
+# the user to login as into the host machines
+kdump_become_user: root
+
+# the absolute path in which to store crash dump files
+kdump_crash_path: /var/crash
+
+# arguments to pass into the core_collector option in the kernel dump
+# configuration file
+# kdump_core_collector_args: makedumpfile -l --message-level 1 -d 31
+
+# arguments to pass into the dracut_args '--mount' option in the kernel dump
+# configuration file
+# when being used, must set either all variables or only the mountpoint
+# variable and leave the others as "{{ omit }}"
+# kdump_dracut_device: "{{ omit }}"
+# kdump_dracut_mountpoint: /mnt/vmcore
+# kdump_dracut_filesystem_type: "{{ omit }}"
+# kdump_dracut_filesystem_options: "{{ omit }}"

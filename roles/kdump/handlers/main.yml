@@ -1,0 +1,7 @@
+# Handlers for setup_kdump
+- name: Restart kdump service
+  service:
+    state: restarted
+    name: kdump
+  become: true
+  become_user: "{{ kdump_become_user }}"

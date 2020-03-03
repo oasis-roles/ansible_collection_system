@@ -1,0 +1,24 @@
+# role tasks
+- name: Verify kexec-tools is installed
+  package:
+    name: "{{ kdump_package }}"
+    state: present
+  become: true
+  become_user: "{{ kdump_become_user }}"
+
+- name: Edit kdump config file
+  template:
+    src: kdump.conf
+    dest: "{{ kdump_conf_path }}"
+  become: true
+  become_user: "{{ kdump_become_user }}"
+  notify:
+    - Restart kdump service
+
+- name: Enable kdump service
+  service:
+    name: kdump
+    state: started
+    enabled: true
+  become: true
+  become_user: "{{ kdump_become_user }}"
