@@ -1,0 +1,190 @@
+# If datasource already exists 1st remove it (we don't want leftovers from old parameters)
+{% set params = '' -%}
+{% for ds in jbosseap_datasources -%}
+if (outcome == success) of /subsystem=datasources/data-source={{ ds['name'] }}:read-resource
+        data-source remove --name={{ ds['name'] }}
+end-if
+  {# The parameters below are required, ansible will exit if not defined -#}
+  {% set params = params ~ '--name=' ~ ds['name'] ~ ' '-%}
+  {% set params = params ~ '--connection-url=' ~ ds['connection_url'] ~ ' '-%}
+  {% set params = params ~ '--jndi-name=' ~ ds['jndi_name'] ~ ' '-%}
+  {% set params = params ~ '--driver-name=' ~ ds['driver_name'] ~ ' '-%}
+
+  {# Parameters on <datasource> tag level -#}
+  {% if ds['jta'] is defined -%}
+    {% set params = params ~ '--jta=' ~ ds['jta'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['connectable'] is defined -%}
+    {% set params = params ~ '--connectable=' ~ ds['connectable'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['use_java_context'] is defined -%}
+    {% set params = params ~ '--use-java-context=' ~ ds['use_java_context'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['spy'] is defined -%}
+    {% set params = params ~ '--spy=' ~ ds['spy'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['use_ccm'] is defined -%}
+    {% set params = params ~ '--use-ccm=' ~ ds['use_ccm'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['statistics_enabled'] is defined -%}
+    {% set params = params ~ '--statistics-enabled=' ~ ds['statistics_enabled'] ~ ' '-%}
+  {% endif -%}
+  {# end of Parameters on <datasource> tag level -#}
+
+  {# Parameters without sub tag -#}
+  {% if ds['driver_class'] is defined -%}
+    {% set params = params ~ '--driver-class=' ~ ds['driver_class'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['datasource_class'] is defined -%}
+    {% set params = params ~ '--datasource-class=' ~ ds['datasource_class'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['new_connection_sql'] is defined -%}
+    {% set params = params ~ '--new-connection-sql=' ~ ds['new_connection_sql'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['transaction_isolation'] is defined -%}
+    {% set params = params ~ '--transaction-isolation=' ~ ds['transaction_isolation'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['url_delimiter'] is defined -%}
+    {% set params = params ~ '--url-delimiter=' ~ ds['url_delimiter'] ~ ' '-%}
+  {% endif -%}
+  {% if ds['url_selector_strategy_class_name'] is defined -%}
+    {% set params = params ~ '--url-selector-strategy-class-name=' ~ ds['url_selector_strategy_class_name'] ~ ' '-%}
+  {% endif -%}
+  {# end of Parameters without sub tag -#}
+
+  {# Pool parameters -#}
+  {% if ds['pool'] is defined -%}
+    {% if ds['pool'].min_pool_size is defined -%}
+      {% set params = params ~ '--min-pool-size=' ~ ds['pool'].min_pool_size ~ ' '-%}
+    {% endif -%}
+    {% if ds['pool'].max_pool_size is defined -%}
+      {% set params = params ~ '--max-pool-size=' ~ ds['pool'].max_pool_size ~ ' '-%}
+    {% endif -%}
+    {% if ds['pool'].prefill is defined -%}
+      {% set params = params ~ '--pool-prefill=' ~ ds['pool'].prefill ~ ' '-%}
+    {% endif -%}
+    {% if ds['pool'].use_strict_min is defined -%}
+      {% set params = params ~ '--pool-use-strict-min=' ~ ds['pool'].use_strict_min ~ ' '-%}
+    {% endif -%}
+    {% if ds['pool'].flush_strategy is defined -%}
+      {% set params = params ~ '--flush-strategy=' ~ ds['pool'].flush_strategy ~ ' '-%}
+    {% endif -%}
+    {% if ds['pool'].allow_multiple_users is defined -%}
+      {% set params = params ~ '--allow-multiple-users=' ~ ds['pool'].allow_multiple_users ~ ' '-%}
+    {% endif -%}
+  {% endif -%}
+  {# end of Pool parameters -#}
+
+  {# Security parameters -#}
+  {# TODO: reauth_plugin_properties depends on reauth_plugin_class_name, add a check if it's defined -#}
+  {% if ds['security'] is defined -%}
+    {% if ds['security'].user_name is defined -%}
+      {% set params = params ~ '--user-name=' ~ ds['security'].user_name ~ ' '-%}
+    {% endif -%}
+    {% if ds['security'].password is defined -%}
+      {% set params = params ~ '--password=' ~ ds['security'].password ~ ' '-%}
+    {% endif -%}
+    {% if ds['security'].security_domain is defined -%}
+      {% set params = params ~ '--security-domain=' ~ ds['security'].security_domain ~ ' '-%}
+    {% endif -%}
+    {% if ds['security'].reauth_plugin_class_name is defined -%}
+      {% set params = params ~ '--reauth-plugin-class-name=' ~ ds['security'].reauth_plugin_class_name ~ ' '-%}
+    {% endif -%}
+    {% if ds['security'].reauth_plugin_properties is defined -%}
+      {% set params = params ~ '--reauth-plugin-properties=' ~ ds['security'].reauth_plugin_properties ~ ' '-%}
+    {% endif -%}
+  {% endif -%}
+  {# end of Security parameters -#}
+
+  {# Validation parameters -#}
+  {# TODO: add check for connection-properties if the upper class is set (ex. valid_connection_checker_properties depends on valid_connection_checker_class_name) -#}
+  {% if ds['validation'] is defined -%}
+    {% if ds['validation'].valid_connection_checker_class_name is defined -%}
+      {% set params = params ~ '--valid-connection-checker-class-name=' ~ ds['validation'].valid_connection_checker_class_name ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].valid_connection_checker_properties is defined -%}
+      {% set params = params ~ '--valid-connection-checker-properties=' ~ ds['validation'].valid_connection_checker_properties ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].check_valid_connection_sql is defined -%}
+      {% set params = params ~ '--check-valid-connection-sql=' ~ ds['validation'].check_valid_connection_sql ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].validate_on_match is defined -%}
+      {% set params = params ~ '--validate-on-match=' ~ ds['validation'].validate_on_match ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].background_validation is defined -%}
+      {% set params = params ~ '--background-validation=' ~ ds['validation'].background_validation ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].background_validation_millis is defined -%}
+      {% set params = params ~ '--background-validation-millis=' ~ ds['validation'].background_validation_millis ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].use_fast_fail is defined -%}
+      {% set params = params ~ '--use-fast-fail=' ~ ds['validation'].use_fast_fail ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].stale_connection_checker_class_name is defined -%}
+      {% set params = params ~ '--stale-connection-checker-class-name=' ~ ds['validation'].stale_connection_checker_class_name ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].stale_connection_checker_properties is defined -%}
+      {% set params = params ~ '--stale-connection-checker-properties=' ~ ds['validation'].stale_connection_checker_properties ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].exception_sorter_class_name is defined -%}
+      {% set params = params ~ '--exception-sorter-class-name=' ~ ds['validation'].exception_sorter_class_name ~ ' '-%}
+    {% endif -%}
+    {% if ds['validation'].exception_sorter_properties is defined -%}
+      {% set params = params ~ '--exception-sorter-properties=' ~ ds['validation'].exception_sorter_properties ~ ' '-%}
+    {% endif -%}
+  {% endif -%}
+  {# end of Validation parameters -#}
+
+  {# Timeout parameters -#}
+  {% if ds['timeout'] is defined -%}
+    {% if ds['timeout'].blocking_timeout_millis is defined -%}
+      {% set params = params ~ '--blocking-timeout-wait-millis=' ~ ds['timeout'].blocking_timeout_millis ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].idle_timeout_minutes is defined -%}
+      {% set params = params ~ '--idle-timeout-minutes=' ~ ds['timeout'].idle_timeout_minutes ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].set_tx_query_timeout is defined -%}
+      {% set params = params ~ '--set-tx-query-timeout=' ~ ds['timeout'].set_tx_query_timeout ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].query_timeout is defined -%}
+      {% set params = params ~ '--query-timeout=' ~ ds['timeout'].query_timeout ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].use_try_lock is defined -%}
+      {% set params = params ~ '--use-try-lock=' ~ ds['timeout'].use_try_lock ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].allocation_retry is defined -%}
+      {% set params = params ~ '--allocation-retry=' ~ ds['timeout'].allocation_retry ~ ' '-%}
+    {% endif -%}
+    {% if ds['timeout'].allocation_retry_wait_millis is defined -%}
+      {% set params = params ~ '--allocation-retry-wait-millis=' ~ ds['timeout'].allocation_retry_wait_millis ~ ' '-%}
+    {% endif -%}
+  {% endif -%}
+  {# end of Timeout parameters -#}
+
+  {# Statement parameters -#}
+  {% if ds['statement'] is defined -%}
+    {% if ds['statement'].track_statements is defined -%}
+      {% set params = params ~ '--track-statements=' ~ ds['statement'].track_statements ~ ' '-%}
+    {% endif -%}
+    {% if ds['statement'].prepared_statement_cache_size is defined -%}
+      {% set params = params ~ '--prepared-statements-cache-size=' ~ ds['statement'].prepared_statement_cache_size ~ ' '-%}
+    {% endif -%}
+    {% if ds['statement'].share_prepared_statements is defined -%}
+      {% set params = params ~ '--share-prepared-statements=' ~ ds['statement'].share_prepared_statements ~ ' '-%}
+    {% endif -%}
+  {% endif -%}
+  {# end of Statement parameters -#}
+
+data-source add {{ params }}
+
+{# Connection Properties are not supported by data-source -#}
+{% if ds['connection_properties'] is defined -%}
+{% for cp in ds['connection_properties'] -%}
+/subsystem=datasources/data-source={{ ds['name'] }}/connection-properties={{ cp['name'] }}:add(value={{ cp['value'] }})
+{% endfor -%}
+{% endif -%}
+
+{# Now enable the new datasorce -#}
+data-source enable --name={{ ds['name'] }}
+{% endfor -%}
+:reload

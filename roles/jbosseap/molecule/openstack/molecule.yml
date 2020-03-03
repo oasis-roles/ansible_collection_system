@@ -1,0 +1,30 @@
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/shared/requirements.yml
+    force: true
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-jbosseap
+    image: rhel-7.6-server-x86_64-updated
+    flavor: ci.m1.small
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+  directory: ../shared/

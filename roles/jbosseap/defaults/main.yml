@@ -1,0 +1,35 @@
+# defaults file for jbosseap
+jbosseap_jboss_server_config: standalone
+jbosseap_clean_config: false
+jbosseap_jboss_home: /usr/share/jbossas
+jbosseap_jboss_config_dir: "{{ jbosseap_jboss_home }}/standalone/configuration"
+jbosseap_jboss_user: jboss
+jbosseap_jboss_group: jboss
+# Whether to use sudo/become to read and write the files in the
+# setting up of JBoss itself
+jbosseap_become: true
+
+
+jbosseap_java_opts:
+  - -Xms1303m
+  - -Xmx1303m
+  - -XX:MaxPermSize=256m
+  - -Djava.net.preferIPv4Stack=true
+  - -Djboss.modules.system.pkgs=$JBOSS_MODULES_SYSTEM_PKGS
+  - -Djava.awt.headless=true
+  - -Djboss.modules.policy-permissions=true
+
+# CLI related
+jbosseap_cli_batch_dir: "{{ jbosseap_jboss_config_dir }}/cli_batch"
+jbosseap_system_properties: []
+jbosseap_logging: []
+jbosseap_web: []
+jbosseap_datasource_packages: []
+jbosseap_datasources: []
+jbosseap_jdbc_drivers: []
+jbosseap_cli_files:
+  - filename: datasources.cli
+  - filename: system-properties.cli
+  - filename: logging.cli
+  - filename: vault.cli
+  - filename: web.cli

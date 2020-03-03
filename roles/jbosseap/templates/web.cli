@@ -1,0 +1,32 @@
+{# valve section -#}
+{% if jbosseap_web['valve'] is defined -%}
+{% set params_change = '' -%}
+{% set params_add = '' -%}
+{% for v in jbosseap_web['valve'] -%}
+  {# The parameters below are required, ansible will exit if not defined -#}
+  {% set params_change = params_change ~ 'name=module,value=' ~ v.module ~ ','-%}
+  {% set params_add = params_add ~ 'module=' ~ v.module ~ ','-%}
+  {% set params_change = params_change ~ 'name=class-name,value=' ~ v.class ~ ','-%}
+  {% set params_add = params_add ~ 'class-name=' ~ v.class ~ ','-%}
+
+  {% if v.params is defined -%}
+    {% set params_change = params_change ~ 'name=param,value=[' ~ v.params ~ '],'-%}
+    {% set params_add = params_add ~ 'param=[' ~ v.params ~ '],'-%}
+  {% endif -%}
+
+if (outcome == success) of /subsystem=web/valve={{ v.name }}:read-resource
+	/subsystem=web/valve={{ v.name }}:write-attribute({{ params_change }})
+else
+	/subsystem=web/valve={{ v.name }}:add({{ params_add }})
+end-if
+{% endfor -%}
+{% endif -%}
+{# end of valve section -#}
+{# virtual-server section -#}
+{% if jbosseap_web['virtual_server'] is defined -%}
+{% for vs in jbosseap_web['virtual_server'] -%}
+/subsystem=web/virtual-server={{ vs.name }}:write-attribute(name=enable-welcome-root,value={{ vs.enable_welcome_root }})
+{% endfor -%}
+{% endif %}
+{# end of virtual-server section -#}
+:reload

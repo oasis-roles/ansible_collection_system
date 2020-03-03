@@ -1,0 +1,8 @@
+# check if property exists and if not add it, if exists just change it to the new value
+{% for sp in jbosseap_system_properties -%}
+if (outcome != success) of /system-property={{ sp.name }}:read-resource
+	/system-property={{ sp.name }}:add(value={{ sp.value }})
+else
+	/system-property={{ sp.name }}:write-attribute(name=value,value={{ sp.value }})
+end-if
+{% endfor -%}

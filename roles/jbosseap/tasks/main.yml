@@ -1,0 +1,84 @@
+- name: install jbossas
+  become: true
+  package:
+    name: >-
+      {{ (jbosseap_default_packages + jbosseap_datasource_packages)
+      | join(',') }}
+    state: present
+
+- block:
+    - name: stop EAP to reset to default configuration
+      become: true
+      service:
+        name: jbossas
+        state: stopped
+
+    - name: remove old .cli files
+      become: "{{ jbosseap_become }}"
+      file:
+        dest: "{{ jbosseap_cli_batch_dir }}/{{ item.filename }}"
+        state: absent
+      with_items: "{{ jbosseap_cli_files }}"
+
+    - name: copy initial/fresh EAP config
+      copy:
+        src: "{{ jbosseap_jboss_config_dir }}/standalone_xml_history/\
+              {{ jbosseap_jboss_server_config }}.initial.xml"
+        dest: "{{ jbosseap_jboss_config_dir }}/\
+               {{ jbosseap_jboss_server_config }}.xml"
+        remote_src: true
+  when: jbosseap_clean_config
+
+- name: copy EAP configuration
+  become: true
+  template:
+    src: etc/jbossas/jbossas.conf
+    dest: /etc/jbossas/jbossas.conf
+    owner: "{{ jbosseap_jboss_user }}"
+    group: "{{ jbosseap_jboss_group }}"
+    mode: "0644"
+  notify: restart jbossas
+
+- name: ensure EAP is running and enabled at boot
+  become: true
+  service:
+    name: jbossas
+    state: started
+    enabled: true
+
+- name: create common directory for all cli files
+  become: "{{ jbosseap_become }}"
+  file:
+    path: "{{ jbosseap_cli_batch_dir }}"
+    state: directory
+    owner: "{{ jbosseap_jboss_user }}"
+    group: "{{ jbosseap_jboss_group }}"
+  tags: cli
+
+- include_tasks: cli_file.yml
+  vars:
+    _filename: "{{ item.filename }}"
+  when: item.when
+  with_items:
+    - filename: system-properties
+      when: jbosseap_system_properties
+    - filename: logging
+      when: jbosseap_logging
+    - filename: web
+      when: jbosseap_web
+
+- name: deploy JDBC drivers
+  become: "{{ jbosseap_become }}"
+  file:
+    src: "/usr/share/java/{{ item.file }}"
+    dest: "{{ jbosseap_jboss_home }}/standalone/deployments/{{ item.file }}"
+    owner: "{{ jbosseap_jboss_user }}"
+    group: "{{ jbosseap_jboss_group }}"
+    state: link
+  with_items: "{{ jbosseap_jdbc_drivers }}"
+  tags: jdbc
+
+- include_tasks: cli_file.yml
+  vars:
+    _filename: datasources
+  when: jbosseap_datasources
