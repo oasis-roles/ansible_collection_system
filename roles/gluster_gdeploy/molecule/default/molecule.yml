@@ -1,66 +1,20 @@
-dependency:
-  name: galaxy
 driver:
   name: openstack
-lint:
-  name: yamllint
-  options:
-    config-file: tests/yamllint.yml
 volumes:
-  - name: gluster_gdeploy_vol0
+  - name: gluster_gdeploy_vol0.1
     size: 10
-  - name: gluster_gdeploy_vol1
+  - name: gluster_gdeploy_vol1.1
     size: 10
-  - name: gluster_gdeploy_vol2
+  - name: gluster_gdeploy_vol2.1
     size: 10
-  - name: gluster_gdeploy_vol3
+  - name: gluster_gdeploy_vol3.1
     size: 10
 platforms:
   - name: test-gluster_gdeploy0
     volumes:
-      - gluster_gdeploy_vol0
-      - gluster_gdeploy_vol1
+      - gluster_gdeploy_vol0.1
+      - gluster_gdeploy_vol1.1
   - name: test-gluster_gdeploy1
     volumes:
-      - gluster_gdeploy_vol2
-      - gluster_gdeploy_vol3
-provisioner:
-  name: ansible
-  lint:
-    name: ansible-lint
-  playbooks:
-    prepare: ../shared/prepare.yml
-    converge: ../shared/playbook.yml
-  config_options:
-    defaults:
-      stdout_callback: yaml
-scenario:
-  name: default
-  create_sequence:
-    - dependency
-    - create
-    - prepare
-  destroy_sequence:
-    - dependency
-    - destroy
-  prepare_sequence:
-    - dependency
-    - prepare
-  test_sequence:
-    - lint
-    - dependency
-    - destroy
-    - dependency
-    - syntax
-    - create
-    - prepare
-    - converge
-    - idempotence
-    - side_effect
-    - verify
-    - destroy
-verifier:
-  name: testinfra
-  lint:
-    name: flake8
-  directory: ../shared/tests
+      - gluster_gdeploy_vol2.1
+      - gluster_gdeploy_vol3.1

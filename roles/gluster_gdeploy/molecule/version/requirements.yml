@@ -1,7 +1,0 @@
-- oasis_roles.passwordless_ssh
-- oasis_roles.rhsm
-- oasis_roles.firewalld
-- oasis_roles.chrony
-- oasis_roles.reboot
-- oasis_roles.nmcli_add_addrs
-- oasis_roles.molecule_openstack_ci

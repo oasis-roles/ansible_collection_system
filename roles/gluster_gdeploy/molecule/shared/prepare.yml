@@ -2,7 +2,7 @@
   hosts: all
   pre_tasks:
   roles:
-    - role: oasis_roles.rhsm
+    - role: oasis.system.rhsm
       rhsm_repositories:
         only:
           - rhel-7-server-rpms
@@ -27,18 +27,18 @@
   vars:
     molecule: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
   roles:
-    - role: oasis_roles.nmcli_add_addrs
+    - role: oasis.system.nmcli_add_addrs
       nmcli_add_addrs_interface: "{{ ansible_default_ipv4.interface }}"
       nmcli_add_addrs_ipv4:
         - "{{ ansible_host | default(inventory_hostname) }}"
-    - role: oasis_roles.passwordless_ssh
+    - role: oasis.system.passwordless_ssh
       passwordless_ssh_private_key: "{{ molecule }}/../shared/id_rsa"
       passwordless_ssh_public_key: "{{ molecule }}/../shared/id_rsa.pub"
       passwordless_ssh_gather_host_keys: true
       passwordless_ssh_extra_hosts: |
         {{ ansible_play_batch | map('extract', hostvars, 'ansible_host') |
         list }}
-    - role: oasis_roles.firewalld
+    - role: oasis.system.firewalld
       firewalld_zone: public
       firewalld_ports_open:
         - port: 22
@@ -80,7 +80,7 @@
           proto: udp
         - port: 963
           proto: udp
-    - role: oasis_roles.chrony
+    - role: oasis.system.chrony
   post_tasks:
     - name: update test files
       delegate_to: localhost
@@ -95,4 +95,4 @@
 - hosts: all
   gather_facts: false
   roles:
-    - role: oasis_roles.reboot
+    - role: oasis.system.reboot
