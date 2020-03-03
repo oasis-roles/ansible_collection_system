@@ -54,6 +54,7 @@ jobs:
           - molecule_docker_ci
           - nfs_server
           - nmcli_add_addrs
+          - package_updater
           - passwordless_ssh
           - register_idm
           - sshd
