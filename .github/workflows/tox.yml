@@ -57,6 +57,7 @@ jobs:
           - nfs_server
           - nmcli_add_addrs
           - package_updater
+          - passwd
           - passwordless_ssh
           - register_idm
           - sshd
