@@ -1,0 +1,35 @@
+# defaults file for firewalld
+
+# firewall zone for all rules
+# The default zone for RHEL 7 is 'public'.
+firewalld_zone: public
+
+# permanently open ports (IPv4+IPv6) for given firewall zone
+# This is a list of dictionaries that contain a protocol (tcp or udp) with
+# a single port to open, or a port range delimited with a dash.
+#
+#firewalld_ports_open:
+#  - proto: tcp
+#    port: 8080
+#  - proto: udp
+#    port: 9990-9999
+firewalld_ports_open: []
+
+# list of service names to add to the firewalld configuration. These services
+# must be ones that are already known to firewalld, for example, those listed
+# in the output of `firewall-cmd --get-services`
+firewalld_services: []
+
+# permanently forward local ports (IPv4+IPV6) for given firewall zone, e.g. TCP
+# 80->8080 for webapps
+# This is a list of dictionaries that contain a protocol (tcp or udp) with
+# a single port to forward to another port on the local system.
+#
+#firewalld_ports_forward:
+#  - proto: tcp
+#    port: 80
+#    to_port: 8080
+firewalld_ports_forward: []
+
+# Whether this module should use the "become" option for configuring firewalld
+firewalld_become: true
