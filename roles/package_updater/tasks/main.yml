@@ -1,7 +1,7 @@
 - name: Update all packages
   package:
     name: '*'
-    state: latest
+    state: latest  # noqa 403  - We want the latest!
     update_cache: true
   become: "{{ package_updater_become }}"
   become_user: "{{ package_updater_become_user }}"
