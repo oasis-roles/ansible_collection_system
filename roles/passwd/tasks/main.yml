@@ -1,0 +1,9 @@
+# role tasks
+
+- name: change password for user
+  user:
+    name: "{{ passwd_username }}"
+    update_password: always
+    password: "{{ passwd_password }}"
+  become: "{{ passwd_become }}"
+  become_user: "{{ passwd_become_user }}"
