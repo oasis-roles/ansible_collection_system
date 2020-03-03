@@ -49,6 +49,7 @@ jobs:
       matrix:
         role:
           - chrony
+          - disk_wipe
           - molecule_docker_ci
           - nfs_server
           - nmcli_add_addrs

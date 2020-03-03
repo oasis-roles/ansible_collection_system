@@ -1,5 +1,3 @@
-# role tasks
-
 - name: Run shred to write zeros to the disk
   become: "{{ disk_wipe_become }}"
   become_user: "{{ disk_wipe_become_user }}"
