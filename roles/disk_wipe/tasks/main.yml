@@ -1,0 +1,20 @@
+# role tasks
+
+- name: Run shred to write zeros to the disk
+  become: "{{ disk_wipe_become }}"
+  become_user: "{{ disk_wipe_become_user }}"
+  command: >
+    shred -v -n 1 --random-source=/dev/zero -s
+    "{{ disk_wipe_write_size }}"
+    "{{ item }}"
+  tags:
+    - skip_ansible_lint
+  with_items: "{{ disk_wipe_disks }}"
+
+- name: Run wipefs to clear the disk signatures
+  become: "{{ disk_wipe_become }}"
+  become_user: "{{ disk_wipe_become_user }}"
+  command: "wipefs --all --force {{ item }}"
+  tags:
+    - skip_ansible_lint
+  with_items: "{{ disk_wipe_disks }}"

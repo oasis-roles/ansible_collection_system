@@ -1,0 +1,14 @@
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.
+disk_wipe_become: true
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.
+disk_wipe_become_user: root
+
+# The amount of bytes you would like overwritten on your disks
+# Suffixes like K, M, G accepted
+disk_wipe_write_size: 200M
+
+# List of paths to disk block devices
+disk_wipe_disks: []
