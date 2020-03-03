@@ -48,7 +48,7 @@ Example Playbook
 ```yaml
 - hosts: update_ca_trust-servers
   roles:
-    - role: oasis-roles.update_ca_trust
+    - role: oasis_roles.update_ca_trust
       update_ca_trust_urls:
         - https://raw.githubusercontent.com/oasis-roles/update_ca_trust/master/molecule/shared/localhost.localdomain.crt
       update_ca_trust_files:

@@ -64,6 +64,7 @@ jobs:
           - system_repositories
           - timezone
           - users_and_groups
+          - update_ca_trust
           - upload_files
     steps:
       - uses: actions/checkout@v2
