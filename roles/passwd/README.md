@@ -47,7 +47,7 @@ Example Playbook
 ```
 - hosts: passwd-servers
   roles:
-    - role: oasis_roles.passwd
+    - role: oasis.system.passwd
       passwd_username: root
       passwd_password: "<password_hash>"
       passwd_become: true

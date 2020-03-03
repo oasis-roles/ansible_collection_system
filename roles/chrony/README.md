@@ -45,7 +45,7 @@ Example Playbook
 ```
 - hosts: chrony-servers
   roles:
-    - role: oasis_roles.chrony
+    - role: oasis.system.chrony
 ```
 
 License

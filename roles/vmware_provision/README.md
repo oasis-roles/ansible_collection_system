@@ -72,7 +72,7 @@ in this play's `pre_tasks`).
 ```yaml
 - hosts: localhost
   roles:
-    - role: oasis_roles.vmware_provision
+    - role: oasis.system.vmware_provision
   vars:
     # required
     vmware_provision_hostname: "vCenter.hostname.com"
@@ -130,7 +130,7 @@ to convert an ovf template with its supporting files to an ova template**
 ```yaml
 - hosts: localhost
   roles:
-    - role: oasis_roles.vmware_provision
+    - role: oasis.system.vmware_provision
   vars:
     vmware_provision_hostname: "vCenter.hostname.com"
     vmware_provision_username: "username"

@@ -66,7 +66,7 @@ Example Playbook
 ```yaml
 - hosts: register_idm-servers
   roles:
-    - role: oasis_roles.register_idm
+    - role: oasis.system.register_idm
 ```
 
 License

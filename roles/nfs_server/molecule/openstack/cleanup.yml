@@ -14,7 +14,7 @@
 
         - name: do unregistration
           include_role:
-            name: oasis_roles.rhsm
+            name: oasis.system.rhsm
           when: ansible_distribution == 'RedHat'
       when: waiting is success
   vars:

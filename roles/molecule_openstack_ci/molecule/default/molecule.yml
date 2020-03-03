@@ -2,3 +2,8 @@ driver:
   name: openstack
 platforms:
   - name: test-molecule_openstack_ci
+provisioner:
+  playbooks:
+    create: create.yml
+    destroy: destroy.yml
+    converge: playbook.yml

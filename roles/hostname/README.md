@@ -44,7 +44,7 @@ Example Playbook
 ```yaml
 - hosts: hostname-servers
   roles:
-    - role: oasis_roles.hostname
+    - role: oasis.system.hostname
       hostname: dev.example.com
       hostname_aliases:
         - dev

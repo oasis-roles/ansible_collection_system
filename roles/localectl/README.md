@@ -59,7 +59,7 @@ Example Playbook
     localectl_vc_keymap: us
     localectl_x11_layout: us
   roles:
-    - role: oasis_roles.localectl
+    - role: oasis.system.localectl
 ```
 
 System Locale Setting Notes

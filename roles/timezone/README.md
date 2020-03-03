@@ -40,7 +40,7 @@ Example Playbook
 ```yaml
 - hosts: timezone-servers
   roles:
-    - role: oasis_roles.timezone
+    - role: oasis.system.timezone
       timezone: Africa/Accra
 ```
 

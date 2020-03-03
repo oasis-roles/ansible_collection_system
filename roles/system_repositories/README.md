@@ -45,7 +45,7 @@ Example Playbook
 ```yaml
 - hosts: system_repositories_servers
   roles:
-    - role: oasis_roles.system_repositories
+    - role: oasis.system.system_repositories
       system_repositories_configs:
         - name: My Repo Name
           baseurl: http://somedomain.tld/some/path

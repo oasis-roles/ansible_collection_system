@@ -53,14 +53,14 @@ create.yml
 ```yaml
 - hosts: localhost
   roles:
-    - role: oasis_roles.molecule_docker_ci
+    - role: oasis.system.molecule_docker_ci
 ```
 
 destroy.yml
 ```yaml
 - hosts: localhost
   roles:
-    - role: oasis_roles.molecule_docker_ci
+    - role: oasis.system.molecule_docker_ci
       molecule_docker_ci_state: absent
 ```
 

@@ -41,7 +41,7 @@ Example Playbook
 ```yaml
 - hosts: docker-servers
   roles:
-    - role: oasis_roles.docker
+    - role: oasis.system.docker
 ```
 
 License

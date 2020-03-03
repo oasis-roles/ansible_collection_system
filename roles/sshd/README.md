@@ -39,7 +39,7 @@ Example Playbook
 ```yaml
 - hosts: sshd-servers
   roles:
-    - role: oasis_roles.sshd
+    - role: oasis.system.sshd
 ```
 
 License
