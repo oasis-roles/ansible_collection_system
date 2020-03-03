@@ -4,8 +4,7 @@ platforms:
   - name: test-reboot
 provisioner:
   playbooks:
-    cleanup: cleanup.yml
-    playbook: playbook.yml
+    converge: playbook.yml
 scenario:
   # Rebooting is not an idempotent task.
   test_sequence:
