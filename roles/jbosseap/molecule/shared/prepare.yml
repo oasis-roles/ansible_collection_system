@@ -1,7 +1,7 @@
 - hosts: all
   gather_facts: false
   roles:
-    - role: oasis_roles.rhsm
+    - role: oasis.system.rhsm
       rhsm_repositories:
         only:
           - rhel-7-server-rpms
