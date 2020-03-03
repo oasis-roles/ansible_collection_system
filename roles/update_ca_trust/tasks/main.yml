@@ -1,0 +1,23 @@
+- block:
+  - name: install certs from URLs
+    get_url:
+      url: "{{ item }}"
+      dest: /etc/pki/ca-trust/source/anchors/
+      owner: root
+      group: root
+      mode: 0644
+      validate_certs: "{{ update_ca_trust_validate_certs }}"
+    with_items: "{{ update_ca_trust_urls }}"
+    notify: update-ca-trust
+
+  - name: install certs from files
+    copy:
+      src: "{{ item }}"
+      dest: /etc/pki/ca-trust/source/anchors/
+      owner: root
+      group: root
+      mode: 0644
+    with_items: "{{ update_ca_trust_files }}"
+    notify: update-ca-trust
+  become: "{{ update_ca_trust_become }}"
+  become_user: "{{ update_ca_trust_become_user }}"

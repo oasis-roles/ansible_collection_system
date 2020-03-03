@@ -1,0 +1,7 @@
+- name: prepare
+  hosts: all
+  tasks:
+    - name: install openssl
+      package:
+        name: openssl
+        state: present

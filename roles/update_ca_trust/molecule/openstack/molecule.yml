@@ -1,0 +1,30 @@
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: tests/yamllint.yml
+platforms:
+  - name: test-update_ca_trust
+    image: rhel-7.4-server-x86_64-updated
+    flavor: m1.medium
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
+scenario:
+  name: openstack
+verifier:
+  name: testinfra
+  options:
+    # Add a -v so you see the individual test names,
+    # particularly useful with parameterized tests
+    v: true
+  lint:
+    name: flake8
+  directory: ../shared/tests

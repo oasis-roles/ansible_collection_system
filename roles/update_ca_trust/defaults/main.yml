@@ -1,0 +1,19 @@
+# List of URLs from which to retrieve and install certificates
+update_ca_trust_urls: []
+
+# Perform TLS validation during download of certificates when using
+# update_ca_trust_urls.  Useful when downloading certificates from a webserver
+# via TLS and ensuring that they have not been tampered with during transport.
+update_ca_trust_validate_certs: true
+
+# List of local files on the Ansible control machine from which to install
+# certificates
+update_ca_trust_files: []
+
+# Whether or not to use the `become` feature of Ansible to gain admin
+# privileges.  This will be necesssary for changing the `root` password, or the
+# password of a user other than Ansible's `remote_user`.
+update_ca_trust_become: true
+
+# The user to sudo/become
+update_ca_trust_become_user: root

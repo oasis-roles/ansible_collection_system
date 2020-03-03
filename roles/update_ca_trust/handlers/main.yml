@@ -1,0 +1,4 @@
+- name: update-ca-trust
+  command: update-ca-trust extract
+  become: "{{ update_ca_trust_become }}"
+  become_user: "{{ update_ca_trust_become_user }}"
