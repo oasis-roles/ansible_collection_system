@@ -81,4 +81,4 @@
 - include_tasks: cli_file.yml
   vars:
     _filename: datasources
-  when: jbosseap_datasources
+  when: jbosseap_datasources | bool
