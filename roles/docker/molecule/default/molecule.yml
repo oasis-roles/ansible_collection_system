@@ -2,7 +2,7 @@ driver:
   name: openstack
 platforms:
   - name: test-docker
-    image: Fedora 31
+    image: Fedora 30
     flavor: ci.m1.small
 provisioner:
   playbooks:
