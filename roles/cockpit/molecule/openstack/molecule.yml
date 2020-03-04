@@ -2,4 +2,3 @@ driver:
   name: openstack
 platforms:
   - name: test-cockpit
-    flavor: ci.m1.medium
