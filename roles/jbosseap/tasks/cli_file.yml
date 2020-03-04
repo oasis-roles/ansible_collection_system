@@ -15,7 +15,9 @@
   command: >-
     {{ jbosseap_jboss_home }}/bin/jboss-cli.sh --connect
     --file={{ jbosseap_cli_batch_dir }}/{{ _filename }}.cli
-  when: cli_file_upload_result.changed
+  when: cli_file_upload_result.changed  # noqa 503
+  retries: 3
+  register: cli_file_run
+  until: cli_file_run is success
   tags:
     - cli
-    - skip_ansible_lint
