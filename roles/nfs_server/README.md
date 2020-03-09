@@ -49,7 +49,7 @@ Example Playbook
 ```yaml
 - hosts: nfs_server-servers
   roles:
-    - role: oasis.system.nfs_server
+    - role: oasis_roles.system.nfs_server
       nfs_server_shares:
           # path to share (required)
         - share_path: /srv/share1
@@ -71,7 +71,7 @@ Example Playbook
         - share_path: /srv/share2
           host_allow: '192.168.0.0/24'
           opts: ro,sync
-    - role: oasis.system.firewalld
+    - role: oasis_roles.system.firewalld
       firewalld_zone: public
       firewalld_ports_open:
         # rpc-bind /usr/lib/firewalld/services/rpc-bind.xml

@@ -92,7 +92,7 @@ This example adds/modifies groups to remote hosts while removing/deleting others
 ```yaml
 - hosts: users_and_groups-servers
   roles:
-    - role: oasis.system.users_and_groups
+    - role: oasis_roles.system.users_and_groups
   vars:
     users_and_groups_add_modify_groups:
       - name: "test_group1"
@@ -112,7 +112,7 @@ This example adds/modifies users to the remote host while removing/deleting othe
 ```yaml
 - hosts: users_and_groups-servers
   roles:
-    - role: oasis.system.users_and_groups
+    - role: oasis_roles.system.users_and_groups
   vars:
     users_and_groups_add_modify_users:
       - name: "john_doe"
@@ -140,7 +140,7 @@ This example adds new members to groups while removing members from other groups
 ```yaml
 - hosts: users_and_groups-servers
   roles:
-    - role: oasis.system.users_and_groups
+    - role: oasis_roles.system.users_and_groups
   vars:
     users_and_groups_add_group_members:
       - name: "john_doe"

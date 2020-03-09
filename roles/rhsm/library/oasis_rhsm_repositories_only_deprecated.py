@@ -4,8 +4,8 @@
 from ansible.module_utils.basic import AnsibleModule
 
 msg = '''Use of the 'only' key in the rhsm_repositories variable for the
-oasis.system.rhsm role is deprecated. Please change your playbooks to use the
-'enabled' and 'disabled' keys accordingly to suppress this warning'''
+oasis_roles.system.rhsm role is deprecated. Please change your playbooks to use
+the 'enabled' and 'disabled' keys accordingly to suppress this warning'''
 
 
 def main():

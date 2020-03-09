@@ -54,7 +54,7 @@ Example Playbook
 ```
 - hosts: setup_kdump-servers
   roles:
-    - role: oasis.system.kdump
+    - role: oasis_roles.system.kdump
       kdump_conf_path: /etc/kdump.conf
       kdump_become_user: root
       kdump_crash_path: /var/crash

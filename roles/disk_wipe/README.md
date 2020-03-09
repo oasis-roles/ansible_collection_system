@@ -63,7 +63,7 @@ This example will run against a list of disks.
 
 - hosts: disk_wipe-servers
   roles:
-    - role: oasis.system.disk_wipe
+    - role: oasis_roles.system.disk_wipe
       disk_wipe_write_size: 200M
       disk_wipe_disks:
         - /dev/vdb

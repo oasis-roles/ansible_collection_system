@@ -7,6 +7,6 @@
         "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../shared/gdeploy.conf"
       gluster_gdeploy_rpm_version: |-
         {{ gluster_version | default('') }}
-    - role: oasis.system.firewalld
+    - role: oasis_roles.system.firewalld
       firewalld_services:
         - glusterfs

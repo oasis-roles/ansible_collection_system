@@ -63,7 +63,7 @@ Molecule scenario `create.yml`:
   connection: local
   gather_facts: false
   roles:
-    - role: oasis.system.molecule_openstack_ci
+    - role: oasis_roles.system.molecule_openstack_ci
       # other vars can be set here, e.g.
       # molecule_openstack_ci_ssh_user: yourcloudusername
 ```
@@ -75,11 +75,11 @@ Molecule scenario `destroy.yml`:
   connection: local
   gather_facts: false
   roles:
-    - role: oasis.system.molecule_openstack_ci
+    - role: oasis_roles.system.molecule_openstack_ci
       molecule_openstack_ci_state: absent
 ```
 
-**Note:** Remember to add `oasis.system.molecule_openstack_ci` to your
+**Note:** Remember to add `oasis_roles.system.molecule_openstack_ci` to your
 molecule scenario dependencies.
 
 License

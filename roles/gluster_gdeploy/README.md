@@ -93,7 +93,7 @@ Example Playbook
 ```yaml
 - hosts: gluster_gdeploy-servers
   roles:
-    - role: oasis.system.gluster_gdeploy
+    - role: oasis_roles.system.gluster_gdeploy
 ```
 
 License

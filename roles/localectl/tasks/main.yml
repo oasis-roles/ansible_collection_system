@@ -12,14 +12,14 @@
   set_fact:
     localectl_facts: |
       {{ localectl_busctl_gather.stdout_lines |
-         oasis.system.localectl_busctl_parse(localectl_properties) }}
+         oasis_roles.system.localectl_busctl_parse(localectl_properties) }}
 
 - name: Update system locale settings
   # localectl_arglist filter handles converting {'LOCALEVAR': value} dict
   # into space-separated quoted "LOCALEVAR=value" strings for localectl.
   command: >-
     localectl set-locale
-    {{ localectl_locales | oasis.system.localectl_arglist }}
+    {{ localectl_locales | oasis_roles.system.localectl_arglist }}
   register: localectl_locales_update
   become: "{{ localectl_become }}"
   # compare against sorted dicts just in case someting wacky happens with

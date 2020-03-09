@@ -1,6 +1,6 @@
 - hosts: all
   roles:
-    - role: oasis.system.rhsm
+    - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'
   vars:
     rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"

@@ -45,7 +45,7 @@ This example would update all packages to the latest version and update the cach
 ```yaml
 - hosts: package_updater-servers
   roles:
-    - role: oasis.system.package_updater
+    - role: oasis_roles.system.package_updater
 ```
 
 License

@@ -203,7 +203,7 @@ If using an older version of Ansible, version 2.0.0 of this role can be used.
 
 ```yaml
 # example requirements.yaml to install version 2.0.0
-- name: oasis.system.rhsm
+- name: oasis_roles.system.rhsm
   version: 2.0.0
 ```
 

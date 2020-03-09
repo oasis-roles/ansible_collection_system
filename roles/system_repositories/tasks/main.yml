@@ -6,7 +6,7 @@
     enabled: "{{ item.enabled | default(omit) }}"
     enablegroups: "{{ item.enablegroups | default(omit) }}"
     exclude: >-
-      {{ (item | oasis.system.system_repositories_exclude_join)
+      {{ (item | oasis_roles.system.system_repositories_exclude_join)
       | default(omit) }}
     failovermethod: "{{ item.failovermethod | default(omit) }}"
     gpgcakey: "{{ item.gpgcakey | default(omit) }}"

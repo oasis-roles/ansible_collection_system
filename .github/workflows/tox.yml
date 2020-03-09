@@ -9,6 +9,7 @@ on:
 env:
   TOX_ANSIBLE_DRIVER: docker
   ANSIBLE_COLLECTIONS_PATHS: ~/.ansible/:~/work/
+  COLLECTION_NAMESPACE: oasis_roles
   COLLECTION: system
 
 jobs:
@@ -91,7 +92,7 @@ jobs:
       - name: Test with tox
         run: |
           cd ..
-          dest="${HOME}/work/ansible_collections/oasis"
+          dest="${HOME}/work/ansible_collections/${COLLECTION_NAMESPACE}"
           mkdir -p "${dest}"
           mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
           # post actions fail if this doesn't exist
