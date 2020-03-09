@@ -6,13 +6,13 @@
       passwordless_ssh_private_key: "{{ role_path }}/molecule/shared/id_rsa"
       passwordless_ssh_user: derp
       passwordless_ssh_user_home: /home/derp
-  post_tasks: []
+      passwordless_ssh_gather_host_keys: true
 
 - name: test host 0 connecting to host 1 without password
   hosts: all[0]
   tasks:
     - name: try to ssh
-      command: ssh {{ hostvars[groups['all'][1]]['ansible_host'] }} ls -a /
+      command: ssh {{ hostvars[groups['all'][1]]['ansible_fqdn'] }} ls -a /
       become: true
       become_user: derp
       when: ansible_connection != 'docker'
