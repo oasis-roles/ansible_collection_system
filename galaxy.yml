@@ -6,7 +6,7 @@
 namespace: oasis_roles
 
 # The name of the collection. Has the same character restrictions as 'namespace'
-name: roles
+name: system
 
 # The version of the collection. Must be compatible with semantic versioning
 version: 1.0.0
@@ -17,8 +17,16 @@ readme: README.md
 # A list of the collection's content authors. Can be just the name or in the format 'Full Name <email> (url)
 # @nicks:irc/im.site#channel'
 authors:
-- Greg Hellings <greg.hellings@gmail.com>
-
+  - Andrew Euredjian <aeuredji@redhat.com>
+  - David Roble <droble@redhat.com>
+  - Greg Hellings <greg.hellings@gmail.com>
+  - Marcos Amorim <marcosmamorim@gmail.com>
+  - Sean Myers <sean.myers@redhat.com>
+  - Sean Myers <semyers@redhat.com>
+  - Steven Murray <stmurray@redhat.com>
+  - Timo Trinks <ttrinks@redhat.com>
+  - Vasyl Kaigorodov <vkaigoro@redhat.com>
+  - Vladimir Vasilev <vvasilev@redhat.com>
 
 ### OPTIONAL but strongly recommended
 
