@@ -1,7 +1,9 @@
 name: Test with Ansible
 
 on:
-  push: {}
+  push:
+    tags-ignore:
+      - '*'  # A build will already happen for the commit, don't also build the tag
   pull_request: {}
   schedule:
     - cron: '12 0 * * *'

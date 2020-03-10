@@ -9,7 +9,7 @@ namespace: oasis_roles
 name: system
 
 # The version of the collection. Must be compatible with semantic versioning
-version: 1.0.0
+version: 1.0.1
 
 # The path to the Markdown (.md) readme file. This path is relative to the root of the collection
 readme: README.md
@@ -51,13 +51,13 @@ tags: []
 dependencies: {}
 
 # The URL of the originating SCM repository
-repository: http://github.com/oasis-roles/collection
+repository: http://github.com/oasis-roles/ansible_collection_system
 
 # The URL to any online docs
-documentation: http://github.com/oasis-roles/collection
+documentation: http://github.com/oasis-roles/ansible_collection_system
 
 # The URL to the homepage of the collection/project
-homepage: http://github.com/oasis-roles/collection
+homepage: http://github.com/oasis-roles/ansible_collection_system
 
 # The URL to the collection issue tracker
-issues: http://github.com/oasis-roles/collection/issues
+issues: http://github.com/oasis-roles/ansible_collection_system/issues
