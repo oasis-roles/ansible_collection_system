@@ -59,6 +59,7 @@ jobs:
           - firewalld
           - localectl
           - molecule_docker_ci
+          - network_scripts
           - nfs_server
           - nmcli_add_addrs
           - package_updater

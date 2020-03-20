@@ -1,0 +1,19 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: network_scripts
+  vars:
+    network_scripts_nics:
+      - filename: ifcfg-eth0
+        NAME: eth0
+        DEVICE: eth0
+        TYPE: Ethernet
+        BOOTPROTO: static
+        IPADDR: 192.168.1.10
+        GATEWAY: 192.168.1.1
+        NETMASK: 255.255.255.0
+        DEFROUTE: !!str yes
+        IPV6INIT: !!str no
+        ONBOOT: !!str yes
+        DNS1: 8.8.8.8
+    network_scripts_dest_path: /tmp/network-scripts/
