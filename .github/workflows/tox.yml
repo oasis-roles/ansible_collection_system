@@ -58,7 +58,6 @@ jobs:
           - disk_wipe
           - firewalld
           - libvirt_rhel_vm
-          - libvirtd
           - localectl
           - molecule_docker_ci
           - network_scripts
