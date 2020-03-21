@@ -1,0 +1,3 @@
+libvirt_rhel_vm_packages:
+  - libvirt
+  - qemu-kvm
