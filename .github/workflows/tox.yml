@@ -104,4 +104,6 @@ jobs:
           # post actions fail if this doesn't exist
           mkdir -p "$(basename "${GITHUB_REPOSITORY}")"
           cd "${dest}/${COLLECTION}"
+          sudo apt-get update
+          sudo apt-get install -y python3-apt
           tox --ansible-role ${{ matrix.role }}
