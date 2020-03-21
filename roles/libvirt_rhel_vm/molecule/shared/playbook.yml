@@ -1,0 +1,5 @@
+- name: converge
+  hosts: localhost
+  roles:
+    - role: libvirt_rhel_vm
+      libvirt_rhel_vm_storage: /home/libvirt

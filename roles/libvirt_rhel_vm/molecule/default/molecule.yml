@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: test-libvirt
+    image: centos:latest  # BEWARE: Everything happens on localhost, actually

@@ -1,0 +1,4 @@
+- name: copy image
+  copy:
+    src: "{{ libvirt_rhel_vm_domain.img_path }}"
+    dest: "{{ libvirt_rhel_vm_storage }}"
