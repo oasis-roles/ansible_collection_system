@@ -57,6 +57,7 @@ jobs:
           - chrony
           - disk_wipe
           - firewalld
+          - libvirtd
           - localectl
           - molecule_docker_ci
           - network_scripts

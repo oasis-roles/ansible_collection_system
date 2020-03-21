@@ -1,0 +1,14 @@
+- block:
+    - name: update cache, if needed
+      apt:
+        update_cache: true
+      when: ansible_pkg_mgr == "apt"
+      changed_when: false
+
+    - name: install packages
+      package:
+        name: "{{ libvirtd_packages }}"
+        state: present
+
+  become: "{{ libvirtd_become }}"
+  become_user: "{{ libvirtd_become_user }}"

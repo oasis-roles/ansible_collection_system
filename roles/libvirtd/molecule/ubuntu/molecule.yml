@@ -1,0 +1,10 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-libvirtd-ubuntu
+    image: Ubuntu18.04
+provisioner:
+  inventory:
+    host_vars:
+      test-libvirtd-ubuntu:
+        ansible_user: ubuntu

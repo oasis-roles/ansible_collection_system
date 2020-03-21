@@ -1,0 +1,3 @@
+libvirtd_packages:
+  - libvirt-daemon
+  - libvirt-daemon-system
