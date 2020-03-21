@@ -2,4 +2,4 @@ driver:
   name: docker
 platforms:
   - name: test-libvirt
-    image: centos:latest  # BEWARE: Everything happens on localhost, actually
+    image: centos:latest  # Everything happens on localhost, actually

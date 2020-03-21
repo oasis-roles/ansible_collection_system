@@ -1,3 +1,4 @@
 # Fedora/CentOS/RedHat/etc
 libvirtd_packages:
   - libvirt-daemon
+  - libvirt-client
