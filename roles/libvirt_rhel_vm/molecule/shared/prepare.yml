@@ -7,6 +7,18 @@
         name: git+https://git.launchpad.net/ubuntu/+source/python-apt@applied/ubuntu/bionic-updates
         state: present
       when: ansible_pkg_mgr == "apt"
+
+    - name: download image file
+      get_url:
+        dest: "~/"
+        # yamllint disable-line rule:line-length
+        url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz
+
+    - name: extract file
+      command: unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
+      args:
+        chdir: "~/"
+        creates: "~/CentOS-7-x86_64-GenericCloud.qcow2"
   roles:
     - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'
