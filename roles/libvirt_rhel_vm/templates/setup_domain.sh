@@ -2,6 +2,7 @@
 
 set -e
 set -x
+set -o pipefail
 
 # exit 0 = success, no changes
 # exit 1 = error
