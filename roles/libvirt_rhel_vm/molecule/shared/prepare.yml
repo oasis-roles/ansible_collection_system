@@ -19,6 +19,11 @@
       args:
         chdir: "~/"
         creates: "~/CentOS-7-x86_64-GenericCloud.qcow2"
+
+    - name: create nic-config directory
+      file:
+        path: /tmp/nic-config
+        state: directory
   roles:
     - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'

@@ -1,6 +1,7 @@
 libvirt_rhel_vm_become: true
 libvirt_rhel_vm_become_user: root
 libvirt_rhel_vm_storage: /var/lib/libvirt/images
+libvirt_rhel_vm_nic_config_path: null
 libvirt_rhel_vm_domain:
   name: foo.example.com
   img_path: ~/CentOS-7-x86_64-GenericCloud.qcow2
