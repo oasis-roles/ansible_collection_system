@@ -22,7 +22,7 @@ libvirt_rhel_vm_domain:
       sdfadfdsfdsfdsf"
 
   bridges:
-    - virbr0
+    - br0
 
   nics:
     - filename: ifcfg-eth0

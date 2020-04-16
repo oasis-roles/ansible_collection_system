@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-set +e
-set +x
-set -o pipefail
+set -ex -o pipefail
 
 # exit 0 = success, no changes
 # exit 1 = error
