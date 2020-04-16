@@ -1,0 +1,18 @@
+- name: restart networking
+  become: "{{ network_bridge_become }}"
+  become_user: "{{ network_bridge_become_user }}"
+  service:
+    name: "{{ item }}"
+    state: restarted
+  notify: wait for connection
+  loop:
+    - NetworkManager
+    - network
+
+- name: wait for connection
+  wait_for_connection:
+
+- name: reload netplan
+  become: "{{ network_bridge_become }}"
+  become_user: "{{ network_bridge_become_user }}"
+  command: netplan apply
