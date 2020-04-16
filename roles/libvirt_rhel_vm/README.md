@@ -15,7 +15,7 @@ Currently the following variables are supported:
 
 ### General
 
-* `libvirt_rhel_vm_storage` - Default: /var/lib/libvirt/images. The path on
+* `libvirt_rhel_vm_storage` - Default: `/var/lib/libvirt/images`. The path on
   the remote system to upload VM images to. Currently there is no support for
   storage pools other than the local directories.
 * `libvirt_rhel_vm_domain` - Default:
@@ -40,9 +40,9 @@ libvirt_rhel_vm_domain:
       sdfadfdsfdsfdsf"
 
   bridges:
-    - virbr0
+    - br0
 
-  nics:
+  nics:  # NICs to provision on the VM, using the network_scripts role
     - filename: ifcfg-eth0
       NAME: eth0
       DEVICE: eth0
