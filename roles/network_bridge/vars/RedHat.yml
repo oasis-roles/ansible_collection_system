@@ -1,0 +1,2 @@
+network_bridge_folder: /etc/sysconfig/network-scripts/
+network_bridge_provider: NetworkManager

@@ -1,15 +1,17 @@
-- name: create directory to hold domain nic-configs
-  tempfile:
-    state: directory
-  register: _libvirt_tmp_nic_config
+- block:
+    - name: create directory to hold domain nic-configs
+      tempfile:
+        state: directory
+      register: _libvirt_tmp_nic_config
 
-- name: extract destination path
-  set_fact:
-    libvirt_rhel_vm_nic_config_path: "{{ _libvirt_tmp_nic_config.path }}"
+    - name: extract destination path
+      set_fact:
+        libvirt_rhel_vm_nic_config_path: "{{ _libvirt_tmp_nic_config.path }}"
+  when: libvirt_rhel_vm_nic_config_path is none
 
 - name: call network-scripts role
   vars:
-    network_scripts_dest_path: "{{ _libvirt_tmp_nic_config.path }}"
+    network_scripts_dest_path: "{{ libvirt_rhel_vm_nic_config_path }}"
     network_scripts_nics: "{{ libvirt_rhel_vm_domain.nics }}"
     network_scripts_restart: false
   import_role:

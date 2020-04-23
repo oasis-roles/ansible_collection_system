@@ -1,0 +1,28 @@
+- name: load variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+
+- name: ensure utils are installed
+  become: "{{ network_bridge_become }}"
+  become_user: "{{ network_bridge_become_user }}"
+  package:
+    name: "{{ network_bridge_packages }}"
+    state: present
+
+- name: create NetworkManager bridges
+  include_tasks: network_manager.yml
+  loop: "{{ network_bridge_devices | dict2items }}"
+  loop_control:
+    label: "{{ bridge.key }}"
+    loop_var: bridge
+  when: network_bridge_provider == 'NetworkManager'
+
+- name: create netplan bridges
+  include_tasks: netplan.yml
+  loop: "{{ network_bridge_devices | dict2items }}"
+  loop_control:
+    label: "{{ bridge.key }}"
+    loop_var: bridge
+  when: network_bridge_provider == 'netplan'

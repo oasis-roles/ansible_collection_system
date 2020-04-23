@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: openstack
 platforms:
   - name: test-libvirt
-    image: centos:latest  # BEWARE: Everything happens on localhost, actually
+    flavor: ci.m1.large

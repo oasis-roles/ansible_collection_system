@@ -2,17 +2,6 @@
   become: "{{ libvirt_rhel_vm_become }}"
   become_user: "{{ libvirt_rhel_vm_become_user }}"
   block:
-    - name: install libvirt packages
-      package:
-        name: "{{ libvirt_rhel_vm_packages }}"
-        state: present
-
-    - name: start and enable libvirt
-      service:
-        name: libvirtd
-        state: started
-        enabled: true
-
     - name: upload images
       import_tasks: images.yml
 

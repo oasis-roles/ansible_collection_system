@@ -1,7 +1,7 @@
-network_scripts
+network\_scripts
 ===========
 
-Basic description for network_scripts
+Basic description for network\_scripts
 
 Requirements
 ------------

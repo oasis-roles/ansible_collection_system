@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
-set -x
+set -ex -o pipefail
 
 # exit 0 = success, no changes
 # exit 1 = error
@@ -35,7 +34,7 @@ virt-customize \
 {% for key in libvirt_rhel_vm_domain.root_ssh_pub_keys %}
   --ssh-inject root:string:"{{ key }}" \
 {% endfor %}
-  --copy-in "{{ _libvirt_tmp_nic_config.path }}:/etc/sysconfig/" \
+  --copy-in "{{ libvirt_rhel_vm_nic_config_path }}:/etc/sysconfig/" \
   --selinux-relabel
 
 virt-install \

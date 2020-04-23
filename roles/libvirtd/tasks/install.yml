@@ -1,0 +1,7 @@
+- block:
+    - name: install packages
+      package:
+        name: "{{ libvirtd_packages }}"
+        state: present
+  become: "{{ libvirtd_become }}"
+  become_user: "{{ libvirtd_become_user }}"

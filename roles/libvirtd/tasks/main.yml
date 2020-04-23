@@ -1,0 +1,21 @@
+- name: read environment defaults
+  include_vars:
+    file: "{{ item }}"
+  with_first_found:
+    - "vars/{{ ansible_distribution }}-{{
+      ansible_distribution_major_version }}.yml"
+    - "vars/{{ ansible_distribution }}.yml"
+    - "vars/default.yml"
+
+- name: install daemon
+  import_tasks: install.yml
+
+# TODO: Add support for configuring pools, networks, etc
+
+- name: start service
+  become: "{{ libvirtd_become }}"
+  become_user: "{{ libvirtd_become_user }}"
+  service:
+    name: libvirtd
+    state: started
+    enabled: true

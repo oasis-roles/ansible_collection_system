@@ -1,0 +1,22 @@
+- name: write bridge to file
+  become: "{{ network_bridge_become }}"
+  become_user: "{{ network_bridge_become_user }}"
+  oasis_roles.system.yaml_file:
+    create: true
+    path: /etc/netplan/99-network_bridges.yaml
+    key: network.{{ item.key }}
+    value: "{{ item.value | to_json }}"
+  when: item.when | default(True)
+  loop:
+    - key: version
+      value: 2
+    - key: bridges.{{ bridge.key }}.dhcp4
+      value: "yes"
+      when: "'ipaddr' not in bridge.value"
+    - key: bridges.{{ bridge.key }}.interfaces
+      value:
+        - "{{ bridge.value.device }}"
+    - key: bridges.{{ bridge.key }}.nameservers.addresses
+      value: "{{ bridge.value.dns }}"
+      when: "'dns' in bridge.value"
+      #notify: reload netplan

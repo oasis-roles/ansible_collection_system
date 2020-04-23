@@ -1,15 +1,34 @@
 - name: register RHSM
-  hosts: localhost
+  hosts: all
+  pre_tasks:
+    - name: install python-apt where necessary
+      pip:
+        # yamllint disable-line rule:line-length
+        name: git+https://git.launchpad.net/ubuntu/+source/python-apt@applied/ubuntu/bionic-updates
+        state: present
+      when: ansible_pkg_mgr == "apt"
+
+    - name: download image file
+      get_url:
+        dest: "~/"
+        # yamllint disable-line rule:line-length
+        url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz
+
+    - name: extract file
+      command: unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
+      args:
+        chdir: "~/"
+        creates: "~/CentOS-7-x86_64-GenericCloud.qcow2"
+
+    - name: create nic-config directory
+      file:
+        path: /tmp/nic-config
+        state: directory
   roles:
     - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'
     - role: oasis_roles.system.libvirtd
-  post_tasks:
-    - name: install virsh  # Needed for testinfra tests to run
-      become: true
-      package:
-        name: libvirt-client
-        state: present
+    - role: oasis_roles.system.network_bridge
   vars:
     rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
     rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
@@ -20,3 +39,6 @@
         - rhel-7-server-rpms
         - rhel-7-server-extras-rpms
         - rhel-7-server-optional-rpms
+    network_bridge_devices:
+      br0:
+        device: eth0

@@ -6,8 +6,21 @@
     group: root
     mode: "0755"
 
-- name: run domain install script
-  command: /tmp/setup_domain.sh
-  register: _libvirt_shell_output
-  changed_when: _libvirt_shell_output.rc == 2
-  failed_when: _libvirt_shell_output.rc == 1
+- block:
+    - name: run domain install script
+      command: /tmp/setup_domain.sh
+      register: _libvirt_shell_output
+      changed_when: _libvirt_shell_output.rc == 2
+      failed_when: _libvirt_shell_output.rc not in [0, 2]
+  always:
+    - name: display script stdout
+      debug:
+        msg: "{{ _libvirt_shell_output.stdout }}"
+
+    - name: display script stderr
+      debug:
+        msg: "{{ _libvirt_shell_output.stderr }}"
+  rescue:
+    - name: error out
+      assert:
+        that: "{{ 1 == 0 }}"

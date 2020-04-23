@@ -15,7 +15,7 @@ Currently the following variables are supported:
 
 ### General
 
-* `libvirt_rhel_vm_storage` - Default: /var/lib/libvirt/images. The path on
+* `libvirt_rhel_vm_storage` - Default: `/var/lib/libvirt/images`. The path on
   the remote system to upload VM images to. Currently there is no support for
   storage pools other than the local directories.
 * `libvirt_rhel_vm_domain` - Default:
@@ -40,9 +40,9 @@ libvirt_rhel_vm_domain:
       sdfadfdsfdsfdsf"
 
   bridges:
-    - virbr0
+    - br0
 
-  nics:
+  nics:  # NICs to provision on the VM, using the network_scripts role
     - filename: ifcfg-eth0
       NAME: eth0
       DEVICE: eth0
@@ -68,6 +68,11 @@ libvirt_rhel_vm_domain:
 * `libvirt_become_user` - Default: root. If the role uses the become
   functionality for privilege escalation, then this is the name of the target
   user to change to.
+* `libvirt_rhel_vm_nic_config_path` - Default: `null`. Path on the
+  remote host to install the nic-config scripts into before uploading them to
+  the VM. If left as `null`, then a tempdir will be created on the remote host
+  for uploading. If you set this value, then you are responsible to ensure that
+  the path exists before calling this role.
 
 Dependencies
 ------------
