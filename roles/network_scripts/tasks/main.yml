@@ -32,7 +32,7 @@
   become: "{{ network_scripts_become }}"
   become_user: "{{ network_scripts_become_user }}"
   template:
-    src: ifcfg.j2
+    src: ifcfg
     dest: "{{ network_scripts_dest_path }}/{{ item.filename }}"
     owner: root
     group: root

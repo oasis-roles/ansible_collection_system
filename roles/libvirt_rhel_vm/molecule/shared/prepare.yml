@@ -14,6 +14,7 @@
         # yamllint disable-line rule:line-length
         url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz
 
+    # Is not an archive, just a zipped qcow file
     - name: extract file
       command: unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
       args:

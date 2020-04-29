@@ -6,7 +6,7 @@ set -ex -o pipefail
 # exit 1 = error
 # exit 2 = success, changes
 
-domain_name={{ libvirt_rhel_vm_domain.name }}
+domain_name="{{ libvirt_rhel_vm_domain.name }}"
 
 if [[ $(virsh domid "${domain_name}") ]]; then
 	exit 0

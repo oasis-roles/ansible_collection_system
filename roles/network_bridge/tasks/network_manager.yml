@@ -4,6 +4,7 @@
         src: sysctl_bridge.conf
         dest: /etc/sysctl.d/bridge.conf
         owner: root
+        group: root
         mode: "0644"
 
     - name: create udev rules file
@@ -11,6 +12,7 @@
         src: 99-bridge.rules
         dest: /etc/udev/rules.d/99-bridge.rules
         owner: root
+        group: root
         mode: "0644"
 
     - name: set bridge in bridged connection
@@ -25,6 +27,7 @@
         src: ifcfg-bridge
         dest: "{{ network_bridge_folder }}/ifcfg-{{ bridge.key }}"
         owner: root
+        group: root
         mode: "0644"
       notify: restart networking
   become: "{{ network_bridge_become }}"

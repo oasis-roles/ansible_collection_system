@@ -55,7 +55,7 @@ network_scripts_nics:
     DNS1: 8.8.8.8
 ```
   All supported arguments are passed into the template file and match arguments
-  in the ifcfg syntax of the same name. Check the file `templates/ifcfg.j2` for
+  in the ifcfg syntax of the same name. Check the file `templates/ifcfg` for
   any that are supported. If the option you need isn't present, open an issue
   or a PR for it
 
