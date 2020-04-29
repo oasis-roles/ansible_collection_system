@@ -10,14 +10,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Checkout submodules
-        shell: bash
-        run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --remote --recursive
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Setup Python
         uses: actions/setup-python@v1
         with:
