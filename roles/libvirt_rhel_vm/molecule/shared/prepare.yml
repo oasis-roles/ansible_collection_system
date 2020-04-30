@@ -21,6 +21,7 @@
         chdir: "~/"
         creates: "~/CentOS-7-x86_64-GenericCloud.qcow2"
 
+    # path used in playbook.yml for creating config scripts to pass to VM
     - name: create nic-config directory
       file:
         path: /tmp/nic-config
