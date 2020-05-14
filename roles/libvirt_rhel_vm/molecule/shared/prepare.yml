@@ -9,6 +9,7 @@
       when: ansible_pkg_mgr == "apt"
 
     - name: download image file
+      delegate_to: localhost
       get_url:
         dest: "~/"
         # yamllint disable-line rule:line-length
@@ -16,6 +17,7 @@
 
     # Is not an archive, just a zipped qcow file
     - name: extract file
+      delegate_to: localhost
       command: unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
       args:
         chdir: "~/"
