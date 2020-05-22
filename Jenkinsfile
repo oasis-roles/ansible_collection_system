@@ -5,22 +5,23 @@ podTemplate(
       image: 'image-registry.openshift-image-registry.svc:5000/oasis/jenkins-agent-oasis:latest',
       args: '${computer.jnlpmac} ${computer.name}',
       envVars: [
-      secretEnvVar(key: 'OASIS_RHSM_USERNAME', secretName: 'oasis-rhsm', secretKey: 'username'),
-      secretEnvVar(key: 'OASIS_RHSM_PASSWORD', secretName: 'oasis-rhsm', secretKey: 'password'),
-      secretEnvVar(key: 'OASIS_RHSM_POOL_IDS', secretName: 'oasis-rhsm', secretKey: 'pool_ids'),
-      secretEnvVar(key: 'OASIS_RHSM_SERVER_HOSTNAME', secretName: 'oasis-rhsm', secretKey: 'hostname'),
-      secretEnvVar(key: 'OCP_PULL_SECRETS_OFFLINE_TOKEN', secretName: 'oasis-ci-pull-secrets', secretKey: 'offline_token')
+        secretEnvVar(key: 'OASIS_RHSM_USERNAME', secretName: 'oasis-rhsm', secretKey: 'username'),
+        secretEnvVar(key: 'OASIS_RHSM_PASSWORD', secretName: 'oasis-rhsm', secretKey: 'password'),
+        secretEnvVar(key: 'OASIS_RHSM_POOL_IDS', secretName: 'oasis-rhsm', secretKey: 'pool_ids'),
+        secretEnvVar(key: 'OASIS_RHSM_SERVER_HOSTNAME', secretName: 'oasis-rhsm', secretKey: 'hostname'),
+        secretEnvVar(key: 'OCP_PULL_SECRETS_OFFLINE_TOKEN', secretName: 'oasis-ci-pull-secrets', secretKey: 'offline_token')
       ],
       alwaysPullImage: true)
-]) {
+  ]
+) {
   node(POD_LABEL) {
     def collectionDir = 'ansible_collections/oasis_roles/system'
     def builders = [:]
     def String[] openstackTestEnvs
     checkout scm
     openstackTestEnvs = sh(
-        script: 'tox --ansible-driver openstack -l',
-        returnStdout: true
+      script: 'tox --ansible-driver openstack -l',
+      returnStdout: true
     ).trim().split()
     for (testEnv in openstackTestEnvs) {
       // bind testEnv into the local scope to ensure the correct value ends up in the build closure
@@ -49,9 +50,7 @@ podTemplate(
                   failureDescription: 'Build Failed',
                   successDescription: 'Build Succeeded',
                   gitHubContext: ghContext
-                ) {
-                  sh "tox -e '${boundTestEnv}'"
-                }
+                ) { sh "tox -e '${boundTestEnv}'" }
               }
             }
           }
