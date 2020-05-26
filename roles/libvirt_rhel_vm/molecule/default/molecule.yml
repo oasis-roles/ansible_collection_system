@@ -1,0 +1,5 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-libvirt
+    flavor: ci.m1.large

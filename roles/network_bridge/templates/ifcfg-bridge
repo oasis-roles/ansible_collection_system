@@ -1,0 +1,33 @@
+DEVICE={{ bridge.key }}
+NAME={{ bridge.key }}
+NM_CONTROLLED={{ bridge.nm_controlled | default("yes") }}
+ONBOOT={{ bridge.onboot | default("yes") }}
+TYPE=Bridge
+
+{% if 'ipaddr' not in bridge.value %}
+# Assign address with DHCP
+BOOTPROTO=dhcp
+{% else %}
+# Set static address
+IPADDR={{ bridge.value.ipaddr }}
+NETMASK={{ bridge.value.netmask }}
+GATEWAY={{ bridge.value.gateway }}
+{% endif %}
+
+{% if bridge.value.ipv6 | default(false) %}
+IPV6INIT=yes
+IPV6_AUTOCONF=no
+IPV6ADDR={{ bridge.value.ipv6 }}
+IPV6_DEFAULTGW=fe80::1%{{ bridge.key }}
+{% endif %}
+
+{% for dns in ( bridge.value.dns | default([]) ) %}
+DNS{{ loop.index }}={{ dns }}
+{% endfor %}
+
+# Spanning Tree Protocol on or off, can cause problems with routers
+# and other hardware if enabled. Be sure you know what you're doing and
+# that your network is OK with it before enabling this
+STP=off
+# Applies only when STP is "on"
+DELAY=0

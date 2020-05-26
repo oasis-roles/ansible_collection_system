@@ -1,0 +1,9 @@
+driver:
+  name: docker
+platforms:
+  - name: test-libvirtd-ubuntu
+    image: ubuntu:latest
+    command: sleep infinity
+provisioner:
+  playbooks:
+    converge: playbook.yml

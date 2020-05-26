@@ -1,0 +1,9 @@
+network_scripts_become: true
+network_scripts_become_user: root
+network_scripts_dest_path: /etc/sysconfig/network-scripts
+network_scripts_nics: []
+network_scripts_restart: false
+network_scripts_clear_existing: false
+network_scripts_clear_patterns:
+  - ifcfg-*
+  - route-*

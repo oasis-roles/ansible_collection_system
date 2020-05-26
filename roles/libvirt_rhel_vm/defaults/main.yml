@@ -1,0 +1,39 @@
+libvirt_rhel_vm_become: true
+libvirt_rhel_vm_become_user: root
+libvirt_rhel_vm_storage: /var/lib/libvirt/images
+libvirt_rhel_vm_nic_config_path: null
+libvirt_rhel_vm_domain:
+  name: foo.example.com
+  img_path: ~/CentOS-7-x86_64-GenericCloud.qcow2
+  os-variant: rhel7.7
+
+  ram: 4096
+  vcpus: 1
+  disk: 20G
+
+  root_passwd: "$6$Fa84yQfpK0gpluDJ$sdfdsfdsfdsfdsfdfdsfdsfddsfdaQpO6MKgioTOV5\
+    lRy.2tdA9IexTnvYNK3mP8clpC/sdsfdsfdsfdsfdsfsd60"
+  root_ssh_pub_keys:
+    - "ssh-rsa AAAdsfdfdsfdfdEAAAADAQABAAABAQD0yXYYdsfdAOSdIjcRp\
+      8TVOPnFplYJEY8VST+bQeW1Fosdfddfsdfmpmd/RdV9W/0d7sRfymL1diDm6ml3kwddff5Xn7A\
+      edsztdRahvZsBD9ADBqnQBli0adop6+PDRsdfdsfBjpFnrwVoe9QZPJVqZle6HBeJYIffffEY6\
+      1vhC8JXyGGDIJi7pdSjPdsfdsfdsfdsfdsfdsfsxTbAp4ddkEuS/9NR8JZ3HJg+h6mKoNffffq\
+      RUiikG98dfdfdsfdsfdfdfdfdfdfdsfdsfdsfdsfdsfyPMXK7nD+R0Jx4mmRlFWKmYTjffffSq\
+      sdfadfdsfdsfdsf"
+
+  bridges:
+    - br0
+
+  nics:
+    - filename: ifcfg-eth0
+      NAME: eth0
+      DEVICE: eth0
+      TYPE: Ethernet
+      BOOTPROTO: static
+      IPADDR: 192.168.1.10
+      GATEWAY: 192.168.1.1
+      NETMASK: 255.255.255.0
+      DEFROUTE: !!str yes
+      IPV6INIT: !!str no
+      ONBOOT: !!str yes
+      DNS1: 8.8.8.8

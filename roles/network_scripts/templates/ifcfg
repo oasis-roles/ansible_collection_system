@@ -1,0 +1,81 @@
+{% if 'block' in item %}
+{{ item['block']|string }}
+{% endif %}
+{% if 'BONDING_OPTS' in item %}
+BONDING_OPTS="{{ item['BONDING_OPTS']|string }}"
+{% endif %}
+{% if 'BOOTPROTO' in item %}
+BOOTPROTO={{ item['BOOTPROTO']|string }}
+{% endif %}
+{% if 'BRIDGE' in item %}
+BRIDGE={{ item['BRIDGE']|string }}
+{% endif %}
+{% if 'BROADCAST' in item %}
+BROADCAST={{ item['BROADCAST']|string }}
+{% endif %}
+{% if 'DEFROUTE' in item %}
+DEFROUTE={{ item['DEFROUTE']|string }}
+{% endif %}
+{% if 'DELAY' in item %}
+DELAY={{ item['DELAY']|string }}
+{% endif %}
+{% if 'DEVICE' in item %}
+DEVICE={{ item['DEVICE']|string }}
+{% endif %}
+{% if 'DNS1' in item %}
+DNS1={{ item['DNS1']|string }}
+{% endif %}
+{% if 'DNS2' in item %}
+DNS2={{ item['DNS2']|string }}
+{% endif %}
+{% if 'GATEWAY' in item %}
+GATEWAY={{ item['GATEWAY']|string }}
+{% endif %}
+{% if 'HWADDR' in item %}
+HWADDR={{ item['HWADDR']|string }}
+{% endif %}
+{% if 'IPADDR' in item %}
+IPADDR={{ item['IPADDR']|string }}
+{% endif %}
+{% if 'IPV6INIT' in item %}
+IPV6INIT={{ item['IPV6INIT']|string }}
+{% endif %}
+{% if 'MASTER' in item %}
+MASTER={{ item['MASTER']|string }}
+{% endif %}
+{% if 'NAME' in item %}
+NAME={{ item['NAME']|string }}
+{% endif %}
+{% if 'NETMASK' in item %}
+NETMASK={{ item['NETMASK']|string }}
+{% endif %}
+{% if 'NETWORK' in item %}
+NETWORK={{ item['NETWORK']|string }}
+{% endif %}
+{% if 'NM_CONTROLLED' in item %}
+NM_CONTROLLED={{ item['NM_CONTROLLED']|string }}
+{% endif %}
+{% if 'ONBOOT' in item %}
+ONBOOT={{ item['ONBOOT']|string }}
+{% endif %}
+{% if 'PEERDNS' in item %}
+PEERDNS={{ item['PEERDNS']|string }}
+{% endif %}
+{% if 'PREFIX' in item %}
+PREFIX={{ item['PREFIX']|string }}
+{% endif %}
+{% if 'SLAVE' in item %}
+SLAVE={{ item['SLAVE']|string }}
+{% endif %}
+{% if 'TYPE' in item %}
+TYPE={{ item['TYPE']|string }}
+{% endif %}
+{% if 'USERCTL' in item %}
+USERCTL={{ item['USERCTL']|string }}
+{% endif %}
+{% if 'UUID' in item %}
+UUID={{ item['UUID']|string }}
+{% endif %}
+{% if 'ZONE' in item %}
+ZONE={{ item['ZONE']|string }}
+{% endif %}

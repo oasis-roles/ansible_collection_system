@@ -1,0 +1,7 @@
+libvirtd_packages:
+  - libvirt-daemon
+  - libvirt-daemon-system
+  - libvirt-clients
+  - qemu-utils
+  - libguestfs-tools
+  - virtinst

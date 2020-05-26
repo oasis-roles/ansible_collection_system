@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: network_scripts
+    image: centos:7

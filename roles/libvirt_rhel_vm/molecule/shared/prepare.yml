@@ -1,0 +1,48 @@
+- name: register RHSM
+  hosts: all
+  pre_tasks:
+    - name: install python-apt where necessary
+      pip:
+        # yamllint disable-line rule:line-length
+        name: git+https://git.launchpad.net/ubuntu/+source/python-apt@applied/ubuntu/bionic-updates
+        state: present
+      when: ansible_pkg_mgr == "apt"
+
+    - name: download image file
+      delegate_to: localhost
+      get_url:
+        dest: "~/"
+        # yamllint disable-line rule:line-length
+        url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz
+
+    # Is not an archive, just a zipped qcow file
+    - name: extract file
+      delegate_to: localhost
+      command: unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
+      args:
+        chdir: "~/"
+        creates: "~/CentOS-7-x86_64-GenericCloud.qcow2"
+
+    # path used in playbook.yml for creating config scripts to pass to VM
+    - name: create nic-config directory
+      file:
+        path: /tmp/nic-config
+        state: directory
+  roles:
+    - role: oasis_roles.system.rhsm
+      when: ansible_distribution == 'RedHat'
+    - role: oasis_roles.system.libvirtd
+    - role: oasis_roles.system.network_bridge
+  vars:
+    rhsm_username: "{{ lookup('env', 'OASIS_RHSM_USERNAME') }}"
+    rhsm_password: "{{ lookup('env', 'OASIS_RHSM_PASSWORD') }}"
+    rhsm_server_hostname: "{{ lookup('env', 'OASIS_RHSM_SERVER_HOSTNAME') }}"
+    rhsm_pool_ids: "{{ lookup('env', 'OASIS_RHSM_POOL_IDS') }}"
+    rhsm_repositories:
+      enabled:
+        - rhel-7-server-rpms
+        - rhel-7-server-extras-rpms
+        - rhel-7-server-optional-rpms
+    network_bridge_devices:
+      br0:
+        device: eth0

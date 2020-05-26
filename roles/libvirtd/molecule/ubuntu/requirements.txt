@@ -1,0 +1,1 @@
+git+https://git.launchpad.net/python-apt@1.8.y

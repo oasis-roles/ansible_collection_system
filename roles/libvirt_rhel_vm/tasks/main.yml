@@ -1,0 +1,12 @@
+- name: install libvirt with domains
+  become: "{{ libvirt_rhel_vm_become }}"
+  become_user: "{{ libvirt_rhel_vm_become_user }}"
+  block:
+    - name: upload images
+      import_tasks: images.yml
+
+    - name: configure network scripts
+      import_tasks: network.yml
+
+    - name: modify image
+      import_tasks: modify_image.yml

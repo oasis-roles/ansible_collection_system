@@ -1,0 +1,14 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-network_bridge
+provisioner:
+  inventory:
+    group_vars:
+      all:
+        network_bridge_devices:
+          br0:
+            dns:
+              - 8.8.8.8
+              - 8.8.4.4
+            device: eth0

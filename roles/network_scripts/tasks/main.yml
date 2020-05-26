@@ -1,0 +1,41 @@
+# Optionally clear out all other files
+- block:
+    - name: create temp directory
+      tempfile:
+        state: directory
+        suffix: "{{ lookup('pipe', 'date +%y.%m.%d-%H.%M.%S') }}"
+      register: _network_scripts_temp_dir
+
+    - name: find files to copy
+      find:
+        path: "{{ network_scripts_dest_path }}"
+        patterns: "{{ network_scripts_clear_patterns }}"
+      register: _network_scripts_find
+
+    - name: copy found files to temp directory
+      copy:
+        remote_src: true
+        src: "{{ item.path }}"
+        dest: "{{ _network_scripts_temp_dir.path }}"
+      loop: "{{ _network_scripts_find.files }}"
+
+    - name: remove found files from source
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ _network_scripts_find.files }}"
+  when: network_scripts_clear_existing | bool
+  become: "{{ network_scripts_become }}"
+  become_user: "{{ network_scripts_become_user }}"
+
+- name: template ifcfg files for passed nics
+  become: "{{ network_scripts_become }}"
+  become_user: "{{ network_scripts_become_user }}"
+  template:
+    src: ifcfg
+    dest: "{{ network_scripts_dest_path }}/{{ item.filename }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop: "{{ network_scripts_nics }}"
+  notify: restart network

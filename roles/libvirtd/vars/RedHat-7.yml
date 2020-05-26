@@ -1,0 +1,8 @@
+# Fedora/CentOS/RedHat/etc
+libvirtd_packages:
+  - libvirt-daemon
+  - libvirt-client
+  - libvirt-daemon-driver-qemu
+  - qemu-img
+  - libguestfs-tools-c
+  - virt-install

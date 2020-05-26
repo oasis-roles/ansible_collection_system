@@ -1,0 +1,5 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: libvirt_rhel_vm
+      libvirt_rhel_vm_nic_config_path: /tmp/nic-config

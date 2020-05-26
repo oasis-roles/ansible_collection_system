@@ -1,0 +1,5 @@
+# Fedora/CentOS/RHEL8/etc
+libvirtd_packages:
+  - libvirt-daemon
+  - libvirt-client
+  - qemu-img
