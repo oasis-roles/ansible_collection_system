@@ -1,11 +1,7 @@
 name: Test with Ansible
 
 on:
-  push:
-    branches:
-      - '*'
-    tags-ignore:
-      - '*'  # A build will already happen for the commit, don't also build the tag
+  push: {}
   pull_request: {}
   schedule:
     - cron: '12 0 * * *'
@@ -13,8 +9,7 @@ on:
 env:
   TOX_ANSIBLE_DRIVER: docker
   ANSIBLE_COLLECTIONS_PATHS: ~/.ansible/:~/work/
-  COLLECTION_NAMESPACE: oasis_roles
-  COLLECTION: system
+  checkout_path: ansible_collections/oasis_roles/system
 
 jobs:
   build:
@@ -45,13 +40,13 @@ jobs:
           - upload_files
     steps:
       - uses: actions/checkout@v2
-      - name: Checkout submodules
-        shell: bash
+        with:
+          submodules: 'recursive'
+          path: ${{ env.checkout_path }}
+      - name: update submodules to latest
         run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --remote --recursive
+          cd "${{ env.checkout_path }}"
+          git submodule update --remote --recursive
       - name: Setup pip cache
         uses: actions/cache@v1
         with:
@@ -63,6 +58,7 @@ jobs:
           python-version: 3.8
       - name: Install dependencies
         run: |
+          set -ex
           sudo apt-get update
           sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools
           python -m pip install --upgrade pip
@@ -70,11 +66,38 @@ jobs:
           pip install tox tox-ansible
       - name: Test with tox
         run: |
-          cd ..
-          dest="${HOME}/work/ansible_collections/${COLLECTION_NAMESPACE}"
-          mkdir -p "${dest}"
-          mv "$(basename "${GITHUB_REPOSITORY}")" "${dest}/${COLLECTION}"
-          # post actions fail if this doesn't exist
-          mkdir -p "$(basename "${GITHUB_REPOSITORY}")"
-          cd "${dest}/${COLLECTION}"
+          set -ex
+          # There is some magic in the "mv" command that makes ansible-galaxy work
+          # I haven't found any logic for it, but if you don't do this mv, then
+          # the dependency step in molecule when run from tox will fail
+          mv ansible_collections ~/work/
+          cd ~/work/${{ env.checkout_path }}
           tox --ansible-role ${{ matrix.role }}
+
+  release:
+    needs: build  # Only release if the build is good
+    if: startsWith(github.ref, 'refs/tags/')  # Only release if there is a tag that's been pushed to the repo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install pip
+        run: |
+          python -m pip install --upgrade pip
+          pip install ansible
+      - name: Create release artifacts
+        run: |
+          ansible-galaxy collection build
+          ansible-galaxy collection publish *.tar.gz --api-key ${{ secrets.GALAXY_API_KEY }}
+      - name: Release artifacts to Git Hub
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: ./oasis_roles-system*.tar.gz
+          allowUpdates: true
+          name: Rlease ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
