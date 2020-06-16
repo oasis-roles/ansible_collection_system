@@ -1,0 +1,15 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-nmcli_connections
+    nics:
+      - net-name: provider_net_cci_4
+      - net-name: provider_net_cci_9
+provisioner:
+  inventory:
+    group_vars:
+      all:
+        nmcli_connections:
+          - ifname: eth1
+verifier:
+  name: ansible
