@@ -1,6 +1,6 @@
 [![Test with Ansible](https://github.com/oasis-roles/ansible_collection_system/workflows/Test%20with%20Ansible/badge.svg)](https://github.com/oasis-roles/ansible_collection_system/actions)
 
-# Ansible Collection - oasis.roles
+# Ansible Collection - oasis_roles.system
 
 This collection is focused on the Red Hat products and was originally conceived
 by the QE teams tasked with doing full stack integrations. As such a wide
