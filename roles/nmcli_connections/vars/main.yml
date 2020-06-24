@@ -1,0 +1,3 @@
+nmcli_connections_packages:
+  - NetworkManager-glib
+  - dbus

@@ -11,8 +11,6 @@
 
 - name: Set runtime facts with hashed values
   set_fact:
-    hashed_security_group_name: |-
-      {{ molecule_openstack_ci_security_group_name }}-{{ run_hash }}
     hashed_keypair_name: |-
       {{ molecule_openstack_ci_keypair_name }}-{{ run_hash }}
 

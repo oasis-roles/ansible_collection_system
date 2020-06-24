@@ -1,0 +1,17 @@
+- block:
+    - name: ensure packages are installed
+      package:
+        name: "{{ nmcli_connections_packages }}"
+        state: present
+
+    - name: create connections
+      nmcli:
+        conn_name: "{{ item.conn_name | default(item.ifname) }}"
+        ifname: "{{ item.ifname }}"
+        type: "{{ item.type | default('ethernet') }}"
+        state: "{{ item.state | default('present') }}"
+      loop: "{{ nmcli_connections }}"
+      # https://github.com/ansible-collections/community.general/issues/481
+      changed_when: false
+  become: "{{ nmcli_connections_become }}"
+  become_user: "{{ nmcli_connections_become_user }}"

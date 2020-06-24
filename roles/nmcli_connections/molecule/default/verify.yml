@@ -1,0 +1,9 @@
+- name: verify it worked
+  hosts: all
+  tasks:
+    - name: make sure ipv4 is configured
+      # Verifies that both connections have an address
+      assert:
+        that:
+          - "'ipv4' in ansible_eth0"
+          - "'ipv4' in ansible_eth1"

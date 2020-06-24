@@ -13,14 +13,14 @@
 - name: Create security group for scenario
   os_security_group:
     cloud: "{{ molecule_openstack_ci_cloud }}"
-    name: "{{ hashed_security_group_name }}"
+    name: "{{ molecule_openstack_ci_security_group_name }}"
     description: "{{ molecule_openstack_ci_security_group_description }}"
   register: security_group
 
 - name: Create security group rules
   os_security_group_rule:
     cloud: "{{ molecule_openstack_ci_cloud }}"
-    security_group: "{{ hashed_security_group_name }}"
+    security_group: "{{ molecule_openstack_ci_security_group_name }}"
     protocol: "{{ item.proto | default(omit) }}"
     port_range_min: "{{ item.port | default(omit) }}"
     port_range_max: "{{ item.port | default(omit) }}"
@@ -77,11 +77,12 @@
     name: "{{ item.name }}-{{ run_hash }}"
     image: "{{ item.image | default(_cloud.image) }}"
     flavor: "{{ item.flavor | default(_cloud.nova_flavor) }}"
-    security_groups: "{{ hashed_security_group_name }}"
+    security_groups: "{{ molecule_openstack_ci_security_group_name }}"
     key_name: "{{ hashed_keypair_name }}"
     volumes: "{{ item.volumes | default(omit) }}"
     delete_fip: true
     nics: "{{ item.nics | default(omit) }}"
+    timeout: &timeout 7200
     meta:
       # The generated inventory will still be using the instance name
       # as defined in molecule.yml. Stash the original name in the instance
@@ -90,7 +91,7 @@
       inventory_name: "{{ item.name }}"
   register: server
   with_items: "{{ molecule_yml.platforms }}"
-  async: 7200
+  async: *timeout
   poll: 0
 
 - name: Wait for instance(s) creation to complete

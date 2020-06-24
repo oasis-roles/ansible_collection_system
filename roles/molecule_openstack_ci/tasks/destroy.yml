@@ -30,12 +30,6 @@
     dest: "{{ molecule_instance_config }}"
   when: server.changed | bool  # noqa 503 - don't make this a handler
 
-- name: Delete security group
-  os_security_group:
-    cloud: "{{ molecule_openstack_ci_cloud }}"
-    name: "{{ hashed_security_group_name }}"
-    state: absent
-
 - name: Delete remote keypair
   os_keypair:
     cloud: "{{ molecule_openstack_ci_cloud }}"
