@@ -3,7 +3,7 @@
     - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'
   vars_files:
-    - "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/../../tests/rhsm.yml"
+    - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../../../../tests/rhsm.yml"
   vars:
     rhsm_repositories:
       enabled:

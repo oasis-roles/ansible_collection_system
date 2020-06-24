@@ -1,6 +1,6 @@
 - hosts: all
   vars_files:
-    - "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/../../tests/rhsm.yml"
+    - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../../../../tests/rhsm.yml"
   roles:
     - role: oasis_roles.system.rhsm
       when: ansible_distribution == 'RedHat'
