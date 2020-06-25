@@ -9,6 +9,7 @@
       {{ (item | oasis_roles.system.system_repositories_exclude_join)
       | default(omit) }}
     failovermethod: "{{ item.failovermethod | default(omit) }}"
+    file: "{{ item.file | default(omit) }}"
     gpgcakey: "{{ item.gpgcakey | default(omit) }}"
     gpgcheck: "{{ item.gpgcheck | default(omit) }}"
     gpgkey: "{{ item.gpgkey | default(omit) }}"
