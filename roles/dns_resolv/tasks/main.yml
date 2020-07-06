@@ -1,0 +1,13 @@
+- name: Generate nameserver templates
+  set_fact:
+    _dns_resolv_block: |-
+      {% for server in dns_resolv_servers %}
+      nameserver {{ server }}
+      {% endfor %}
+
+- name: Set nameserver values
+  become: "{{ dns_resolv_become }}"
+  become_user: "{{ dns_resolv_become_user }}"
+  blockinfile:
+    block: "{{ _dns_resolv_block }}"
+    path: "{{ dns_resolv_config_file }}"

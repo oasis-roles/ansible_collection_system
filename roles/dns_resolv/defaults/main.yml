@@ -1,0 +1,6 @@
+dns_resolv_servers:
+  - "208.67.222.222"
+  - "1.1.1.1"
+  - "8.8.8.8"
+dns_resolv_become: true
+dns_resolv_become_user: root
