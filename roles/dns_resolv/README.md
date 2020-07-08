@@ -1,7 +1,7 @@
 dns_resolv
 ===========
 
-Sets the default DNS resolve servers for the system
+Adds nameservers to a system's resolv.conf file
 
 Requirements
 ------------
