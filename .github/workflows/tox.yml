@@ -57,7 +57,7 @@ jobs:
         with:
           submodules: 'recursive'
           path: ${{ env.checkout_path }}
-      - name: update submodules to latest
+      - name: Update submodules to latest
         run: |
           cd "${{ env.checkout_path }}"
           git submodule update --remote --recursive
@@ -73,7 +73,10 @@ jobs:
       - name: Install dependencies
         run: |
           set -ex
+          sudo apt-get update
+          sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools
           python -m pip install --upgrade pip
+          pip install -U setuptools wheel
           pip install tox tox-ansible
       - name: Run tox against ${{ matrix.scenario }}
         run: |
@@ -110,5 +113,5 @@ jobs:
         with:
           artifacts: ./oasis_roles-system*.tar.gz
           allowUpdates: true
-          name: Rlease ${{ github.ref }}
+          name: Release ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
