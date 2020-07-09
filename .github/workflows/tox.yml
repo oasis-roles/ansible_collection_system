@@ -12,32 +12,46 @@ env:
   checkout_path: ansible_collections/oasis_roles/system
 
 jobs:
+  collect:
+    runs-on: ubuntu-latest
+    outputs:
+      scenarios: ${{ steps.collection.outputs.scenarios }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+      - name: Setup pip cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: pip-modules
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          set -ex
+          python -m pip install --upgrade pip
+          pip install tox tox-ansible
+      - name: collect depenencies
+        id: collection
+        run: |
+          set -ex
+          json="["
+          for x in $(tox -l --ansible-driver docker); do
+            json="${json}\"${x}\","
+          done
+          json="${json%,}]"
+          echo "::set-output name=scenarios::${json}"
+
   build:
+    needs: collect
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        role:
-          - cockpit
-          - chrony
-          - disk_wipe
-          - firewalld
-          - libvirtd
-          - localectl
-          - molecule_docker_ci
-          - network_scripts
-          - nfs_server
-          - nmcli_add_addrs
-          - package_updater
-          - passwd
-          - passwordless_ssh
-          - register_idm
-          - sshd
-          - system_repositories
-          - timezone
-          - users_and_groups
-          - update_ca_trust
-          - upload_files
+        scenario: ${{ fromJson(needs.collect.outputs.scenarios) }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -59,12 +73,9 @@ jobs:
       - name: Install dependencies
         run: |
           set -ex
-          sudo apt-get update
-          sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools
           python -m pip install --upgrade pip
-          pip install -U setuptools wheel
           pip install tox tox-ansible
-      - name: Test with tox
+      - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
           # There is some magic in the "mv" command that makes ansible-galaxy work
@@ -72,7 +83,7 @@ jobs:
           # the dependency step in molecule when run from tox will fail
           mv ansible_collections ~/work/
           cd ~/work/${{ env.checkout_path }}
-          tox --ansible-role ${{ matrix.role }}
+          tox -e ${{ matrix.scenario }}
 
   release:
     needs: build  # Only release if the build is good
