@@ -1,0 +1,10 @@
+driver:
+  name: openstack
+platforms:
+  - name: dns_resolv_fedora
+    image: Fedora-Cloud-Base-32
+provisioner:
+  inventory:
+    group_vars:
+      all:
+        molecule_openstack_ci_ssh_user: fedora
