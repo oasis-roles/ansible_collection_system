@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-docker
+  - name: docker_rhel
 provisioner:
   playbooks:
     prepare: ../shared/prepare.yml
