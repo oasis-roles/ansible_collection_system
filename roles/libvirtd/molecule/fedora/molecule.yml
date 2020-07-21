@@ -1,10 +1,10 @@
 driver:
   name: openstack
 platforms:
-  - name: test-libvirtd-fedora
-    image: "Fedora 31"
+  - name: libvirtd_fedora
+    image: Fedora-Cloud-Base-32
 provisioner:
   inventory:
     host_vars:
-      test-libvirtd-fedora:
+      libvirtd_fedora:
         ansible_user: fedora

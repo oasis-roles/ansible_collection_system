@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: test-libvirtd-ubuntu
+  - name: libvirtd_ubuntu
     image: ubuntu:latest
     command: sleep infinity
 provisioner:
