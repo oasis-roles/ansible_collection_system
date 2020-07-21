@@ -19,7 +19,7 @@
       # - no trailing newline, so the entire connection name should be
       #   the entire stdout property of the registered result.
       shell: >
-        set -o pipefail
+        set -o pipefail;
         nmcli device show "{{ nmcli_add_addrs_interface }}" |
         awk '/GENERAL.CONNECTION/ { printf $2;
          for (i=3; i <= NF; i++) printf FS$i }'
