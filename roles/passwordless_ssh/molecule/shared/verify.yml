@@ -1,0 +1,15 @@
+- name: test host 0 connecting to host 1 without password
+  hosts: all[0]
+  tasks:
+    - name: try to ssh
+      command: >-
+        ssh {{ hostvars[groups['all'][1]]['ansible_host'] |
+        default(hostvars[groups['all'][1]]['ansible_fqdn']) }} ls -a /
+      become: true
+      become_user: derp
+      when: ansible_connection != 'docker'
+      changed_when: false
+      register: ssh_output
+
+    - debug:
+        var: ssh_output.stdout
