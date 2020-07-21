@@ -87,8 +87,3 @@
       with_items:
         - ../shared/gdeploy.conf
         - ../shared/tests/test_basic_mount.py
-
-- hosts: all
-  gather_facts: false
-  roles:
-    - role: oasis_roles.system.reboot
