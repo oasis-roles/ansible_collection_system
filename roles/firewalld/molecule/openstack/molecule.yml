@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-firewalld
+  - name: firewalld_openstack
 provisioner:
   playbooks:
     prepare: prepare.yml
