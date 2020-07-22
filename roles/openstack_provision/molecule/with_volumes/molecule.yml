@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: fed_test1
+  - name: fed_test_with_volumes
 provisioner:
   playbooks:
     openstack:
@@ -21,9 +21,9 @@ provisioner:
           - display_name: openstack_provision2
             size: 5
         openstack_provision_servers:
-          - name: fed_test
+          - name: fed_test_with_volumes
             flavor: ci.m1.tiny
-            image: 'Fedora 29'
+            image: Fedora-Cloud-Base-32
             cloud: default
             key_name: openstack_provision
             groups:

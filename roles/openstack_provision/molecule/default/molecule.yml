@@ -16,12 +16,12 @@ provisioner:
     host_vars:
       localhost:
         openstack_provision_servers:
-          - name: test_server
+          - name: openstack_provision_default_centos
             flavor: ci.m1.tiny
             image: 'CentOS-7-x86_64-GenericCloud-released-latest'
             count: 2
             groups:
               - test_group
-          - name: fed_test
+          - name: openstack_provision_default_fedora
             flavor: ci.m1.tiny
             image: Fedora-Cloud-Base-32
