@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: molecule_docker_ci
+  - name: molecule_docker_ci_default
     image: centos:7
 provisioner:
   name: ansible
