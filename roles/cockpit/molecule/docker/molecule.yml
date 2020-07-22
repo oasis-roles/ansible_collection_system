@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: cockpit
+  - name: cockpit_docker
     image: centos/systemd
     privileged: true
     command: /usr/lib/systemd/systemd --system

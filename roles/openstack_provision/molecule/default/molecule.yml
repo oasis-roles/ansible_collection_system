@@ -1,8 +1,8 @@
 driver:
   name: openstack
 platforms:
-  - name: test_server1
-  - name: fed_test1
+  - name: openstack_provision_default_centos
+  - name: openstack_provision_default_fedora
 provisioner:
   playbooks:
     converge: ../shared/playbook.yml
@@ -16,12 +16,12 @@ provisioner:
     host_vars:
       localhost:
         openstack_provision_servers:
-          - name: test_server
+          - name: openstack_provision_default_centos
             flavor: ci.m1.tiny
             image: 'CentOS-7-x86_64-GenericCloud-released-latest'
             count: 2
             groups:
               - test_group
-          - name: fed_test
+          - name: openstack_provision_default_fedora
             flavor: ci.m1.tiny
-            image: 'Fedora 29'
+            image: Fedora-Cloud-Base-32

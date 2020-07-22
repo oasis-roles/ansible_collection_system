@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: passwd
+  - name: passwd_docker
     image: centos:7

@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: instance_fedora
+  - name: instance_docker_fedora
     image: fedora:latest
 provisioner:
   playbooks:

@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: instance_docker
     image: centos:7

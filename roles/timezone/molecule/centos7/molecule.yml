@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: timezone-c7
+  - name: timezone_centos7
     image: greghellings/centos-systemd:7
     privileged: true
     volumes:

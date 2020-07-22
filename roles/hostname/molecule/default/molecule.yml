@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-hostname
+  - name: hostname_default
 provisioner:
   playbooks:
     converge: playbook.yml

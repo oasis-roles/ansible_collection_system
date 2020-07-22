@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: test-sshd
+  - name: sshd_openstack

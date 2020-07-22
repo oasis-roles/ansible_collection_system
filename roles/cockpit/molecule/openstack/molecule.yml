@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: test-cockpit
+  - name: cockpit_openstack

@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-molecule_openstack_ci
+  - name: molecule_openstack_ci_default
 provisioner:
   playbooks:
     create: create.yml

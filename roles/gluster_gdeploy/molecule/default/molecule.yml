@@ -10,11 +10,11 @@ volumes:
   - name: gluster_gdeploy_vol3.1
     size: 10
 platforms:
-  - name: test-gluster_gdeploy0
+  - name: gluster_gdeploy_default0
     volumes:
       - gluster_gdeploy_vol0.1
       - gluster_gdeploy_vol1.1
-  - name: test-gluster_gdeploy1
+  - name: gluster_gdeploy_default1
     volumes:
       - gluster_gdeploy_vol2.1
       - gluster_gdeploy_vol3.1

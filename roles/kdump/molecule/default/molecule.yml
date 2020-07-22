@@ -1,5 +1,5 @@
 driver:
   name: openstack
 platforms:
-  - name: test-kdump
+  - name: kdump_default
     flavor: ci.m1.small

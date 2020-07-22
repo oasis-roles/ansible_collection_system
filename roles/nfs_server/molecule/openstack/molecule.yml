@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-nfs_server
+  - name: nfs_server_openstack
 provisioner:
   playbooks:
     prepare: prepare.yml

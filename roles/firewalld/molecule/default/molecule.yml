@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: firewalld_default
     image: centos/systemd
     command: /usr/lib/systemd/systemd --system
     privileged: true

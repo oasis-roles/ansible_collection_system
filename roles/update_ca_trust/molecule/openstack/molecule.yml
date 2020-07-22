@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: test-update_ca_trust
+  - name: update_ca_trust_openstack

@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: test-nmcli_connections
+  - name: nmcli_connections_default
     nics:
       - net-name: provider_net_cci_4
       - net-name: provider_net_cci_9

@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: test-libvirtd-rhel
+  - name: libvirtd_rhel
