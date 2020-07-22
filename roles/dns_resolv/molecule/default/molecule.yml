@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: dns_resolv
+  - name: dns_resolv_default

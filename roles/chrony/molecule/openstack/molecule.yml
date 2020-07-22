@@ -1,4 +1,4 @@
 driver:
   name: openstack
 platforms:
-  - name: test-chrony
+  - name: chrony_openstack

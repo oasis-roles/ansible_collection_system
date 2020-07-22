@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: timezone-c8
+  - name: timezone_centos8
     image: greghellings/centos-systemd:8
     privileged: true
     volumes:

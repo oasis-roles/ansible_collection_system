@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: timezone-fedora
+  - name: timezone_fedora
     image: fedora:latest
     privileged: true
     volumes:

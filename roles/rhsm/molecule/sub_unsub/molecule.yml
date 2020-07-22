@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: rhsm-sub-unsub
+  - name: rhsm_sub_unsub
     groups:
       - rhsm
 provisioner:

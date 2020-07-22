@@ -1,5 +1,5 @@
 driver:
   name: openstack
 platforms:
-  - name: test-libvirt
+  - name: libvirt_rhel_vm_default
     flavor: ci.m1.large

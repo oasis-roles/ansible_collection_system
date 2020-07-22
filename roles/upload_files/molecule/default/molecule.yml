@@ -1,7 +1,7 @@
 driver:
   name: docker
 platforms:
-  - name: upload_files
+  - name: upload_files_default
     image: centos:7
 provisioner:
   playbooks:

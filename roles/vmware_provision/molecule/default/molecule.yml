@@ -1,7 +1,7 @@
 driver:
   name: delegated
 platforms:
-  - name: test-vmware_provision
+  - name: vmware_provision_default
 provisioner:
   playbooks:
     converge: ./playbook.yml

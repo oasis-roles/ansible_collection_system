@@ -1,5 +1,5 @@
 driver:
   name: openstack
 platforms:
-  - name: disk_wipe
+  - name: disk_wipe_openstack
     flavor: ci.m1.small.ephemeral

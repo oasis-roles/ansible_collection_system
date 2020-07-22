@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: rhsm-basic-subscription
+  - name: rhsm_basic_subscription
     groups:
       - rhsm
 provisioner:

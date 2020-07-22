@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: disk_wipe
+  - name: disk_wipe_docker
     image: centos:7

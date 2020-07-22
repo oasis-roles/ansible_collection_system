@@ -1,7 +1,7 @@
 driver:
   name: openstack
 platforms:
-  - name: rhsm-release-set-unset
+  - name: rhsm_release_set_unset
     groups:
       - rhsm
 provisioner:

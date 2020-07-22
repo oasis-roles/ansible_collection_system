@@ -1,5 +1,5 @@
 driver:
   name: docker
 platforms:
-  - name: register_idm
+  - name: register_idm_docker
     image: centos:7
