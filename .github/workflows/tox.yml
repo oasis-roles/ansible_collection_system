@@ -74,7 +74,7 @@ jobs:
         run: |
           set -ex
           sudo apt-get update
-          sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools
+          sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools python3-apt
           python -m pip install --upgrade pip
           pip install -U setuptools wheel
           pip install tox tox-ansible
