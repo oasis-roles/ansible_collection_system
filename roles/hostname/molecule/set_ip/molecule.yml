@@ -1,0 +1,9 @@
+driver:
+  name: openstack
+platforms:
+  - name: hostname_default
+provisioner:
+  inventory:
+    group_vars:
+      all:
+        hostname_inject_hosts_ip_address: "1.2.3.4"
