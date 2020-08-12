@@ -2,6 +2,3 @@ driver:
   name: openstack
 platforms:
   - name: hostname_default
-provisioner:
-  playbooks:
-    converge: playbook.yml
