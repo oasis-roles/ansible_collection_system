@@ -5,6 +5,7 @@
     dest: "{{ jbosseap_cli_batch_dir }}/{{ _filename }}.cli"
     owner: "{{ jbosseap_jboss_user }}"
     group: "{{ jbosseap_jboss_group }}"
+    mode: 0644
   register: cli_file_upload_result
   tags:
     - cli

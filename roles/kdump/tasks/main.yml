@@ -10,6 +10,7 @@
   template:
     src: kdump.conf
     dest: "{{ kdump_conf_path }}"
+    mode: 0644
   become: true
   become_user: "{{ kdump_become_user }}"
   notify:

@@ -11,6 +11,7 @@
       lineinfile:
         dest: "{{ sshd_config_file }}"
         state: present
+        mode: 0600
         regexp: '^PasswordAuthentication'
         line: >-
           PasswordAuthentication
@@ -22,6 +23,7 @@
       lineinfile:
         dest: "{{ sshd_config_file }}"
         state: present
+        mode: 0600
         regexp: '^PermitRootLogin'
         line: >-
           PermitRootLogin

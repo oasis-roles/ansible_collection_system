@@ -9,6 +9,7 @@
     template:
       src: chrony.conf
       dest: /etc/chrony.conf
+      mode: 0644
     notify:
       - Restart chrony service
 

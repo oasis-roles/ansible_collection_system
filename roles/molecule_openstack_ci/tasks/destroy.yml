@@ -28,6 +28,7 @@
   copy:
     content: {}
     dest: "{{ molecule_instance_config }}"
+    mode: 0644
   when: server.changed | bool  # noqa 503 - don't make this a handler
 
 - name: Delete remote keypair

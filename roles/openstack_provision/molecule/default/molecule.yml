@@ -6,8 +6,9 @@ platforms:
 provisioner:
   playbooks:
     converge: ../shared/playbook.yml
-    create: ../shared/create.yml
-    destroy: ../shared/destroy.yml
+    openstack:
+      create: ../shared/create.yml
+      destroy: ../shared/destroy.yml
   inventory:
     group_vars:
       all:

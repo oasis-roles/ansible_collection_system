@@ -13,6 +13,7 @@
 - name: Create Dockerfiles from image names
   template:
     src: Dockerfile.j2
+    mode: 0644
     dest: >
       {{ molecule_ephemeral_directory }}/Dockerfile_{{ item.image
       | regex_replace('[^a-zA-Z0-9_]', '_') }}
