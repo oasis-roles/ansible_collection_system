@@ -64,6 +64,9 @@ PEERDNS={{ item['PEERDNS']|string }}
 {% if 'PREFIX' in item %}
 PREFIX={{ item['PREFIX']|string }}
 {% endif %}
+{% if 'SEARCH' in item %}
+SEARCH={{ item['SEARCH']|string }}
+{% endif %}
 {% if 'SLAVE' in item %}
 SLAVE={{ item['SLAVE']|string }}
 {% endif %}
