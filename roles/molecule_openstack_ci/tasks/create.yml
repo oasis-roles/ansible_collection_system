@@ -127,8 +127,9 @@
       copy:
         # NOTE(retr0h): Workaround for Ansible 2.2.
         #               https://github.com/ansible/ansible/issues/20885
-        content: "{{ instance_conf | to_json | from_json | molecule_to_yaml \
-                  | molecule_header }}"
+        content: |
+          {{ "This file managed by Molecule" | comment }}
+          {{ instance_conf | to_json | from_json | to_yaml}}
         dest: "{{ molecule_instance_config }}"
   when: server.changed | bool
 
@@ -138,5 +139,4 @@
     host: "{{ item.address }}"
     search_regex: SSH
     delay: 10
-  with_items: "{{ lookup('file', molecule_instance_config) \
-               | molecule_from_yaml }}"
+  with_items: "{{ lookup('file', molecule_instance_config) | from_yaml }}"
