@@ -27,6 +27,7 @@
         dest: "{{ jbosseap_jboss_config_dir }}/\
                {{ jbosseap_jboss_server_config }}.xml"
         remote_src: true
+        mode: 0644
   when: jbosseap_clean_config
 
 - name: copy EAP configuration
@@ -53,6 +54,7 @@
     state: directory
     owner: "{{ jbosseap_jboss_user }}"
     group: "{{ jbosseap_jboss_group }}"
+    mode: 0755
   tags: cli
 
 - include_tasks: cli_file.yml

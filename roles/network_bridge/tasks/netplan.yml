@@ -19,4 +19,3 @@
     - key: bridges.{{ bridge.key }}.nameservers.addresses
       value: "{{ bridge.value.dns }}"
       when: "'dns' in bridge.value"
-  #notify: reload netplan
