@@ -5,6 +5,7 @@
     dest: "{{ jbosseap_cli_batch_dir }}/{{ _filename }}.cli"
     owner: "{{ jbosseap_jboss_user }}"
     group: "{{ jbosseap_jboss_group }}"
+    mode: 0700
   register: cli_file_upload_result
   tags:
     - cli
@@ -15,7 +16,7 @@
   command: >-
     {{ jbosseap_jboss_home }}/bin/jboss-cli.sh --connect
     --file={{ jbosseap_cli_batch_dir }}/{{ _filename }}.cli
-  when: cli_file_upload_result.changed  # noqa 503
+  when: cli_file_upload_result is changed  # noqa 503
   retries: 3
   register: cli_file_run
   until: cli_file_run is success
