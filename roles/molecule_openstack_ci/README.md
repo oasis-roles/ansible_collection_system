@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/molecule_openstack_ci.svg?branch=master)](https://travis-ci.org/oasis-roles/molecule_openstack_ci)
-
 molecule_openstack_ci
 ===========
 

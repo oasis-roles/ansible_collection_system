@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/oasis-roles/timezone.svg?branch=master)](https://travis-ci.com/oasis-roles/timezone)
-
 timezone
 ===========
 

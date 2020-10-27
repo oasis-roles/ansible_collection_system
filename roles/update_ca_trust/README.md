@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/update_ca_trust.svg?branch=master)](https://travis-ci.org/oasis-roles/update_ca_trust)
-
 update_ca_trust
 ===========
 

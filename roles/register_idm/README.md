@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/oasis-roles/register_idm.svg?branch=master)](https://travis-ci.com/oasis-roles/register_idm)
-
 register\_idm
 ===========
 

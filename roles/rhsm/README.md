@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/rhsm.svg?branch=master)](https://travis-ci.org/oasis-roles/rhsm)
-
 RHSM
 =====
 

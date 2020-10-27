@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/passwd.svg?branch=master)](https://travis-ci.org/oasis-roles/passwd)
-
 PASSWD
 ===========
 

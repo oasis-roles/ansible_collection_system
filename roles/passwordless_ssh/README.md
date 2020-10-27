@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/passwordless_ssh.svg?branch=master)](https://travis-ci.org/oasis-roles/passwordless_ssh)
-
 Passwordless SSH
 ===========
 

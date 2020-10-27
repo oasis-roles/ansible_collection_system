@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/oasis-roles/vmware_provision.svg?branch=master)](https://travis-ci.com/oasis-roles/vmware_provision)
-
 vmware_provision
 ===========
 

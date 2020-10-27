@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/package_updater.svg?branch=master)](https://travis-ci.org/oasis-roles/package_updater)
-
 package_updater
 ===========
 

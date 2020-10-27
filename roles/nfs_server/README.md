@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/nfs_server.svg?branch=master)](https://travis-ci.org/oasis-roles/nfs_server)
-
 nfs_server
 ===========
 

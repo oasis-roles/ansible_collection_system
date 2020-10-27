@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/oasis-roles/users_and_groups.svg?branch=master)](https://travis-ci.com/oasis-roles/users_and_groups)
-
 users_and_groups
 ===========
 

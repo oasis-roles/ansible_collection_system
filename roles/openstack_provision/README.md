@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/openstack_provision.svg?branch=master)](https://travis-ci.org/oasis-roles/openstack_provision)
-
 OPENSTACK PROVISION
 ===========
 

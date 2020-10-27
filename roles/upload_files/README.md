@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/upload_files.svg?branch=master)](https://travis-ci.org/oasis-roles/upload_files)
-
 UPLOAD FILES
 ===========
 
