@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/disk_wipe.svg?branch=master)](https://travis-ci.org/oasis-roles/disk_wipe)
-
 disk_wipe
 ===========
 

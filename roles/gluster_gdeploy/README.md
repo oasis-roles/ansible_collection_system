@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.com/oasis-roles/gluster_gdeploy.svg?branch=master)](https://travis-ci.com/oasis-roles/gluster_gdeploy)
-
 Gluster Gdeploy
 ===========
 

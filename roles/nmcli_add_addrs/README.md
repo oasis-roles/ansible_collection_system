@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/oasis-roles/nmcli_add_addrs.svg?branch=master)](https://travis-ci.org/oasis-roles/nmcli_add_addrs)
-
 # nmcli_add_addrs
 
 Add IP addresses to a NetworkManager connection using the `nmcli` tool.
