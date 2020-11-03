@@ -21,3 +21,7 @@
     consumer_id: "{{ rhsm_consumer_id }}"
     force_register: "{{ rhsm_force_register }}"
     syspurpose: "{{ rhsm_syspurpose }}"
+  register: subscribed
+  retries: "{{ rhsm_register_retries }}"
+  delay: "{{ rhsm_register_delay }}"
+  until: subscribed is success

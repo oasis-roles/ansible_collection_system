@@ -85,3 +85,9 @@ rhsm_release: null
 # all other repositories will be disabled. The "only" state is mutally
 # exclusive to the enabled/disabled states.
 rhsm_repositories: {}
+
+# The amount of times to retry the task if it fails.
+rhsm_register_retries: 5
+
+# The amount of time between retries of the failing register task.
+rhsm_register_delay: 10
