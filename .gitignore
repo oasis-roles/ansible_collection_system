@@ -10,5 +10,6 @@ __pycache__
 .tox
 junit.xml
 
-# Ansible Tower license file
+# Ansible Tower license files
 roles/ansible_tower/molecule/default/license.json
+roles/ansible_tower/molecule/default/license_manifest.zip

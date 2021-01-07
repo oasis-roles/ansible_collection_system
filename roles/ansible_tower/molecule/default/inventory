@@ -1,4 +1,4 @@
-# https://docs.ansible.com/ansible-tower/latest/html/quickinstall/install_script.html
+# https://docs.ansible.com/ansible-tower/latest/html/quickinstall/install_script.html#example-single-node-inventory-file
 
 [tower]
 localhost ansible_connection=local
