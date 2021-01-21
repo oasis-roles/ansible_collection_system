@@ -56,9 +56,9 @@
             -i {{ __ansible_tower_installer_root }}/inventory
             {{ __ansible_tower_installer_root }}/install.yml
             {% if ansible_tower_extra_vars is defined %}
-            -e {% raw %}"{% endraw %}{% for key, value in ansible_tower_extra_vars.items() %}
+            -e "{% for key, value in ansible_tower_extra_vars.items() %}
             {{ key }}={{ value }}
-            {% endfor %}{% raw %}"{% endraw %}
+            {% endfor %}"
             {% endif %}
           register: __ansible_tower_install_output
           no_log: "{{ ansible_tower_no_log }}"
