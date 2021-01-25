@@ -1,0 +1,76 @@
+- name: Verify required variables are set
+  assert:
+    that: "ansible_tower_inventory_file or ansible_tower_extra_vars is defined"
+    msg: >
+      An inventory file or required extra vars must be provided, minimally
+      for setting the admin username/password, and Postgres password.
+      See Ansible documention for configuration details.
+      https://docs.ansible.com/ansible-tower/latest/html/quickinstall/install_script.html
+  no_log: "{{ ansible_tower_no_log }}"
+
+- name: Install Ansible
+  package:
+    name: ansible
+    state: present
+  become: "{{ ansible_tower_become }}"
+  become_user: "{{ ansible_tower_become_user }}"
+
+- name: Gather the package facts
+  package_facts:
+    manager: auto
+
+- name: Install Ansible Tower
+  block:
+    - name: Create temp dir for install package
+      tempfile:
+        state: directory
+        suffix: ansible-tower-setup
+      register: __ansible_tower_temp_dir
+
+    - name: Unpack Ansible Tower setup
+      unarchive:
+        src: "{{ ansible_tower_install_package }}"
+        dest: "{{ __ansible_tower_temp_dir.path }}"
+        remote_src: true
+        list_files: true
+        mode: 0600
+      register: __ansible_tower_setup_dir
+
+    - name: Set path to installer root
+      set_fact:
+        __ansible_tower_installer_root:
+          "{{ __ansible_tower_temp_dir.path }}/{{ __ansible_tower_setup_dir.files[0] }}"
+
+    - name: Copy inventory file if specified
+      copy:
+        src: "{{ ansible_tower_inventory_file }}"
+        dest: "{{ __ansible_tower_installer_root }}/inventory"
+        mode: '0600'
+      when: ansible_tower_inventory_file is defined
+
+    - name: Install Ansible Tower and provide output
+      block:
+        - name: Install Ansible Tower
+          command: >
+            ansible-playbook
+            -i {{ __ansible_tower_installer_root }}/inventory
+            {{ __ansible_tower_installer_root }}/install.yml
+            {% if ansible_tower_extra_vars is defined %}
+            -e "{% for key, value in ansible_tower_extra_vars.items() %}
+            {{ key }}={{ value }}
+            {% endfor %}"
+            {% endif %}
+          register: __ansible_tower_install_output
+          no_log: "{{ ansible_tower_no_log }}"
+      always:
+        - name: Remove temp dir for install package
+          file:
+            path: "{{ __ansible_tower_temp_dir.path }}"
+            state: absent
+
+        - name: Show Ansible Tower installation output
+          debug:
+            msg: "{{ __ansible_tower_install_output }}"
+  when: "'ansible-tower' not in ansible_facts.packages"
+  become: "{{ ansible_tower_become }}"
+  become_user: "{{ ansible_tower_become_user }}"

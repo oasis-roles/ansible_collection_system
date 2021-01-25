@@ -1,0 +1,5 @@
+# yamllint disable-line rule:line-length
+ansible_tower_install_package: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-latest.el8.tar.gz
+ansible_tower_no_log: true
+ansible_tower_become: true
+ansible_tower_become_user: root

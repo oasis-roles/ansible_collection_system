@@ -1,0 +1,16 @@
+# https://docs.ansible.com/ansible-tower/latest/html/quickinstall/install_script.html#example-single-node-inventory-file
+
+[tower]
+localhost ansible_connection=local
+
+[database]
+
+[all:vars]
+admin_password='notsecure'
+
+pg_host=''
+pg_port=''
+
+pg_database='awx'
+pg_username='awx'
+pg_password='notsecure'

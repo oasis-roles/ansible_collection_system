@@ -1,2 +1,3 @@
 roles: []
-collections: []
+collections:
+  - redhat_cop.tower_configuration

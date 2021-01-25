@@ -1,0 +1,11 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: ansible_tower
+  vars:
+    ansible_tower_no_log: false
+    ansible_tower_inventory_file: ../default/inventory
+    ansible_tower_extra_vars:
+      admin_username: admin
+      admin_password: notsecure
+      pg_password: notsecure

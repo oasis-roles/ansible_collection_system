@@ -1,0 +1,16 @@
+galaxy_info:
+  author: David Roble
+  description: |-
+    Deploy Ansible Tower
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 8
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

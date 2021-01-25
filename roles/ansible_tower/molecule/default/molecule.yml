@@ -1,0 +1,9 @@
+driver:
+  name: openstack
+platforms:
+  - name: test-ansible_tower
+    flavor: ci.m1.medium
+    image: RHEL-8.2.1-x86_64-production-latest
+dependency:
+  collections:
+    - awx.awx
