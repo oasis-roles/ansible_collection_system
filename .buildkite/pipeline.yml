@@ -1,3 +1,3 @@
 steps:
   - label: "verify"
-    command: verify.sh
+    command: .buildkite/verify.sh
