@@ -1,0 +1,3 @@
+steps:
+  - label: "verify"
+    command: tox --ansible-driver openstack -l
