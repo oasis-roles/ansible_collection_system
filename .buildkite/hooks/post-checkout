@@ -10,4 +10,4 @@ mkdir -p ansible_collections/oasis_roles/
 
 cd ansible_collections/oasis_roles/
 
-ln $BUILD_DIR system
+ln -s $BUILD_DIR system
