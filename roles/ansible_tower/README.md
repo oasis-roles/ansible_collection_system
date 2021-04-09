@@ -75,7 +75,7 @@ run a playbook from Git SCM:
 ```yaml
 - hosts: ansible_tower-servers
   roles:
-    - role: ansible_tower
+    - role: oasis_roles.system.ansible_tower
   vars:
     ansible_tower_no_log: false
     ansible_tower_inventory_file: /path/to/inventory
