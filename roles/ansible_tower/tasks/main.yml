@@ -1,6 +1,6 @@
 - name: Verify required variables are set
   assert:
-    that: "ansible_tower_inventory_file or ansible_tower_extra_vars is defined"
+    that: "ansible_tower_inventory_file is defined or ansible_tower_extra_vars is defined"
     msg: >
       An inventory file or required extra vars must be provided, minimally
       for setting the admin username/password, and Postgres password.
