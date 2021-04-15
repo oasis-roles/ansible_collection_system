@@ -1,0 +1,10 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: chrony-vagrant
+    box: generic/rhel8
+    config_options:
+      synced_folder: false
+      cachier: false
