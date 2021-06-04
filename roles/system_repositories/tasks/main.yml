@@ -27,7 +27,7 @@
     group: "{{ system_repositories_group }}"
     mode: "{{ system_repositories_mode }}"
     reposdir: "{{ system_repositories_destination_folder }}"
-  with_items: "{{ system_repositories_configs }}"
+  loop: "{{ system_repositories_configs }}"
 
 - name: download repo files
   become: "{{ system_repositories_become }}"
@@ -38,7 +38,7 @@
     owner: "{{ system_repositories_owner }}"
     group: "{{ system_repositories_group }}"
     mode: "{{ system_repositories_mode }}"
-  with_items: "{{ system_repositories_repo_files }}"
+  loop: "{{ system_repositories_repo_files }}"
   register: get_repo_file
   until: get_repo_file is success
   retries: 3
@@ -49,7 +49,7 @@
     key: "{{ item }}"
     state: present
     validate_certs: "{{ system_repositories_validate_certs }}"
-  with_items: "{{ system_repositories_rpm_keys }}"
+  loop: "{{ system_repositories_rpm_keys }}"
   register: install_rpm_key
   until: install_rpm_key is success
   retries: 3
