@@ -6,3 +6,14 @@ platforms:
 provisioner:
   playbooks:
     converge: playbook.yml
+  inventory:
+    host_vars:
+      instance_docker_fedora:
+        system_repositories_configs:
+          - name: fedora-debuginfo-test
+            metalink: https://mirrors.fedoraproject.org/metalink?repo=fedora-debug-$$releasever&arch=$$basearch
+            gpgcheck: true
+            enabled: true
+            description: fedora-debuginfo-test
+            gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$$releasever-$$basearch
+        system_repositories_rpm_keys: []
