@@ -1,4 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: update_ca_trust_openstack

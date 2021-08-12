@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: update_ca_trust_ubuntu
+    image: ubuntu:latest

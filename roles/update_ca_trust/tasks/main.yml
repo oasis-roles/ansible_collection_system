@@ -1,8 +1,20 @@
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - default.yml
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
 - block:
   - name: install certs from URLs
     get_url:
       url: "{{ item }}"
-      dest: /etc/pki/ca-trust/source/anchors/
+      dest: "{{ update_ca_trust_anchors }}"
       owner: root
       group: root
       mode: 0644
@@ -13,7 +25,7 @@
   - name: install certs from files
     copy:
       src: "{{ item }}"
-      dest: /etc/pki/ca-trust/source/anchors/
+      dest: "{{ update_ca_trust_anchors }}"
       owner: root
       group: root
       mode: 0644
