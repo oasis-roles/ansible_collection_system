@@ -1,0 +1,31 @@
+# role tasks
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- become: "{{ rp_filter_become }}"
+  become_user: "{{ rp_filter_become_user }}"
+  block:
+    - name: Set active rp_filter value
+      ansible.posix.sysctl:
+        name: net.ipv4.conf.all.rp_filter
+        value: "{{ rp_filter_value }}"
+        state: present
+
+    - name: Set rp_filter value to persist in rp_filter.conf
+      blockinfile:
+        path: /etc/sysctl.d/20-rp_filter.conf
+        create: true
+        mode: 0644
+        owner: root
+        group: root
+        block: |
+          net.ipv4.conf.default.rp_filter = {{ rp_filter_value }}
+          net.ipv4.conf.*.rp_filter = {{ rp_filter_value }}
