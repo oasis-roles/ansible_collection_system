@@ -1,0 +1,5 @@
+set_mtu_become: true
+set_mtu_become_user: root
+set_mtu_value: 1400
+set_mtu_interface: eth0
+set_mtu_type: generic

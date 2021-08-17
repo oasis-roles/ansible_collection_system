@@ -1,0 +1,27 @@
+# role tasks
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- become: "{{ set_mtu_become }}"
+  become_user: "{{ set_mtu_become_user }}"
+  block:
+    - name: Install NetworkManager package
+      package:
+        state: present
+        name: NetworkManager
+
+    - name: Set MTU value on specified interface
+      community.general.nmcli:
+        type: "{{ set_mtu_type }}"
+        conn_name: "{{ set_mtu_interface }}"
+        mtu: "{{ set_mtu_value }}"
+        state: present
+      notify: Reload connection

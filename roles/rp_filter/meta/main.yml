@@ -1,0 +1,16 @@
+galaxy_info:
+  author: oasis_roles
+  description: Sets the value of rp_filter to the desired value
+  company: Red Hat, Inc.
+  license: GPLv3
+  min_ansible_version: 2.8
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+
+  galaxy_tags:
+    - oasis
+
+dependencies: []

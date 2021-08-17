@@ -1,0 +1,4 @@
+- name: Reload connection
+  become: "{{ set_mtu_become }}"
+  become_user: "{{ set_mtu_become_user }}"
+  command: nmcli con up "{{ set_mtu_interface }}"
