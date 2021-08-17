@@ -6,3 +6,12 @@
       package:
         name: openssl
         state: present
+
+    - name: upload the source file
+      become: true
+      copy:
+        src: localhost.localdomain.crt
+        dest: /root
+        owner: root
+        group: root
+        mode: 0644

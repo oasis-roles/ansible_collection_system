@@ -1,0 +1,2 @@
+update_ca_trust_anchors: /etc/pki/ca-trust/source/anchors/
+update_ca_trust_command: update-ca-trust extract

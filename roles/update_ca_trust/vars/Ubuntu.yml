@@ -1,0 +1,2 @@
+update_ca_trust_anchors: /usr/local/share/ca-certificates
+update_ca_trust_command: update-ca-certificates
