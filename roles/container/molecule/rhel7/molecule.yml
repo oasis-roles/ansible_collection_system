@@ -1,7 +1,8 @@
 driver:
-  name: openstack
+  name: vagrant
 platforms:
-  - name: docker_rhel
+  - name: container_rhel
+    image: generic/rhel7
 provisioner:
   playbooks:
     prepare: ../shared/prepare.yml

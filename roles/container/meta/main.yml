@@ -1,0 +1,20 @@
+galaxy_info:
+  author: oasis_roles
+  company: Red Hat, Inc.
+  description: >-
+    Installs and enables a container runtime. Also configures users with access
+    to the service, the login user by default. It defaults to supporting
+    Docker and Podman and will attempt to make a reasonable guess at which
+    system you want supported
+  license: GPLv3
+  min_ansible_version: 2.4
+  platforms:
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - all
+
+dependencies: []

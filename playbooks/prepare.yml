@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    - role: rhsm
+      when: "{{ ansible_facts.distribution == 'RedHat' }}"
+  vars_files:
+    - "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}/../../../../tests/rhsm.yml"

@@ -1,0 +1,45 @@
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when:
+    - __rolename_vars_file is file
+    - container_provider is None
+
+- name: verify inputs
+  assert:
+    that: container_provider in ['docker', 'podman']
+    fail_msg: Please specify a valid container provider
+
+- become: "{{ container_become }}"
+  become_user: "{{ container_become_user }}"
+  block:
+    - name: install packages
+      package:
+        name: "{{ container_packages }}"
+        state: present
+
+    - name: add group
+      group:
+        name: "{{ container_group }}"
+        state: present
+      notify: restart service
+
+    - name: add users to group
+      user:
+        name: "{{ item }}"
+        groups: "{{ container_group }}"
+        append: true
+        state: present
+      with_items: "{{ container_access_users }}"
+
+    - name: start and enable service
+      service:
+        name: "{{ container_service_name }}"
+        state: started
+        enabled: true

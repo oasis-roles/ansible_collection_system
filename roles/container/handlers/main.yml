@@ -1,0 +1,6 @@
+- name: restart service
+  become: "{{ container_become }}"
+  become_user: "{{ container_become_user }}"
+  service:
+    name: "{{ container_service_name }}"
+    service: restarted

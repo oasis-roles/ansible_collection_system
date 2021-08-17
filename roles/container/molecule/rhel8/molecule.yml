@@ -1,0 +1,9 @@
+driver:
+  name: vagrant
+platforms:
+  - name: container_rhel
+    image: generic/rhel8
+provisioner:
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml
