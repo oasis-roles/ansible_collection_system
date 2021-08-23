@@ -17,3 +17,5 @@ update_ca_trust_become: true
 
 # The user to sudo/become
 update_ca_trust_become_user: root
+
+update_ca_trust_template: false
