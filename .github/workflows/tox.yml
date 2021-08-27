@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       scenarios: ${{ steps.collection.outputs.tox-envs }}
+      vagrant_scenarios: ${{ steps.vagrant.outputs.tox-envs }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -33,6 +34,42 @@ jobs:
       - name: collect depenencies
         id: collection
         uses: greg-hellings/tox-list@v1
+        with:
+          tox-args: --ansible-driver docker --ansible-driver podman
+      - id: vagrant
+        uses: greg-hellings/tox-list@v1
+        with:
+          tox-args: --ansible-driver vagrant
+      - name: Lint
+        run: tox -e lint_all
+
+  vagrant_build:
+    needs: collect
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: ${{ fromJson(needs.collect.outputs.vagrant_scenarios) }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          path: ${{ env.checkout_path }}
+      - name: Update submodules to latest
+        run: |
+          cd "${{ env.checkout_path }}"
+          git submodule update --remote --recursive
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          python -m pip install -U tox
+      - name: Run tox against ${{ matrix.scenario }}
+        run: |
+          set -ex
+          mv ansible_collections ~/work/
+          cd ~/work/${{ env.checkout_path }}
+          tox -e ${{ matrix.scenario }}
 
   lint:
     runs-on: ubuntu-latest
@@ -92,7 +129,9 @@ jobs:
           tox -e ${{ matrix.scenario }}
 
   release:
-    needs: build  # Only release if the build is good
+    needs:  # Only release if the build is good
+      - build
+      - vagrant_build
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
