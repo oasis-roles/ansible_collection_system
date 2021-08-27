@@ -30,6 +30,12 @@ Currently the following variables are supported:
 * `update_ca_trust_files` -  List of local files on the Ansible control machine
   from which to install certificates
 
+* `update_ca_trust_template` - Default: false. If set to true, then the contents
+  of each certificate are loaded as if they are a Jinja2 template. False, by
+  default, loads the file exactly as it is written. It should be safe to use
+  templating, because most syntaxes - including X509 - do not use Jinja2 strings
+  as part of their format.
+
 * `update_ca_trust_become` - Whether or not to use the `become` feature of
   Ansible to gain admin privileges.  Defaults to `true`.
 
