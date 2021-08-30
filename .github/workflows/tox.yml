@@ -30,13 +30,36 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
-          tox -e lint_all
       - name: collect depenencies
         id: collection
         uses: greg-hellings/tox-list@v1
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+          path: ${{ env.checkout_path }}
+      - name: Update submodules to latest
+        run: |
+          cd "${{ env.checkout_path }}"
+          git submodule update --remote --recursive
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install dependencies
+        run: |
+          set -ex
+          python -m pip install --upgrade tox
+      - name: Run lint
+        run: |
+          cd "${{ env.checkout_path }}"
+          tox -e lint_all
+
   build:
-    needs: collect
+    needs:
+      - collect
+      - lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
