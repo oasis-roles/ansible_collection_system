@@ -1,6 +1,6 @@
 name: Test with Ansible
 
-on:
+"on":
   push: {}
   pull_request: {}
   schedule:
@@ -30,6 +30,7 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
+          tox -e lint_all
       - name: collect depenencies
         id: collection
         uses: greg-hellings/tox-list@v1

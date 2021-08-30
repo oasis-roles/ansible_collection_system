@@ -2,18 +2,18 @@
   import_playbook: ../shared/playbook.yml
 
 - hosts: test_group
+  become: true
   tasks:
     - name: create the mount paths
-      become: true
       file:
         path: /mnt/{{ item }}
         state: directory
+        mode: "0755"
       with_items: &devices
         - vdb
         - vdc
 
     - name: create partition
-      become: true
       parted:
         device: /dev/{{ item }}
         state: present
@@ -21,14 +21,12 @@
       with_items: *devices
 
     - name: create filesystem
-      become: true
       filesystem:
         fstype: ext4
         dev: /dev/{{ item }}1
       with_items: *devices
 
     - name: mount the things
-      become: true
       mount:
         src: /dev/{{ item }}1
         path: /mnt/{{ item }}
