@@ -17,6 +17,7 @@
         remote_src: true
         src: "{{ item.path }}"
         dest: "{{ _network_scripts_temp_dir.path }}"
+        mode: "0644"
       loop: "{{ _network_scripts_find.files }}"
 
     - name: remove found files from source

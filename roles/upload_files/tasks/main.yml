@@ -9,6 +9,7 @@
     - name: create target directories, where not exist
       file:
         path: "{{ item.item.dest | dirname }}"
+        mode: "{{ item.item.mode | default('0755') }}"
         owner: "{{ item.item.owner | default(omit) }}"
         group: "{{ item.item.group | default(omit) }}"
         selevel: "{{ item.item.selevel | default(omit) }}"

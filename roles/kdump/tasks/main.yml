@@ -10,6 +10,9 @@
   template:
     src: kdump.conf
     dest: "{{ kdump_conf_path }}"
+    owner: root
+    group: root
+    mode: "0600"
   become: true
   become_user: "{{ kdump_become_user }}"
   notify:
