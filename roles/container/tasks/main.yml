@@ -11,7 +11,7 @@
     - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}"
     - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}"
   vars:
-    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}.yml"
+    __rolename_vars_file: "{{ role_path }}/vars/distro/{{ item }}.yml"
   when:
     - __rolename_vars_file is file
     - __container_autoload_provider | default(false)
