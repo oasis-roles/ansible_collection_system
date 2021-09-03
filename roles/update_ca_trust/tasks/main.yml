@@ -33,3 +33,6 @@
       notify: update-ca-trust
   become: "{{ update_ca_trust_become }}"
   become_user: "{{ update_ca_trust_become_user }}"
+
+- name: run handlers if necessary
+  meta: flush_handlers
