@@ -1,0 +1,36 @@
+# role tasks
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
+
+- become: "{{ iptables_become }}"
+  become_user: "{{ iptables_become_user }}"
+  block:
+    - name: Install iptables packages
+      package:
+        name: "{{ iptables_packages }}"
+        state: present
+
+    - name: Start/stop iptables services
+      service:
+        name: "{{ item }}"
+        state: "{{ iptables_started | bool | ternary('started', 'stopped') }}"
+        enabled: "{{ iptables_enabled }}"
+      loop: "{{ iptables_services }}"
+
+    - name: Flush rules, if requested
+      iptables:
+        flush: true
+      when: iptables_flush | bool
+
+    - name: Create iptables rules
+      iptables:
+      args: "{{ item }}"
+      loop: "{{ iptables_rules }}"
