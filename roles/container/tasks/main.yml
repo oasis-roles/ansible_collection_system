@@ -1,7 +1,7 @@
 - name: Check for configured version
   set_fact:
     __container_autoload_provider: true
-  when: container_provider | default('', true) == ''
+  when: container_provider | default('', true)
 
 - name: Set platform/version specific variables
   include_vars: "{{ __rolename_vars_file }}"
