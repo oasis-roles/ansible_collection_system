@@ -1,7 +1,6 @@
-- name: Check for configured version
+- name: Check for configured provider, if any
   set_fact:
-    __container_autoload_provider: true
-  when: container_provider | default('', true)
+    __container_autoload_provider: "{{ not (container_provider | default('') | bool) }}"
 
 - name: Set platform/version specific variables
   include_vars: "{{ __rolename_vars_file }}"
@@ -14,7 +13,7 @@
     __rolename_vars_file: "{{ role_path }}/vars/distro/{{ item }}.yml"
   when:
     - __rolename_vars_file is file
-    - __container_autoload_provider | default(false)
+    - __container_autoload_provider
 
 - name: verify inputs
   assert:
