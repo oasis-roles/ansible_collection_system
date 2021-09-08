@@ -1,0 +1,6 @@
+iptables_become: true
+iptables_become_user: root
+iptables_rules: []
+iptables_flush: false
+iptables_started: true
+iptables_enabled: true
