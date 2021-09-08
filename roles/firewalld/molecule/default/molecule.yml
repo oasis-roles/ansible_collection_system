@@ -1,12 +1,7 @@
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
   - name: firewalld_default
-    image: centos/systemd
-    command: /usr/lib/systemd/systemd --system
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-provisioner:
-  playbooks:
-    converge: playbook.yml
+    box: generic/oracle8

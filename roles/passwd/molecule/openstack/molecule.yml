@@ -1,4 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: passwd_openstack

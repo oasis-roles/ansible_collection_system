@@ -1,7 +1,0 @@
-- name: converge
-  hosts: all
-  roles:
-    # Docker cannot export NFS shares due to OverlayFS, so we use the default
-    # empty list for `nfs_server_shares` so the actual export operation is
-    # skipped during the Travis CI tests.
-    - role: nfs_server

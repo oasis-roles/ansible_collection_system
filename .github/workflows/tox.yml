@@ -35,7 +35,7 @@ jobs:
         id: collection
         uses: greg-hellings/tox-list@v1
         with:
-          tox-args: --ansible-driver docker --ansible-driver podman
+          tox-args: --ansible-driver docker --ansible-driver podman --ansible-driver containers
       - id: vagrant
         uses: greg-hellings/tox-list@v1
         with:

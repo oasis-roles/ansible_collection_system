@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: users_and_groups_docker
-    image: centos:7
+    image: fedora:latest

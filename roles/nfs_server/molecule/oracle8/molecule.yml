@@ -1,7 +1,10 @@
 driver:
-  name: openstack
+  name: vagrant
+  driver:
+    name: libvirt
 platforms:
   - name: nfs_server_openstack
+    box: generic/oracle8
 provisioner:
   playbooks:
     prepare: prepare.yml

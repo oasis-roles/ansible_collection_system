@@ -1,9 +1,10 @@
 driver:
-  name: docker
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
-  - name: libvirtd_ubuntu
-    image: ubuntu:latest
-    command: sleep infinity
+  - name: libvirtd-ubuntu
+    box: generic/ubuntu20.04
 provisioner:
   playbooks:
     converge: playbook.yml

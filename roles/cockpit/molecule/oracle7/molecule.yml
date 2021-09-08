@@ -3,5 +3,5 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: libvirtd_rhel
-    box: generic/oracle8
+  - name: cockpit-docker
+    box: generic/oracle7

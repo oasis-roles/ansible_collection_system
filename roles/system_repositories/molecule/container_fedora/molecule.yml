@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: instance_docker_fedora
     image: fedora:latest

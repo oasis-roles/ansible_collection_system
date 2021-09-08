@@ -1,5 +1,5 @@
 driver:
   name: containers
 platforms:
-  - name: passwd_docker
+  - name: users_and_groups_docker
     image: centos:7

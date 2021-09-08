@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: upload_files_default
     image: centos:7

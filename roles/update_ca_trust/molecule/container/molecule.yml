@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: update_ca_trust_docker
     image: centos:7
