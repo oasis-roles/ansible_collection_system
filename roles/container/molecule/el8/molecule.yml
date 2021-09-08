@@ -1,0 +1,18 @@
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: container-el8
+    box: generic/oracle8
+    memory: 2048
+    config_options:
+      synced_folder: false
+      cachier: false
+    provider_raw_config_args:
+      - qemu_use_session = true
+      - driver = "qemu"
+provisioner:
+  playbooks:
+    prepare: ../shared/prepare.yml
+    converge: ../shared/playbook.yml

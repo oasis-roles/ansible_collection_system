@@ -1,0 +1,55 @@
+- name: Check for configured provider, if any
+  set_fact:
+    __container_autoload_provider: "{{ not (container_provider | default('') | bool) }}"
+
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - "{{ ansible_facts.os_family }}"
+    - "{{ ansible_facts.distribution }}"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/distro/{{ item }}.yml"
+  when:
+    - __rolename_vars_file is file
+    - __container_autoload_provider
+
+- name: verify inputs
+  assert:
+    that: container_provider in ['docker', 'podman']
+    fail_msg: Please specify a valid container provider
+
+- name: Load container provider information
+  include_vars: "{{ role_path }}/vars/provider/{{ container_provider }}.yml"
+
+- become: "{{ container_become }}"
+  become_user: "{{ container_become_user }}"
+  block:
+    - name: install packages
+      package:
+        name: "{{ container_packages }}"
+        state: present
+        enablerepo: "{{ container_enable_repos }}"
+
+    - name: add group
+      group:
+        name: "{{ container_group }}"
+        state: present
+      notify: restart service
+
+    - name: add users to group
+      user:
+        name: "{{ item }}"
+        groups: "{{ container_group }}"
+        append: true
+        state: present
+      with_items: "{{ container_access_users }}"
+
+    # Podman service runs on-demand, so this always reports changed
+    - name: start and enable service
+      service:
+        name: "{{ container_service_name }}"
+        state: started
+        enabled: true
+      changed_when: false

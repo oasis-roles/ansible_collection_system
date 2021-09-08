@@ -1,0 +1,4 @@
+container_packages:
+  - docker
+container_service_name: docker
+container_group: docker

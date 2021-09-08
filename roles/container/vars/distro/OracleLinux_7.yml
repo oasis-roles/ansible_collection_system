@@ -1,0 +1,5 @@
+container_provider: docker
+container_enable_repos:
+  - ol7_latest
+  - ol7_UEKR4
+  - ol7_addons

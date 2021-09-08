@@ -1,4 +1,0 @@
-docker_become: true
-docker_become_user: root
-docker_access_users:
-  - "{{ ansible_user_id }}"

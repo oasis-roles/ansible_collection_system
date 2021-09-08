@@ -1,8 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: docker_rhel
-provisioner:
-  playbooks:
-    prepare: ../shared/prepare.yml
-    converge: ../shared/playbook.yml
