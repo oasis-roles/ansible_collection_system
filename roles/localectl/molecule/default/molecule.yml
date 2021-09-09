@@ -3,7 +3,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: localectl_default
+  - name: localectl-default
     box: generic/oracle8
 provisioner:
   playbooks:

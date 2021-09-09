@@ -1,15 +1,26 @@
-# role tasks
-- name: Install cockpit
-  package:
-    name: "{{ cockpit_packages + cockpit_additional_packages }}"
-    state: present
-  become: "{{ cockpit_become }}"
-  become_user: "{{ cockpit_become_user }}"
+- name: Set platform/version specific variables
+  include_vars: "{{ __rolename_vars_file }}"
+  loop:
+    - default.yml
+    - "{{ ansible_facts.os_family }}.yml"
+    - "{{ ansible_facts.distribution }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_major_version }}.yml"
+    - "{{ ansible_facts.distribution }}_{{ ansible_facts.distribution_version }}.yml"
+  vars:
+    __rolename_vars_file: "{{ role_path }}/vars/{{ item }}"
+  when: __rolename_vars_file is file
 
-- name: Start cockpit
-  service:
-    name: cockpit.socket
-    state: started
-    enabled: true
-  become: "{{ cockpit_become }}"
+- become: "{{ cockpit_become }}"
   become_user: "{{ cockpit_become_user }}"
+  block:
+    # role tasks
+    - name: Install cockpit
+      package:
+        name: "{{ cockpit_packages + cockpit_additional_packages }}"
+        state: present
+
+    - name: Start cockpit
+      service:
+        name: cockpit.socket
+        state: started
+        enabled: true

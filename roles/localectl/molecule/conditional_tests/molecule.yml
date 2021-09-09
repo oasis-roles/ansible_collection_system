@@ -3,7 +3,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: localectl_conditional_tests
+  - name: localectl-conditional-tests
     box: generic/oracle8
 provisioner:
   playbooks:

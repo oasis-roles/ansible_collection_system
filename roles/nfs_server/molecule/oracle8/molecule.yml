@@ -3,7 +3,7 @@ driver:
   driver:
     name: libvirt
 platforms:
-  - name: nfs_server_openstack
+  - name: nfs-server-oracle8
     box: generic/oracle8
 provisioner:
   playbooks:

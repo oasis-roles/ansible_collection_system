@@ -3,6 +3,6 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: disk_wipe_docker
+  - name: disk-wipe-oracle8
     box: generic/oracle8
     # TODO: Add extra volume

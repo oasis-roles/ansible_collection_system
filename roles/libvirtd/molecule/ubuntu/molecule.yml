@@ -4,7 +4,7 @@ driver:
     name: libvirt
 platforms:
   - name: libvirtd-ubuntu
-    box: generic/ubuntu20.04
+    box: generic/ubuntu2004
 provisioner:
   playbooks:
     converge: playbook.yml

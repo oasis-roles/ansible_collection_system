@@ -3,5 +3,5 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: firewalld_default
+  - name: firewalld-default
     box: generic/oracle8

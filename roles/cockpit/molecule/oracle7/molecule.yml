@@ -1,7 +1,0 @@
-driver:
-  name: vagrant
-  provider:
-    name: libvirt
-platforms:
-  - name: cockpit-docker
-    box: generic/oracle7

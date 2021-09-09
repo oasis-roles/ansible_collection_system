@@ -1,0 +1,4 @@
+cockpit_packages:
+  - cockpit
+  - cockpit-dashboard
+  - cockpit-machines

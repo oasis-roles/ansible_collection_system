@@ -3,5 +3,5 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: passwordless_ssh_docker
+  - name: passwordless-ssh-oracle8
     box: generic/oracle8
