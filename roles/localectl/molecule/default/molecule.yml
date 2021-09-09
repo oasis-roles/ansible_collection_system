@@ -5,6 +5,9 @@ driver:
 platforms:
   - name: localectl-default
     box: generic/oracle8
+    config_options:
+      synced_folder: false
+      cachier: false
 provisioner:
   playbooks:
     prepare: prepare.yml
