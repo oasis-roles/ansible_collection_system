@@ -8,7 +8,7 @@ Requirements
 
 Ansible 2.4 or higher
 
-Red Hat Enterprise Linux 7 or equivalent
+Red Hat Enterprise Linux 7+ or equivalent
 
 Valid Red Hat Subscriptions
 
