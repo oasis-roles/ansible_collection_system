@@ -8,6 +8,6 @@
             host_allow: '*'
             opts: rw,sync,all_squash
             create_dir: true
-            owner: nfsnobody
-            group: nfsnobody
+            owner: nobody
+            group: nobody
             mode: '0755'

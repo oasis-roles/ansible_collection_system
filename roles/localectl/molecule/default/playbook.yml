@@ -1,8 +1,7 @@
 # Change values set in the prepare playbook, and assert via grep
 # that those changes were correctly applied.
 - name: Converge
-  hosts: localectl
-  gather_facts: false
+  hosts: all
   vars:
     localectl_locales:
       LANG: en_US.utf8

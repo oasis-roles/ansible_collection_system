@@ -1,5 +1,5 @@
 - name: converge
-  hosts: localhost
+  hosts: all
   roles:
     - role: libvirtd
   vars:
