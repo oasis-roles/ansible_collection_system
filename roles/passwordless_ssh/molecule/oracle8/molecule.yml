@@ -5,3 +5,6 @@ driver:
 platforms:
   - name: passwordless-ssh-oracle8
     box: generic/oracle8
+    config_options:
+      synced_folder: false
+      cachier: false
