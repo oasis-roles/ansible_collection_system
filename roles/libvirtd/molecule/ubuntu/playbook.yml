@@ -1,6 +1,0 @@
-- name: converge
-  hosts: all
-  roles:
-    - role: libvirtd
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
