@@ -2,33 +2,30 @@
   set_fact:
     _public_key: "{{ lookup('template', passwordless_ssh_public_key) | trim }}"
 
-- name: set authorized keys
-  authorized_key:
-    user: "{{ passwordless_ssh_user }}"
-    state: present
-    key: "{{ _public_key }}"
-  become: "{{ passwordless_ssh_become }}"
+- become: "{{ passwordless_ssh_become }}"
   become_user: "{{ passwordless_ssh_become_user }}"
+  block:
+    - name: set authorized keys
+      authorized_key:
+        user: "{{ passwordless_ssh_user }}"
+        state: present
+        key: "{{ _public_key }}"
 
-- name: copy private key to remote SSH dir
-  copy:
-    src: "{{ passwordless_ssh_private_key }}"
-    dest: "{{ passwordless_ssh_user_home }}/.ssh/\
-           {{ passwordless_ssh_remote_key_file }}"
-    mode: 0600
-    owner: "{{ passwordless_ssh_user }}"
-  become: "{{ passwordless_ssh_become }}"
-  become_user: "{{ passwordless_ssh_become_user }}"
+    - name: copy private key to remote SSH dir
+      copy:
+        src: "{{ passwordless_ssh_private_key }}"
+        dest: "{{ passwordless_ssh_user_home }}/.ssh/\
+               {{ passwordless_ssh_remote_key_file }}"
+        mode: 0600
+        owner: "{{ passwordless_ssh_user }}"
 
-- name: copy public key to remote SSH dir
-  copy:
-    content: "{{ _public_key }}"
-    dest: "{{ passwordless_ssh_user_home }}/.ssh/\
-           {{ passwordless_ssh_remote_key_file }}.pub"
-    mode: 0600
-    owner: "{{ passwordless_ssh_user }}"
-  become: "{{ passwordless_ssh_become }}"
-  become_user: "{{ passwordless_ssh_become_user }}"
+    - name: copy public key to remote SSH dir
+      copy:
+        content: "{{ _public_key }}"
+        dest: "{{ passwordless_ssh_user_home }}/.ssh/\
+               {{ passwordless_ssh_remote_key_file }}.pub"
+        mode: 0600
+        owner: "{{ passwordless_ssh_user }}"
 
 - block:
     - include_tasks: gather_host_keys.yml

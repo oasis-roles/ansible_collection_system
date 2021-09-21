@@ -1,5 +1,5 @@
 driver:
-  name: docker
+  name: containers
 platforms:
   - name: timezone_centos8
     image: greghellings/centos-systemd:8

@@ -1,0 +1,13 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: nfs_server
+      vars:
+        nfs_server_shares:
+          - share_path: /srv/share1
+            host_allow: '*'
+            opts: rw,sync,all_squash
+            create_dir: true
+            owner: nobody
+            group: nobody
+            mode: '0755'

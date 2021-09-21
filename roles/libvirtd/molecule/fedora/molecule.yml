@@ -1,8 +1,10 @@
 driver:
-  name: openstack
+  name: vagrant
+  provider:
+    name: libvirt
 platforms:
-  - name: libvirtd_fedora
-    image: Fedora-Cloud-Base-32
+  - name: libvirtd-fedora
+    box: generic/fedora34
 provisioner:
   inventory:
     host_vars:

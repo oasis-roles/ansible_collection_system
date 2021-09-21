@@ -1,5 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: register_idm_openstack
-    flavor: ci.m1.small

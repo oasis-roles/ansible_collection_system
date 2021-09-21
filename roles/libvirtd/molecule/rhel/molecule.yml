@@ -1,4 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: libvirtd_rhel

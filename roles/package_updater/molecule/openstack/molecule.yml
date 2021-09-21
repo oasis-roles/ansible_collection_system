@@ -1,4 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: package_updater_openstack

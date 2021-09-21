@@ -3,7 +3,7 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: localectl-default
+  - name: nfs-server-oracle8
     box: generic/oracle8
     config_options:
       synced_folder: false

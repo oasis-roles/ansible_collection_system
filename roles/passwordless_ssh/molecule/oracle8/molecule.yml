@@ -3,12 +3,8 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: localectl-default
+  - name: passwordless-ssh-oracle8
     box: generic/oracle8
     config_options:
       synced_folder: false
       cachier: false
-provisioner:
-  playbooks:
-    prepare: prepare.yml
-    converge: playbook.yml

@@ -7,3 +7,4 @@
       passwordless_ssh_user: derp
       passwordless_ssh_user_home: /home/derp
       passwordless_ssh_gather_host_keys: true
+      ansible_remote_tmp: /tmp/ansible

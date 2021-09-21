@@ -1,7 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: firewalld_openstack
-provisioner:
-  playbooks:
-    prepare: prepare.yml

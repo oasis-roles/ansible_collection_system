@@ -5,7 +5,7 @@
     localectl_locales:
       LANG: en_GB.utf8
     localectl_vc_keymap: 'xx'
-    localectl_x11_layout: 'xx'
+    localectl_x11_layout: 'au'
   roles:
     - role: localectl
   tasks:
@@ -17,7 +17,7 @@
     - name: Check that system locale changed to "xx"
       command: grep KEYMAP="xx" /etc/vconsole.conf
       changed_when: false
-    - name: Check that x11 layout changed to "xx"
+    - name: Check that x11 layout changed to "au"
       command:
-        grep 'Option "XkbLayout" "xx"' /etc/X11/xorg.conf.d/00-keyboard.conf
+        grep 'Option "XkbLayout" "au"' /etc/X11/xorg.conf.d/00-keyboard.conf
       changed_when: false

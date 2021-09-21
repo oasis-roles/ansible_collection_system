@@ -3,5 +3,6 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: firewalld-default
+  - name: disk-wipe-oracle8
     box: generic/oracle8
+    # TODO: Add extra volume

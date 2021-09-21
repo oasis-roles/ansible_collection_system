@@ -1,8 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: nfs_server_openstack
-provisioner:
-  playbooks:
-    prepare: prepare.yml
-    converge: playbook.yml

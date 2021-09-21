@@ -1,5 +1,0 @@
-driver:
-  name: openstack
-platforms:
-  - name: system_repositories_openstack
-    flavor: ci.m1.small

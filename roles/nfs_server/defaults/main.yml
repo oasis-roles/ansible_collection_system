@@ -25,13 +25,6 @@ nfs_server_shares: []
 #     host_allow: '192.168.0.0/24'
 #     opts: ro,sync
 
-# Services to enable and start for the NFS server
-nfs_server_services:
-  # required for NFSv3
-  - nfs
-  # required for NFSv3, not used by NFSv4
-  - rpcbind
-
 # Exports file to add shares to.  NOTE:  Files in `/etc/exports.d` must be named
 # with a `.exports` suffix.
 nfs_server_exports_file: /etc/exports.d/nfs.exports
