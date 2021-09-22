@@ -88,11 +88,12 @@ jobs:
           python -m pip install -U tox
       - name: Identify scenario
         id: scenario
-        uses: actions/github-script@v3
+        uses: actions/github-script@v4
         with:
+          result-encoding: string
           script: |
             const scenario = '${{ matrix.scenario }}'.split('-').pop();
-            core.exportVariable('scenario', scenario);
+            return scenario;
       - name: Cache/uncache Vagrant boxen
         uses: actions/cache@v2
         with:
