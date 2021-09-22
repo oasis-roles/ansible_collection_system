@@ -98,7 +98,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.vagrant.d/boxes
-          key: vagrant-${{ steps.scenario.outputs.scenario }}
+          key: vagrant-${{ steps.scenario.outputs.result }}
       - name: Run tox against ${{ matrix.scenario }}
         run: |
           set -ex
