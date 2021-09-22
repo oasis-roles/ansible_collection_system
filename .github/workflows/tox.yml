@@ -1,7 +1,14 @@
 name: Test with Ansible
 
 "on":
-  push: {}
+  push:
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - galaxy.yml
+      - AUTHORS
+      - .github/labels.yml
+      - .github/release-drafter.yml
   pull_request: {}
   schedule:
     - cron: '12 0 * * *'
