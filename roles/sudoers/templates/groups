@@ -1,0 +1,4 @@
+# {{ ansible_managed }}
+{% for group in sudoers_groups %}
+%{{ group }} ALL=(ALL) ALL
+{% endfor %}

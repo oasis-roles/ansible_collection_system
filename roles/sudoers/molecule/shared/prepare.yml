@@ -1,0 +1,18 @@
+- name: prepare users
+  hosts: all
+  tasks:
+    - name: create groups
+      become: true
+      group:
+        name: wheel
+        state: present
+
+    - name: create users in that group
+      become: true
+      user:
+        name: "{{ item }}"
+        state: present
+        groups: wheel
+      with_items:
+        - fedora
+        - arya

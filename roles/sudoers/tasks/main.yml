@@ -1,0 +1,44 @@
+- become: "{{ sudoers_become }}"
+  become_user: "{{ sudoers_become_user }}"
+  block:
+    - name: Disable RequireTTY and similar
+      replace:
+        path: /etc/sudoers
+        regexp: "^({{ item }})$"
+        replace: '#\g<1>'
+      loop:
+        - "Defaults *requiretty"
+        - "Defaults *!visiblepw"
+
+    - name: ensure that sudo is installed
+      package:
+        name: "{{ sudoers_packages }}"
+        state: present
+      when: ansible_facts.pkg_mgr not in ['atomic_container']
+
+    - name: make sure include line is in file
+      lineinfile:
+        line: "#includedir /etc/sudoers.d"
+        path: /etc/sudoers
+        create: false
+
+    - name: be sure that /etc/sudoers.d exists
+      file:
+        path: /etc/sudoers.d
+        state: directory
+        owner: root
+        group: root
+        mode: 0750
+
+    - name: configure sudoers
+      template:
+        src: "{{ item }}"
+        dest: /etc/sudoers.d/
+        owner: root
+        group: root
+        mode: 0600
+      with_items:
+        - sudoers
+        - sudoers_no_password
+        - groups
+        - groups_no_password
