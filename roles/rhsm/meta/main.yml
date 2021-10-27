@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Sean Myers
+  author: oasis_roles
   description: Role to automate subscription-manager usage.
   company: Red Hat, Inc.
   license: BSD

@@ -1,6 +1,6 @@
 galaxy_info:
   role_name: openstack_provision
-  author: Greg Hellings
+  author: oasis_roles
   description: Provisions OpenStack hosts and adds them to inventory groups
   company: Red Hat, Inc.
   license: GPLv3

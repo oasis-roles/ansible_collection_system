@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Andrew Euredjian
+  author: oasis_roles
   description: Role to install cockpit to a set of hosts and start the service
   company: Red Hat, Inc.
   license: GPLv3

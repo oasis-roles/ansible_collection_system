@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: oasis_roles
   description: |-
     Installs and configures libvirtd on a host
   company: Red Hat, Inc.
