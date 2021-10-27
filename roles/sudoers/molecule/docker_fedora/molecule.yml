@@ -1,0 +1,11 @@
+driver:
+  name: docker
+platforms:
+  - name: sudoers_fedora
+    image: fedora:latest
+    ## Remove 'image' above and uncomment the following to run systemd in Docker
+    # image: centos/systemd
+    # privileged: true
+    # command: /usr/lib/systemd/systemd --system
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro

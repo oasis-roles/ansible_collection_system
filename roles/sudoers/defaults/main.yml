@@ -1,0 +1,6 @@
+sudoers_become: true
+sudoers_become_user: root
+sudoers: []
+sudoers_no_password: []
+sudoers_groups: []
+sudoers_groups_no_password: []

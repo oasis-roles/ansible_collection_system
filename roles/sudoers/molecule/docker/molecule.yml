@@ -1,0 +1,5 @@
+driver:
+  name: docker
+platforms:
+  - name: sudoers
+    image: centos:7

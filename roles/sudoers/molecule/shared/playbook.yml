@@ -1,0 +1,11 @@
+- name: converge
+  hosts: all
+  roles:
+    - role: sudoers
+  vars:
+    sudoers_no_password:
+      - cloud-user
+      - centos
+      - fedora
+    sudoers_groups_no_password:
+      - wheel
