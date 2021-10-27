@@ -73,8 +73,7 @@ jobs:
   vagrant_build:
     needs:
       - collect
-      - lint
-    runs-on: macos-latest
+    runs-on: macos-10.15
     strategy:
       fail-fast: false
       matrix:
@@ -116,7 +115,6 @@ jobs:
   build:
     needs:
       - collect
-      - lint
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -150,6 +148,7 @@ jobs:
 
   release:
     needs:  # Only release if the build is good
+      - lint
       - build
       - vagrant_build
     if: github.event_name == 'release'

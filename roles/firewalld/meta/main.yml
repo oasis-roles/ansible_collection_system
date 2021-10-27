@@ -1,5 +1,5 @@
 galaxy_info:
-  author: David Roble
+  author: oasis_roles
   description: Hole punching and local port forwarding for firewalld service
   company: Red Hat, Inc.
   license: GPLv3

@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: oasis_roles
   description: Set hostname and, optionally, inject /etc/hosts value
   company: Red Hat, Inc.
   license: GPLv3

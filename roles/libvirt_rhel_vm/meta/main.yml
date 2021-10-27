@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: oasis_roles
   description: |-
     Spins up a local VM from the RHEL/CentOS family on the target machine
   company: Red Hat, Inc.

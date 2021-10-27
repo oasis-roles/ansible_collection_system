@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Sean Myers
+  author: oasis_roles
   description: Manage system locale settings with localectl.
   company: Red Hat, Inc.
   license: GPLv3

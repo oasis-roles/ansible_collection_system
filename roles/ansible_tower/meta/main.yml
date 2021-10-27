@@ -1,5 +1,5 @@
 galaxy_info:
-  author: David Roble
+  author: oasis_roles
   description: |-
     Deploy Ansible Tower
   company: Red Hat, Inc.

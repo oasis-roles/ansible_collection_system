@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: oasis_roles
   description: |-
     Installs, and optionally removes old, network configuration scripts
   company: Red Hat, Inc.

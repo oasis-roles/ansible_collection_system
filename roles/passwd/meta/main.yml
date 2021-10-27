@@ -1,5 +1,5 @@
 galaxy_info:
-  author: David Roble
+  author: oasis_roles
   description: Changes the password for a user account
   company: Red Hat, Inc.
   license: GPLv3

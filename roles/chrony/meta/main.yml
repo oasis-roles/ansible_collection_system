@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Andrew Euredjian
+  author: oasis_roles
   description: A role that ensures the chronyd service is installed and running
   company: Red Hat, Inc.
   license: GPLv3

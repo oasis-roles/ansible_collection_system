@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Andrew Euredjian
+  author: oasis_roles
   description: Role to setup Kernel dump files
   company: Red Hat, Inc.
   license: GPLv3

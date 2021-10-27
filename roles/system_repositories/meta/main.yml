@@ -1,5 +1,5 @@
 galaxy_info:
-  author: Greg Hellings
+  author: oasis_roles
   description: Installs yum/dnf repositories and their keys
   company: Red Hat, Inc.
   license: GPLv3
