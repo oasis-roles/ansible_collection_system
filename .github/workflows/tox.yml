@@ -18,7 +18,6 @@ name: Test with Ansible
       - prereleased
 
 env:
-  TOX_ANSIBLE_DRIVER: docker
   ANSIBLE_COLLECTIONS_PATH: ~/.ansible:~/work
   checkout_path: ansible_collections/oasis_roles/system
 
@@ -49,107 +48,30 @@ jobs:
           tox-args: --ansible-driver vagrant
 
   lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          path: ${{ env.checkout_path }}
-      - name: Update submodules to latest
-        run: |
-          cd "${{ env.checkout_path }}"
-          git submodule update --remote --recursive
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: Install dependencies
-        run: |
-          set -ex
-          python -m pip install --upgrade tox
-      - name: Run lint
-        run: |
-          cd "${{ env.checkout_path }}"
-          tox -e lint_all
+    uses: oasis-roles/meta_test/.github/workflows/lint.yml@master
+    with:
+      checkout_path: ansible_collections/oasis_roles/system
 
   vagrant_build:
     needs:
       - collect
-    runs-on: macos-10.15
-    strategy:
-      fail-fast: false
-      matrix:
-        scenario: ${{ fromJson(needs.collect.outputs.vagrant_scenarios) }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          path: ${{ env.checkout_path }}
-      - name: Update submodules to latest
-        run: |
-          cd "${{ env.checkout_path }}"
-          git submodule update --remote --recursive
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: Install dependencies
-        run: |
-          python -m pip install -U tox
-      - name: Identify scenario
-        id: scenario
-        uses: actions/github-script@v4
-        with:
-          result-encoding: string
-          script: |
-            const scenario = '${{ matrix.scenario }}'.split('-').pop();
-            return scenario;
-      - name: Cache/uncache Vagrant boxen
-        uses: actions/cache@v2
-        with:
-          path: ~/.vagrant.d/boxes
-          key: vagrant-${{ steps.scenario.outputs.result }}
-      - name: Run tox against ${{ matrix.scenario }}
-        run: |
-          set -ex
-          mv ansible_collections ~/work/
-          cd ~/work/${{ env.checkout_path }}
-          tox -e ${{ matrix.scenario }}
+    uses: oasis-roles/meta_test/.github/workflows/vagrant_build.yml@master
+    with:
+      scenarios: "${{ needs.collect.outputs.vagrant_scenarios }}"
+      checkout_path: ansible_collections/oasis_roles/system
 
-  build:
+  container_build:
     needs:
       - collect
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        scenario: ${{ fromJson(needs.collect.outputs.scenarios) }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: 'recursive'
-          path: ${{ env.checkout_path }}
-      - name: Update submodules to latest
-        run: |
-          cd "${{ env.checkout_path }}"
-          git submodule update --remote --recursive
-      - name: Set up Python
-        uses: actions/setup-python@v2
-      - name: Install dependencies
-        run: |
-          set -ex
-          sudo apt-get update
-          sudo apt-get install -y libapt-pkg-dev build-essential python3-setuptools python3-apt
-          python -m pip install --upgrade pip
-          pip install -U setuptools wheel
-          pip install tox
-      - name: Run tox against ${{ matrix.scenario }}
-        run: |
-          set -ex
-          mv ansible_collections ~/work
-          cd ~/work/${{ env.checkout_path }}
-          tox -e ${{ matrix.scenario }}
+    uses: oasis-roles/meta_test/.github/workflows/container_build.yml@master
+    with:
+      scenarios: "${{ needs.collect.outputs.scenarios }}"
+      checkout_path: ansible_collections/oasis_roles/system
 
   release:
     needs:  # Only release if the build is good
       - lint
-      - build
+      - container_build
       - vagrant_build
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
