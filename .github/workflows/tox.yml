@@ -19,7 +19,6 @@ name: Test with Ansible
 
 env:
   ANSIBLE_COLLECTIONS_PATH: ~/.ansible:~/work
-  checkout_path: ansible_collections/oasis_roles/system
 
 jobs:
   collect:
@@ -50,7 +49,7 @@ jobs:
   lint:
     uses: oasis-roles/meta_test/.github/workflows/lint.yml@master
     with:
-      checkout_path: ansible_collections/oasis_roles/system
+      checkout_path: oasis_roles/system
 
   vagrant_build:
     needs:
@@ -58,7 +57,7 @@ jobs:
     uses: oasis-roles/meta_test/.github/workflows/vagrant_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.vagrant_scenarios }}"
-      checkout_path: ansible_collections/oasis_roles/system
+      checkout_path: oasis_roles/system
 
   container_build:
     needs:
@@ -66,7 +65,7 @@ jobs:
     uses: oasis-roles/meta_test/.github/workflows/container_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.scenarios }}"
-      checkout_path: ansible_collections/oasis_roles/system
+      checkout_path: oasis_roles/system
 
   release:
     needs:  # Only release if the build is good
