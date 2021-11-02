@@ -17,9 +17,6 @@ name: Test with Ansible
       - published
       - prereleased
 
-env:
-  ANSIBLE_COLLECTIONS_PATH: ~/.ansible:~/work
-
 jobs:
   collect:
     runs-on: ubuntu-latest
@@ -36,7 +33,7 @@ jobs:
         run: |
           set -ex
           python -m pip install --upgrade tox
-      - name: collect depenencies
+      - name: Collect dependencies
         id: collection
         uses: greg-hellings/tox-list@v1
         with:
@@ -48,8 +45,6 @@ jobs:
 
   lint:
     uses: oasis-roles/meta_test/.github/workflows/lint.yml@master
-    with:
-      checkout_path: oasis_roles/system
 
   vagrant_build:
     needs:
@@ -57,7 +52,6 @@ jobs:
     uses: oasis-roles/meta_test/.github/workflows/vagrant_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.vagrant_scenarios }}"
-      checkout_path: oasis_roles/system
 
   container_build:
     needs:
@@ -65,7 +59,6 @@ jobs:
     uses: oasis-roles/meta_test/.github/workflows/container_build.yml@master
     with:
       scenarios: "${{ needs.collect.outputs.scenarios }}"
-      checkout_path: oasis_roles/system
 
   release:
     needs:  # Only release if the build is good
